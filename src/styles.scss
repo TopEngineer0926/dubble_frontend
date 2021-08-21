@@ -1,0 +1,77 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ng-mogree-primary: mat-palette($mat-indigo);
+$ng-mogree-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ng-mogree-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ng-mogree-theme: mat-light-theme((
+  color: (
+    primary: $ng-mogree-primary,
+    accent: $ng-mogree-accent,
+    warn: $ng-mogree-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ng-mogree-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import './assets/styles/reset';
+@import './assets/styles/general.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button.mat-menu-item {
+  line-height: 24px !important;
+}
+
+a.mat-menu-item>mat-icon {
+  margin-bottom: 14px;
+}
+
+.mat-icon svg {
+  height: 24px;
+  width: 24px;
+}
+
+.mat-step-icon-content .mat-icon svg {
+  height: 100%;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.snack-bar-error {
+  background-color: rgb(228 91 90 / 0.82);
+  color: #fff;
+}
+.snack-bar-success {
+  background-color: rgba(94, 165, 76, 0.82);
+  color: #fff;
+}
+.snack-bar-warn {
+  background-color: rgba(196, 192, 99, 0.82);
+  color: #fff;
+}

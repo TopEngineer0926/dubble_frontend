@@ -1,0 +1,39 @@
+:host {
+  text-align: center;
+  justify-content: center;
+  mat-card {
+    margin-top: 40px;
+    box-shadow: none;
+    min-width: 400px;
+
+  }
+
+  .close-button {
+    display: block;
+    float: right;
+    color: black;
+    cursor: pointer;
+  }
+
+  a {
+    cursor: pointer;
+  }
+  .register-btn {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+  }
+
+  .dubble-logo {
+    width: 90px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+

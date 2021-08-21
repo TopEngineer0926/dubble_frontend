@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink=""
+         routerLinkActive="active-link"
+         [routerLinkActiveOptions]="{exact: true}">{{'DASHBOARD.Dashboard' | translate}}</a>
+      <a mat-list-item routerLink="{{appRouteNames.PRODUCTS}}"
+         routerLinkActive="active-link"
+      >{{'PRODUCT.Products' | translate}}</a>
+      <a mat-list-item routerLink="{{appRouteNames.CUSTOMERS}}"
+         routerLinkActive="active-link"
+      >{{'CUSTOMER.Customers' | translate}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span [routerLink]="['/']" class="logo-wrapper"><img src="./assets/logo-inverted.png" class="dubble-logo"  alt="Dubble Logo"/></span>
+      <div>
+        <button mat-button routerLink="{{appRouteNames.USER_SETTINGS}}">{{'SETTINGS.Settings' | translate}}</button>
+        <button mat-button (click)="logout()">{{'AUTH.Logout' | translate}}</button>
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

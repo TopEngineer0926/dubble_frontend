@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'CONTACT.NewContact' | translate }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="outer-card">
+    <app-upload-image
+      [img]=""
+      [uploadLabel]="'CONTACT.ImageUpload' | translate"
+      (uploadedImg)="uploadImage($event)"
+    ></app-upload-image>
+    <app-contact-form
+      [isLoading]="isLoading"
+      (submitEvent)="addContact($event)">
+
+    </app-contact-form>
+  </mat-card-content>
+</mat-card>
+

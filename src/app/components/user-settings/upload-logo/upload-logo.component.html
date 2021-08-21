@@ -1,0 +1,16 @@
+<div class="upload-block">
+  <div class="logo-block" *ngIf="logo?.url else emptyLogo">
+    <img alt="company-logo" [src]="logo?.url"/>
+    <mat-icon (click)="removeLogo()">close</mat-icon>
+  </div>
+  <ng-template #emptyLogo>
+    <div class="logo-block">
+    </div>
+  </ng-template>
+
+  <app-file-upload *ngIf="!logo?.url"
+                   text="{{ 'UPLOAD.UploadLogo' | translate }}"
+                   [multiple]="false"
+                   (uploadedFiles)="uploadLogo($event)"
+  ></app-file-upload>
+</div>

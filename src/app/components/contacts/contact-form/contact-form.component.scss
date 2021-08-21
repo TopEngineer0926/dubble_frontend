@@ -1,0 +1,15 @@
+button {
+  height: 40px;
+}
+
+::ng-deep {
+  button span.mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+mat-spinner {
+  margin-left: 10px;
+}

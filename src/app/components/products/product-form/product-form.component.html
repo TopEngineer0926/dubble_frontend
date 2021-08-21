@@ -1,0 +1,316 @@
+<form [formGroup]="productForm"
+      autocomplete="off"
+      class="registration-form">
+
+  <mat-card>
+
+    <mat-form-field appearance="fill"
+                    class="autocomplete-wrapper">
+      <mat-label>{{ 'PRODUCT.SelectExistingCustomer' | translate }}</mat-label>
+      <input
+        [formControl]="customer"
+        [matAutocomplete]="auto"
+        (click)="openPanel()"
+        matInput
+        type="text"
+      />
+      <mat-icon [class.dropdown__icon--disabled]="customer.disabled"
+                tabindex="-1"
+                class="dropdown__icon"
+                size="xs">
+        {{ getIconName() }}
+      </mat-icon>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="displayCustomerFn"
+        autoActiveFirstOption
+      >
+        <mat-option
+          *ngFor="let option of filteredOptions$ | async"
+          [value]="option"
+        >
+          <ng-container>
+            {{ displayCustomerFn(option) }}
+          </ng-container>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div formGroupName="customer">
+
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'COMMON.FirstName' | translate }}</mat-label>
+        <input matInput
+               autocomplete="off"
+               formControlName="firstname">
+      </mat-form-field>
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'COMMON.LastName' | translate }}</mat-label>
+        <input matInput
+               autocomplete="off"
+               formControlName="lastname">
+      </mat-form-field>
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'COMMON.Email' | translate }}</mat-label>
+        <input matInput
+               type="email"
+               autocomplete="off"
+               formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'COMMON.PhoneNumber' | translate }}</mat-label>
+        <input matInput
+               autocomplete="off"
+               formControlName="phone_number">
+      </mat-form-field>
+    </div>
+
+  </mat-card>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'PRODUCT.InternalPageTitle' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="internal_page_title">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'PRODUCT.ChooseContact' | translate }} *</mat-label>
+    <mat-select [formControl]="contact">
+      <mat-option *ngFor="let contactElem of contactsList?.list"
+                  [value]="contactElem">
+        {{ contactElem.abbreviation && contactElem.abbreviation + ' |' }} {{contactElem.firstname}} {{ contactElem.lastname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'PRODUCT.Headline' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="headline">
+  </mat-form-field>
+
+  <mat-card>
+    <mat-card-header>{{ 'PRODUCT.TeaserImage' | translate }}</mat-card-header>
+    <mat-card-content>
+      <ng-content select="[imageUpload]"></ng-content>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'PRODUCT.PersonalGreeting' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="greeting">
+  </mat-form-field>
+
+  <mat-card>
+    <mat-card-header>{{ 'PRODUCT.CustomIntroduction' | translate }} *</mat-card-header>
+    <mat-card-content>
+      <quill-editor
+        formControlName="custom_text"
+        [modules]="quillModules"
+        [placeholder]="'COMMON.TextEditorPlaceholder' | translate"
+        theme="snow"
+      ></quill-editor>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'PRODUCT.VideoSectionHeadline' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="video_section_headline">
+  </mat-form-field>
+
+  <mat-card>
+    <mat-card-header>{{ 'UPLOAD.UploadVideo' | translate }}</mat-card-header>
+    <mat-card-content>
+      <ng-content select="[videoUpload]"></ng-content>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'PRODUCT.Review' | translate }}</mat-label>
+        <input matInput
+               autocomplete="off"
+               formControlName="review_section_name">
+      </mat-form-field>
+    </mat-card-content>
+
+    <ng-container *ngIf="reviews">
+      <ng-container *ngFor="let control of reviews.controls; let i = index">
+        <mat-card>
+          <div [formGroup]="control">
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.SectionName' | translate }} *</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="head_line">
+            </mat-form-field>
+            <mat-card>
+              <mat-card-header>{{ 'PRODUCT.CustomText' | translate }}</mat-card-header>
+              <mat-card-content>
+                <quill-editor
+                  formControlName="custom_text"
+                  [placeholder]="'COMMON.TextEditorPlaceholder' | translate"
+                  [modules]="quillModules"
+                  theme="snow"
+                ></quill-editor>
+              </mat-card-content>
+            </mat-card>
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.Link' | translate }}</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="link">
+            </mat-form-field>
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.ButtonText' | translate }}</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="button_text">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </ng-container>
+
+      <button mat-stroked-button
+              (click)="addReviewControl()"
+              color="primary"
+              type="button">
+        {{ 'PRODUCT.AddReview' | translate }}
+      </button>
+    </ng-container>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-form-field color="primary"
+                      appearance="outline">
+        <mat-label>{{ 'PRODUCT.PressInformation' | translate }}</mat-label>
+        <input matInput
+               autocomplete="off"
+               formControlName="press_info_section_name">
+      </mat-form-field>
+    </mat-card-content>
+
+    <ng-container *ngIf="press_infos">
+      <ng-container *ngFor="let control of press_infos.controls; let i = index">
+        <mat-card>
+          <div [formGroup]="control">
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.SectionName' | translate }}</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="head_line">
+            </mat-form-field>
+            <mat-card>
+              <mat-card-header>{{ 'PRODUCT.CustomText' | translate }}</mat-card-header>
+              <mat-card-content>
+                <quill-editor
+                  formControlName="custom_text"
+                  [placeholder]="'COMMON.TextEditorPlaceholder' | translate"
+                  [modules]="quillModules"
+                  theme="snow"
+                ></quill-editor>
+              </mat-card-content>
+            </mat-card>
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.Link' | translate }}</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="link">
+            </mat-form-field>
+            <mat-form-field color="primary"
+                            appearance="outline">
+              <mat-label>{{ 'PRODUCT.ButtonText' | translate }}</mat-label>
+              <input matInput
+                     autocomplete="off"
+                     formControlName="button_text">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </ng-container>
+
+      <button mat-stroked-button
+              (click)="addPressInfoControl()"
+              color="primary"
+              type="button">
+        {{ 'PRODUCT.AddPressInformation' | translate }}
+      </button>
+    </ng-container>
+  </mat-card>
+
+  <ng-content select="[pdfUpload]"></ng-content>
+
+  <ng-content select="[productUrl]"></ng-content>
+
+  <button mat-stroked-button
+          *ngIf="isPublishedProduct"
+          color="primary"
+          [disabled]="isLoading"
+          (click)="publishProductPage()"
+          type="button">
+    {{ 'COMMON.SaveChanges' | translate  }}
+    <mat-spinner *ngIf="isLoading"
+                 diameter="30"></mat-spinner>
+  </button>
+
+  <button mat-stroked-button
+          *ngIf="isDraftProduct"
+          color="primary"
+          [disabled]="isLoading"
+          (click)="saveDraftProduct()"
+          type="button">
+    {{ 'COMMON.SaveChanges' | translate }}
+    <mat-spinner *ngIf="isLoading"
+                 diameter="30"></mat-spinner>
+  </button>
+
+  <button mat-stroked-button
+          *ngIf="isCreateProduct"
+          color="primary"
+          [disabled]="isLoading"
+          (click)="saveDraftProduct()"
+          type="button">
+    {{ 'PRODUCT.SaveDraft' | translate }}
+    <mat-spinner *ngIf="isLoading"
+                 diameter="30"></mat-spinner>
+  </button>
+
+  <button mat-stroked-button
+          *ngIf="!isPublishedProduct"
+          color="primary"
+          [disabled]="isLoading"
+          (click)="publishProductPage()"
+          type="button">
+    {{ 'PRODUCT.PublishPage' | translate }}
+    <mat-spinner *ngIf="isLoading"
+                 diameter="30"></mat-spinner>
+  </button>
+</form>
+
+<ng-content select="[productAdditionalButtons]"></ng-content>
+
+

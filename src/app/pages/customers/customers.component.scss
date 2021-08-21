@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  padding: 15px;
+  height: calc(100vh - 64px);
+
+  app-customers-table {
+    margin-top: 15px;
+    display: block;
+  }
+}
+
+.btn-customer-action {
+  margin-right: 15px;
+}
+
+.file-input {
+  display: none;
+}

@@ -1,0 +1,25 @@
+:host {
+  mat-card {
+    width: 70%;
+    min-width: 400px;
+    flex-direction: column;
+  }
+
+  .product-action-buttons {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    button {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .product-page-link {
+    display: inline-block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,16 @@
+<div class="upload-block">
+  <div class="logo-block" *ngIf="imgUrl else emptyLogo">
+    <img [src]="imgUrl" alt="contact image" height="200" >
+    <mat-icon (click)="removeImg($event)">close</mat-icon>
+  </div>
+  <ng-template #emptyLogo>
+    <div class="logo-block">
+    </div>
+  </ng-template>
+
+  <app-file-upload *ngIf="!imgUrl"
+                   [text]="uploadLabel || ('UPLOAD.ImageUpload' | translate)"
+                   [multiple]="false"
+                   (uploadedFiles)="uploadImage($event)"
+  ></app-file-upload>
+</div>

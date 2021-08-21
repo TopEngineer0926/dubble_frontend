@@ -1,0 +1,26 @@
+.upload-block {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+
+}
+.logo-block{
+  background-color: aliceblue;
+  border-radius: 5px;
+  margin: 10px;
+  position: relative;
+  width: 100px;
+  min-height: 50px;
+  img {
+    width: 100px;
+    min-height: 50px;
+    border-radius: 5px;
+  }
+  mat-icon{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+  }
+}

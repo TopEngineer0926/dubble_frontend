@@ -1,0 +1,89 @@
+<form [formGroup]="userSettingsForm" autocomplete="off"
+      (ngSubmit)="updateSettings()"
+      class="registration-form">
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.FirstName' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="firstname">
+  </mat-form-field>
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.LastName' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="lastname">
+  </mat-form-field>
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.Company' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="company_name">
+  </mat-form-field>
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.Email' | translate }} *</mat-label>
+    <input matInput
+           type="email"
+           autocomplete="off"
+           formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'PRODUCT.LogoPosition' | translate }}</mat-label>
+    <mat-select formControlName="logo_position">
+      <mat-option *ngFor="let position of logoPositions"
+                  [value]="position.value">
+        {{ position.labelKey | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'PRODUCT.ButtonColor.Label' | translate }}</mat-label>
+    <mat-select formControlName="contact_button_color">
+      <mat-option *ngFor="let color of buttonColors"
+                  [value]="color.value">
+        {{ color.labelKey | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'SETTINGS.MainColor' | translate }}</mat-label>
+    <input matInput
+           [ngxMatColorPicker]="picker1"
+           formControlName="main_color" >
+    <ngx-mat-color-toggle matSuffix
+                          [for]="picker1">
+    </ngx-mat-color-toggle>
+    <ngx-mat-color-picker #picker1
+                          [touchUi]="touchUi"
+                          [color]="color">
+    </ngx-mat-color-picker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'SETTINGS.SecondaryColor' | translate }}</mat-label>
+    <input matInput
+           [ngxMatColorPicker]="picker2"
+          formControlName="secondary_color">
+    <ngx-mat-color-toggle matSuffix
+                          [for]="picker2">
+    </ngx-mat-color-toggle>
+    <ngx-mat-color-picker #picker2
+                          [touchUi]="touchUi"
+                          [color]="color">
+    </ngx-mat-color-picker>
+  </mat-form-field>
+  <ng-content></ng-content>
+
+  <button mat-stroked-button color="primary"
+          [class.disabled]=""
+          type="submit">
+    {{ 'COMMON.SaveChanges' | translate }}
+  </button>
+</form>
+

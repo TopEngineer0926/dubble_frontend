@@ -1,0 +1,38 @@
+<div class="upload-block">
+  <div class="logo-block"
+       [class.hidden]="hideVideo">
+    <div *ngIf="videoUrl"
+         style="padding:56.25% 0 0 0;position:relative;">
+      <!-- <a [href]="videoUrl" target="_blank">Link zum Video</a> -->
+      <iframe [src]="videoUrl | safe:'resourceUrl'"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;"
+              frameborder="0"
+              allow=" fullscreen; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <video *ngIf="!videoUrl"
+           controls
+           height="200">
+      {{ 'UPLOAD.VideoNotSupported' | translate }}
+    </video>
+    <mat-icon (click)="removeVideo()">close</mat-icon>
+  </div>
+  <div class="logo-block"
+       [class.hidden]="!hideVideo">
+  </div>
+
+  <app-file-upload *ngIf="hideVideo"
+                   text="{{ 'UPLOAD.VideoUpload' | translate }}"
+                   [multiple]="false"
+                   accept="video/mp4,video/quicktime,video/mpeg"
+                   (uploadedFiles)="uploadVideo($event)"
+  ></app-file-upload>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'UPLOAD.VideoTitle' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           [formControl]="videoTitleControl">
+  </mat-form-field>
+</div>

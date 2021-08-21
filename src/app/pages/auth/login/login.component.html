@@ -1,0 +1,13 @@
+<img src="./assets/logo.png" class="dubble-logo"  alt="Dubble Logo"/>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'AUTH.Login' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-login-form (submitEvent)="login($event)"></app-login-form>
+    <a mat-button color="primary" routerLink="/{{appRouteNames.FORGOT_PASSWORD}}">{{ 'AUTH.ForgotPassword' | translate }}</a>
+  </mat-card-content>
+</mat-card>
+
+
+

@@ -1,0 +1,71 @@
+<form [formGroup]="customerForm" autocomplete="off"
+      (ngSubmit)="updateCustomer()"
+      class="registration-form">
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'CUSTOMER.CustomerNumber' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="customer_number">
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'CUSTOMER.DegreePrefix' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="academic_degree_preceding">
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.FirstName' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="firstname">
+  </mat-form-field>
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.LastName' | translate }} *</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="lastname">
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'CUSTOMER.DegreeSuffix' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="academic_degree_subsequent">
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.Email' | translate }}</mat-label>
+    <input matInput
+           type="email"
+           autocomplete="off"
+           formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'COMMON.PhoneNumber' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           formControlName="phone_number">
+  </mat-form-field>
+  <ng-content>
+
+  </ng-content>
+
+  <button mat-stroked-button color="primary"
+          [class.disabled]=""
+          type="submit">
+    {{ 'COMMON.SaveChanges' | translate }}
+  </button>
+</form>
+
+

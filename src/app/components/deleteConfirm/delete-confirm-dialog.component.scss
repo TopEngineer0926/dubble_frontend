@@ -1,0 +1,18 @@
+.buttons-wrapper {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 1rem;
+  }
+}
+
+.delete-form {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.delete-intro-msg {
+  padding-left: 15px;
+}

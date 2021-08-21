@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  padding: 15px;
+  height: calc(100vh - 64px);
+
+  app-products-table {
+    margin-top: 15px;
+    display: block;
+  }
+}

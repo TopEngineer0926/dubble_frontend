@@ -1,0 +1,17 @@
+<mat-card>
+  <p>{{ message }}</p>
+  <div class="buttons-wrapper">
+    <button mat-stroked-button
+            (click)="onCancel()"
+            color="primary"
+            type="button">
+      {{ 'COMMON.ContinueEdit' | translate }}
+    </button>
+    <button mat-stroked-button
+            (click)="onConfirm()"
+            color="primary"
+            type="button">
+      {{ 'COMMON.OK' | translate }}
+    </button>
+  </div>
+</mat-card>

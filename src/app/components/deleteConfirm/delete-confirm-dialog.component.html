@@ -1,0 +1,18 @@
+<mat-card>
+  <p class="delete-intro-msg">{{ 'DELETE_CONFIRM_DIALOG.QUIZ' | translate }}</p>
+  <p class="delete-intro-msg">{{ 'DELETE_CONFIRM_DIALOG.TYPE' | translate }} <b style="color: red;">{{
+      'DELETE_CONFIRM_DIALOG.DELETE' | translate }}</b> {{
+    'DELETE_CONFIRM_DIALOG.TAIL_MSG' | translate }}</p>
+
+  <mat-form-field appearance="outline" class="delete-form">
+    <input matInput placeholder="{{ 'DELETE_CONFIRM_DIALOG.DELETE' | translate }}" (input)="handleChange($event)">
+  </mat-form-field>
+  <div class="buttons-wrapper">
+    <button mat-stroked-button (click)="onCancel()" color="primary" type="button">
+      {{ 'COMMON.CANCEL' | translate }}
+    </button>
+    <button mat-stroked-button (click)="onConfirm()" color="primary" [disabled]="disabledBtn" type="button">
+      {{ 'COMMON.OK' | translate }}
+    </button>
+  </div>
+</mat-card>

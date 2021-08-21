@@ -1,0 +1,42 @@
+:host {
+  mat-card {
+    margin-bottom: 1rem;
+  }
+
+  mat-form-field {
+    display: block;
+
+    &.autocomplete-wrapper {
+      ::ng-deep .mat-form-field-infix {
+        display: flex;
+      }
+    }
+  }
+
+  button {
+    height: 40px;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  ::ng-deep {
+    quill-editor {
+      &.ng-touched.ng-invalid {
+        & > div {
+          border-color: #f44336;
+        }
+      }
+    }
+
+    button span.mat-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  mat-spinner {
+    margin-left: 10px;
+  }
+}

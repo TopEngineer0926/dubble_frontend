@@ -1,0 +1,123 @@
+{
+  "COMMON": {
+    "Password": "Password",
+    "Email": "Email",
+    "SendEmail": "Send Email",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Company": "Company",
+    "Save": "Save",
+    "SaveChanges": "Save changes",
+    "PhoneNumber": "Phone Number",
+    "Gender": "Gender",
+    "Edit": "Edit",
+    "Duplicate": "Duplicate",
+    "Delete": "Delete",
+    "Id": "Id",
+    "ShowAll": "Show All",
+    "FillRequiredFields": "Please, fill all required fields",
+    "Search": "Search",
+    "CANCEL": "Cancel"
+  },
+  "AUTH": {
+    "CurrentPassword": "Current password",
+    "NewPassword": "New password",
+    "ConfirmNewPassword": "Confirm new password",
+    "ConfirmPassword": "Confirm password",
+    "ForgotPassword": "Forgot password",
+    "ResetPassword": "Reset password",
+    "CheckEmailToReset": "Please check your e-mail to reset password",
+    "CheckEmailToRegister": "Please check your e-mail to confirm registration",
+    "SavePassword": "Save password",
+    "Login": "Login",
+    "Logout": "Logout",
+    "Register": "Register"
+  },
+  "DASHBOARD": {
+    "AddNewProduct"  : "Add new Product Page",
+    "AddNewContact"  : "Add new Contact",
+    "AddNewCustomer" : "Add new Customer",
+    "ImportTemplate" : "Example XLS",
+    "ImportExcel"    : "Upload XLS",
+    "Dashboard"      : "Dashboard"
+  },
+  "UPLOAD": {
+    "ImageUpload": "Image Upload",
+    "UploadLogo": "Upload company logo",
+    "UploadVideo": "Upload Video",
+    "VideoUpload": "Video Upload",
+    "VideoNotSupported": "Sorry, your browser doesn't support embedded videos.",
+    "PdfFile": "PDF File Upload"
+  },
+  "CONTACT": {
+    "ContactDetail": "Contact Detail",
+    "NewContact": "New Contact",
+    "Contacts": "Contacts",
+    "LatestContacts": "Latest Contacts",
+    "Updated": "Contact was updated",
+    "Created": "Contact was created",
+    "ImageMissing": "Please, upload contact image"
+  },
+  "CUSTOMER": {
+    "CustomerDetail": "Customer Detail",
+    "NewCustomer": "New Customer",
+    "Customers": "Customers",
+    "LatestCustomers": "Latest Customers",
+    "Updated": "Customer was updated",
+    "Created": "Customer was created"
+  },
+  "PRODUCT": {
+    "ChooseContact": "Choose Contact",
+    "Headline": "Headline",
+    "TeaserImage": "Teaser Image",
+    "PersonalGreeting": "Personal Greeting",
+    "CustomText": "Custom Text",
+    "DownloadPdfButton": "Download PDF Button",
+    "ButtonLabel": "Button Label",
+    "Reviews": "Reviews",
+    "Review": "Review",
+    "SectionName": "Section Name",
+    "Link": "Link",
+    "ButtonText": "Button Text",
+    "AddReview": "Add Review",
+    "PressInformation": "Press Information",
+    "AddPressInformation": "Add Press Information",
+    "SelectExistingCustomer": "Select existing customer",
+    "SaveDraft": "Save draft",
+    "PublishPage": "Publish page",
+    "Name": "Name",
+    "Status": "Status",
+    "Customer": "Customer",
+    "Contact": "Contact",
+    "ProductDetail": "Product Page Detail",
+    "NewProduct": "New Product Page",
+    "Products": "Product Pages",
+    "LatestProducts": "Latest Product Pages",
+    "SendAsTextMessage": "Send as text",
+    "SendAsEmail": "Send as email",
+    "Created": "Product was created",
+    "Updated": "Product was updated",
+    "smsWasSent": "sms was sent successfully",
+    "emailWasSent": "email was sent successfully",
+    "TeaserImageMissing": "Please, upload teaser image"
+  },
+  "SETTINGS": {
+    "MainColor": "Main color",
+    "SecondaryColor": "Secondary color",
+    "Settings": "Settings",
+    "ChangePassword": "Change Password",
+    "EmailUpdatedWarning": "Email was updated. Please check your email",
+    "UserUpdated": "User settings was updated",
+    "PasswordChanged": "Password was changed",
+    "MissingRequiredFields": "Please, check that company logo was uploaded & main and secondary colors were selected"
+  },
+  "DELETE_CONFIRM_DIALOG": {
+    "QUIZ": "Would you like to delete the entry?",
+    "TYPE": "Type",
+    "TAIL_MSG": "to confirm.",
+    "DELETE": "OK"
+  },
+  "EXCEL": {
+    "UPLOAD_SUCCESS": "Customers data has uploaded successfully!"
+  }
+}

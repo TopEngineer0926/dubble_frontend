@@ -1,0 +1,16 @@
+:host {
+  mat-card {
+    width: 70%;
+    min-width: 400px;
+    flex-direction: column;
+
+    &.w-100 {
+      width: 100%;
+    }
+  }
+  .inner-card {
+    margin: 0 auto;
+    margin-bottom: 25px;
+  }
+
+}

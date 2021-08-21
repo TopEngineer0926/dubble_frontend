@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  padding: 15px;
+
+  .title-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    color: #4A4A4A;
+    a {
+      font-size: 12px;
+    }
+  }
+  .list-container {
+    margin-bottom: 25px;
+  }
+  .btn-block {
+    button {
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+  }
+}

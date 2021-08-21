@@ -1,0 +1,34 @@
+<div class="btn-block">
+  <button mat-stroked-button color="primary"
+          [routerLink]="appRouteNames.PRODUCTS + '/' + appRouteNames.NEW"
+  >{{ 'DASHBOARD.AddNewProduct' | translate }}
+  </button>
+  <button mat-stroked-button color="primary"
+          [routerLink]="appRouteNames.CUSTOMERS + '/' + appRouteNames.NEW">
+    {{ 'DASHBOARD.AddNewCustomer' | translate }}
+  </button>
+</div>
+<div class="list-container">
+  <div class="title-block">
+    <h3>{{ 'PRODUCT.LatestProducts' | translate }}</h3>
+    <a routerLink="{{appRouteNames.PRODUCTS}}">{{ 'COMMON.ShowAll' | translate }}</a>
+  </div>
+  <app-products-table
+    [params]="params"
+    [showPagination]="showPagination"
+  ></app-products-table>
+</div>
+<div class="list-container">
+  <div class="title-block">
+    <h3>{{ 'CUSTOMER.LatestCustomers' | translate }}</h3>
+    <a routerLink="{{appRouteNames.CUSTOMERS}}">{{ 'COMMON.ShowAll' | translate }}</a>
+  </div>
+  <app-customers-table
+    [params]="params"
+    [showPagination]="showPagination"
+  ></app-customers-table>
+</div>
+
+
+
+

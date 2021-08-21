@@ -1,0 +1,43 @@
+:host {
+  text-align: center;
+
+  mat-card {
+    margin-top: 40px;
+    box-shadow: none;
+    min-width: 400px;
+
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  .login-btn {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+  }
+
+  .confirm-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dubble-logo {
+    width: 90px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+}
+
+

@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'CONTACT.ContactDetail' | translate }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="outer-card" *ngIf="currentContact">
+    <app-upload-image
+      [img]="currentContact?.media?.list[0]"
+      [uploadLabel]="'CONTACT.ImageUpload' | translate"
+      (uploadedImg)="uploadImage($event)"
+    ></app-upload-image>
+    <app-contact-form
+      [isLoading]="isLoading"
+      [contact]="currentContact?.contact"
+      (submitEvent)="editContact($event)">
+    </app-contact-form>
+  </mat-card-content>
+</mat-card>
+

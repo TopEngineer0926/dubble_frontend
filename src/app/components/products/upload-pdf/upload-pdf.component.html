@@ -1,0 +1,25 @@
+<div class="upload-block">
+  <div class="logo-block" *ngIf="pdfUrl else emptyLogo">
+    <a [href]="pdfUrl" target="_blank">{{ pdf?.model_name }} PDF</a>
+    <mat-icon (click)="removePdf()">close</mat-icon>
+  </div>
+  <ng-template #emptyLogo>
+    <div class="logo-block">
+    </div>
+  </ng-template>
+
+  <app-file-upload *ngIf="!pdfUrl"
+                   text="{{ 'UPLOAD.PdfFile' | translate }}"
+                   [multiple]="false"
+                   accept="application/pdf"
+                   (uploadedFiles)="uploadPdf($event)"
+  ></app-file-upload>
+
+  <mat-form-field color="primary"
+                  appearance="outline">
+    <mat-label>{{ 'UPLOAD.PdfTitle' | translate }}</mat-label>
+    <input matInput
+           autocomplete="off"
+           [formControl]="titleControl">
+  </mat-form-field>
+</div>

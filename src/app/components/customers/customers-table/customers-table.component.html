@@ -1,0 +1,16 @@
+<mat-form-field *ngIf="showFilter"
+                color="primary"
+                appearance="outline">
+  <mat-label>{{ 'COMMON.Search' | translate }}</mat-label>
+  <input matInput
+         autocomplete="off"
+         [formControl]="searchControl">
+</mat-form-field>
+<app-table
+  *ngIf="dataSource"
+  [tableCols]="cols"
+  [data]="filteredDataSource"
+  [showPagination]=showPagination
+  (action)="onActionHandler($event)"
+  (updatePage)="onPageUpdate($event)"
+></app-table>

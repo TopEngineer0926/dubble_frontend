@@ -1,0 +1,16 @@
+<a mat-button class="login-btn" color="primary" routerLink="/{{appRouteNames.LOGIN}}">{{ 'AUTH.Login' | translate }}</a>
+<img src="./assets/logo.png" class="dubble-logo"  alt="Dubble Logo"/>
+<mat-card *ngIf="!isRegistered">
+  <mat-card-header>
+    <mat-card-title>{{ 'AUTH.Register' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-registration-form
+      (submitEvent)="registration($event)"
+    ></app-registration-form>
+
+  </mat-card-content>
+</mat-card>
+<div *ngIf="isRegistered" class="confirm-container">
+  <h1>{{ 'AUTH.CheckEmailToRegister' | translate }}</h1>
+</div>

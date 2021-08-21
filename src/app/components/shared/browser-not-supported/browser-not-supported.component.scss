@@ -1,0 +1,16 @@
+:host {
+  .browser-warning {
+    z-index: 100;
+    position: fixed;
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 100vw;
+    align-items: center;
+
+    &--wrapper {
+      height: 40px;
+    }
+  }
+}
