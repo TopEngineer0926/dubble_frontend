@@ -220,9 +220,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     this.subscription.add(
       this.store.dispatch(new DeleteProductMedia(this.uploadedImage.itemid))
         .subscribe((data) => {
+            this.isLoading = false;
             this.hasImage = false;
           },
-          error => this.snackBarService.error(error.error?.message || error.message)));
+          error => {
+            this.isLoading = false;
+            this.snackBarService.error(error.error?.message || error.message)}
+          ));
   }
 
   saveProductPdf(pdf, index) {
@@ -251,11 +255,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     this.subscription.add(
       this.store.dispatch(new SendProductLinkBy(this.currentProduct.product.itemid, type))
         .subscribe((data) => {
+            this.isLoading = false;
             const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
             this.snackBarService.success(message);
             this.getProductData();
           },
-          error => this.snackBarService.error(error.error?.message || error.message))
+          error => {
+            this.isLoading = false;
+            this.snackBarService.error(error.error?.message || error.message)
+          })
     );
   }
 
