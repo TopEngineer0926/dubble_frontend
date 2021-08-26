@@ -133,7 +133,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
           if (!file) {
             return;
           }
-          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId }))
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId })).subscribe()
         });
 
         // Refresh table
