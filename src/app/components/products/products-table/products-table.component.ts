@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ListResponse, TableActionEvent } from '../../../interfaces';
+import { ListResponse, TableActionEvent, Media } from '../../../interfaces';
 import { Customer } from '../../../interfaces/customer';
 import { QueryParams, SortColumn } from '../../../interfaces/base/base-object';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,8 +14,11 @@ import { ProductsState } from '../../../../store/products/products.state';
 import { Product } from '../../../interfaces/product';
 import { TranslateService } from '@ngx-translate/core';
 import { TableAction } from '../../../constants/table-actions.enum';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../deleteConfirm/delete-confirm-dialog.component';
+import { environment } from '../../../../environments/environment';
+import { MediaType } from '../../../constants/media-type.enum';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-products-table',
@@ -35,7 +38,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       ...column,
       config: {
         ...column.config,
-        renderCell: (product: Product) => this.translateService.instant(`PRODUCT.${ product.publication_status }`)
+        renderCell: (product: Product) => this.translateService.instant(`PRODUCT.${product.publication_status}`)
       }
     };
   });
@@ -43,11 +46,19 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   dataSource: ListResponse<Product>;
   private subscription = new Subscription();
 
-  currentProduct: { product: Product };
+  currentProduct: { product: Product, media: ListResponse<Media> };
+  uploadedVideo: Media[] = new Array(3).fill(null);
+  uploadedImage: Media;
+  uploadedPdf: Media[] = new Array(3).fill(null);
+  productPageLink: string;
+  isLoading = false;
+  imageToUpload: File;
+  protected url = environment.apiUrl + 'product/media/duplicate';
 
   constructor(private store: Store,
-              private translateService: TranslateService,
-              public dialog: MatDialog) {
+    protected httpClient: HttpClient,
+    private translateService: TranslateService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -85,27 +96,49 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  getProductData(productId: string) {
-    this.store.dispatch(new GetProductById(productId))
-    .subscribe((data) => {
-      switchMap(() => this.store.select(ProductsState.currentProduct)),
-      this.currentProduct = data?.products?.currentProduct;
-      // Duplicate the current product
-      this.addProduct(this.currentProduct.product);
-    });
-  }
-
-  addProduct(form: Product) {
-    this.store.dispatch(new AddProduct(form))
-    .subscribe(() => {
-      // Refresh the product table
-      this.getProducts(this.params);
-    })
-  }
-
   duplicateProduct(productId: string): void {
-    // Get the product details
-    this.getProductData(productId);
+    this.store.dispatch(new GetProductById(productId))
+      .subscribe((data) => {
+        switchMap(() => this.store.select(ProductsState.currentProduct)),
+          this.currentProduct = data?.products?.currentProduct;
+        const product = this.currentProduct;
+        // Duplicate the current product
+        this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
+        this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
+        this.uploadedVideo?.forEach((item) => this.uploadedVideo.splice(item.order, 1, item));
+        this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
+        this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
+        this.addProduct();
+      });
+  }
+
+  addProduct(): void {
+    this.store.dispatch(new AddProduct(this.currentProduct.product)).subscribe(
+      (data) => {
+        const productId = data.products.currentProduct.product.itemid;
+
+        // Duplicate image
+        this.httpClient.post(`${this.url}`, JSON.stringify({ ...this.uploadedImage, model_id: productId })).subscribe();
+
+        // Duplicate pdfs
+        this.uploadedPdf?.forEach((file: any, index) => {
+          if (!file) {
+            return;
+          }
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId })).subscribe()
+        });
+
+        // Duplicate videos
+        this.uploadedVideo?.forEach((file: any, index) => {
+          if (!file) {
+            return;
+          }
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId }))
+        });
+
+        // Refresh table
+        this.getProducts(this.params);
+      });
   }
 
   deleteProduct(productId: string): void {
