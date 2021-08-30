@@ -66,8 +66,8 @@ export class NewProductComponent implements OnInit, OnDestroy, ComponentCanDeact
             .map((video, index) =>
               this.store.dispatch(new SaveProductMedia(productId, { ...video, order: index })));
           const pdfUploadRequests = this.pdfsToUpload
-            .map(pdf =>
-              this.store.dispatch(new SaveProductMedia(productId, pdf)));
+            .map((pdf, index) =>
+              this.store.dispatch(new SaveProductMedia(productId, { ...pdf, order: index })));
           return forkJoin([
             this.store.dispatch(new SaveProductMedia(productId, this.imageToUpload)),
             ...videoUploadRequests,
