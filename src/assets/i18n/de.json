@@ -94,6 +94,8 @@
     "Review": "Abschnittsüberschrift (z.B.: Feedback unserer Kunden)",
     "SectionName": "Überschrift",
     "Link": "Verlinkung (z.B.: Youtube,...)",
+    "Date": "Date",
+    "Hour": "Hour",
     "ButtonText": "Button Text",
     "AddReview": "Infobereich 1 (z.B. Feedback unserer Kunden, etc.)",
     "PressInformation": "Abschnittsüberschrift (z.B.: Zusätzliche Informationen)",
@@ -110,7 +112,9 @@
     "Products": "Informationsseiten",
     "LatestProducts": "Letzte Informationsseiten",
     "SendAsTextMessage": "Als SMS versenden",
+    "SendAsTextMessageWithDelay": "Als SMS zeitverzögert senden",
     "SendAsEmail": "Als E-Mail versenden",
+    "SendAsEmailWithDelay": "Als E-Mail zeitverzögert senden",
     "Created": "Informationsseite wurde erstellt",
     "Updated": "Informationsseite wurde aktualisiert",
     "smsWasSent": "SMS wurde gesendet",
@@ -127,7 +131,9 @@
       "White": "Weiß",
       "Black": "Schwarz"
     },
-    "ImageUpload": "Bild hochladen (592x1128px)"
+    "ImageUpload": "Bild hochladen (592x1128px)",
+    "ProductDateFormat": "yyyy.mm.dd",
+    "ProductHourFormat": "hh"
   },
   "SETTINGS": {
     "MainColor": "Farbe für Buttons auswählen",

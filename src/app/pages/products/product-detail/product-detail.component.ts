@@ -20,6 +20,7 @@ import { environment } from '../../../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { UpdateCustomer } from '../../../../store/customers/customers.actions';
 import { ProductFormComponent } from '../../../components/products/product-form/product-form.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-detail',
@@ -39,6 +40,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   @ViewChild(ProductFormComponent) private productForm: ProductFormComponent;
 
+  public date: string = "";
+  public selectedHour: string = "";
+  public hourList: Array<string> = [];
+  protected scheduleSmsUrl   = environment.apiUrl + 'schedule/scheduleSms';
+  protected scheduleEmailUrl = environment.apiUrl + 'schedule/scheduleEmail';
+
   private subscription = new Subscription();
   private hasImage: boolean;
 
@@ -48,8 +55,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   constructor(private store: Store,
               private route: ActivatedRoute,
+              protected httpClient: HttpClient,
               private snackBarService: SnackBarService,
               private translateService: TranslateService) {
+    for (var i = 0; i < 24; i++)
+        this.hourList.push(i.toString());
   }
 
   ngOnInit(): void {
@@ -265,6 +275,62 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             this.snackBarService.error(error.error?.message || error.message)
           })
     );
+  }
+
+  validateDate(c: string) {
+    const dateRegEx = new RegExp(/^\d{4}\.\d{1,2}\.\d{1,2}$/);
+    return dateRegEx.test(c)
+  }
+
+  handleChangeDate(event: Event): void {
+    if ((event.target as HTMLInputElement).value != "") {
+      if (this.selectedHour == "")
+        this.selectedHour = "9";
+    }
+  }
+
+  sendProductLinkByWithDelay(type: 'sms' | 'email') {
+        this.isLoading = true;
+        var mDate = new Date(this.date);
+        var month = '' + (mDate.getMonth() + 1);
+        var day = '' + mDate.getDate();
+        var year = mDate.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        var dateToString = [year, month, day].join('-');
+
+        var body = {
+            productId: this.currentProduct.product.itemid,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            dateTime: dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00"
+        }
+        if (type === 'sms') {
+            this.httpClient.post(`${this.scheduleSmsUrl}`, body)
+            .subscribe((data) => {
+                this.isLoading = false;
+                const message = "Sms Scheduled Successfully!";
+                this.snackBarService.success(message);
+            },
+            error => {
+                this.isLoading = false;
+                this.snackBarService.error(error.error?.message || error.message)
+            });
+        }else if (type === 'email') {
+            this.httpClient.post(`${this.scheduleEmailUrl}`, body)
+            .subscribe((data) => {
+                this.isLoading = false;
+                const message = "Sms Scheduled Successfully!";
+                this.snackBarService.success(message);
+            },
+            error => {
+                this.isLoading = false;
+                this.snackBarService.error(error.error?.message || error.message)
+            });
+        }
   }
 
   openInNewTab(link: string) {

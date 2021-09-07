@@ -70,6 +70,44 @@
                     type="button">
               {{'PRODUCT.SendAsEmail' | translate}}
             </button>
+
+            <div style="justify-content: space-between; display: flex;">
+                <mat-form-field color="primary" style="width: 45%;" appearance="outline">
+                    <mat-label>{{ 'PRODUCT.Date' | translate }}</mat-label>
+                    <input matInput
+                        autocomplete="off"
+                        placeholder="{{ 'PRODUCT.ProductDateFormat' | translate }}"
+                        [(ngModel)]="date"
+                        (input)="handleChangeDate($event)"
+                    >
+                </mat-form-field>
+                <mat-form-field color="primary" style="width: 45%;"  appearance="outline">
+                    <mat-label>{{ 'PRODUCT.Hour' | translate }}</mat-label>
+                    <mat-select  [(value)]="selectedHour">
+                        <mat-option *ngFor="let hour of hourList" [value]="hour">
+                            {{hour}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button mat-stroked-button
+                    *ngIf="date.length != 0 || selectedHour.length != 0"
+                    color="primary"
+                    (click)="sendProductLinkByWithDelay('sms')"
+                    [disabled]="!validateDate(date) || date.length == 0 || selectedHour.length == 0"
+                    type="button">
+              {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
+            </button>
+
+            <button mat-stroked-button
+                    *ngIf="date.length != 0 || selectedHour.length != 0"
+                    color="primary"
+                    (click)="sendProductLinkByWithDelay('email')"
+                    [disabled]="!validateDate(date) || date.length == 0 || selectedHour.length == 0"
+                    type="button">
+              {{'PRODUCT.SendAsEmailWithDelay' | translate}}
+            </button>
           </div>
         </ng-container>
       </div>

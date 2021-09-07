@@ -78,6 +78,8 @@
     "Review": "Review",
     "SectionName": "Section Name",
     "Link": "Link",
+    "Date": "Date",
+    "Hour": "Hour",
     "ButtonText": "Button Text",
     "AddReview": "Add Review",
     "PressInformation": "Press Information",
@@ -94,12 +96,16 @@
     "Products": "Product Pages",
     "LatestProducts": "Latest Product Pages",
     "SendAsTextMessage": "Send as text",
+    "SendAsTextMessageWithDelay": "Send as text with delay",
     "SendAsEmail": "Send as email",
+    "SendAsEmailWithDelay": "Send as email with delay",
     "Created": "Product was created",
     "Updated": "Product was updated",
     "smsWasSent": "sms was sent successfully",
     "emailWasSent": "email was sent successfully",
-    "TeaserImageMissing": "Please, upload teaser image"
+    "TeaserImageMissing": "Please, upload teaser image",
+    "ProductDateFormat": "yyyy.mm.dd",
+    "ProductHourFormat": "hh"
   },
   "SETTINGS": {
     "MainColor": "Main color",
