@@ -103,6 +103,8 @@
     "Updated": "Product was updated",
     "smsWasSent": "sms was sent successfully",
     "emailWasSent": "email was sent successfully",
+    "smsWasSentWithDelay": "sms was sent with delay successfully",
+    "emailWasSentWithDelay": "email was sent with delay successfully",
     "TeaserImageMissing": "Please, upload teaser image",
     "ProductDateFormat": "yyyy.mm.dd",
     "ProductHourFormat": "hh"

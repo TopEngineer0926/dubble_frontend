@@ -119,6 +119,8 @@
     "Updated": "Informationsseite wurde aktualisiert",
     "smsWasSent": "SMS wurde gesendet",
     "emailWasSent": "E-Mail wurde gesendet",
+    "smsWasSentWithDelay": "SMS wurde gesendet geplant",
+    "emailWasSentWithDelay": "E-Mail wurde gesendet geplant",
     "TeaserImageMissing": "Bitte laden Sie ein Startbild hoch.",
     "CreationDate": "Erstellungsdatum",
     "LogoPosition": "Logo position",

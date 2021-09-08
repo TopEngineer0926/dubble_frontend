@@ -74,12 +74,15 @@
             <div style="justify-content: space-between; display: flex;">
                 <mat-form-field color="primary" style="width: 45%;" appearance="outline">
                     <mat-label>{{ 'PRODUCT.Date' | translate }}</mat-label>
-                    <input matInput
-                        autocomplete="off"
-                        placeholder="{{ 'PRODUCT.ProductDateFormat' | translate }}"
+                    <input matInput 
+                        [matDatepicker]="picker1" 
                         [(ngModel)]="date"
-                        (input)="handleChangeDate($event)"
+                        (dateChange)="handleChangeDate()"
+                        disabled
+                        style="color: rgba(0, 0, 0, 0.87);"
                     >
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field color="primary" style="width: 45%;"  appearance="outline">
                     <mat-label>{{ 'PRODUCT.Hour' | translate }}</mat-label>
@@ -95,7 +98,7 @@
                     *ngIf="date.length != 0 || selectedHour.length != 0"
                     color="primary"
                     (click)="sendProductLinkByWithDelay('sms')"
-                    [disabled]="!validateDate(date) || date.length == 0 || selectedHour.length == 0"
+                    [disabled]="date.length == 0 || selectedHour.length == 0"
                     type="button">
               {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
             </button>
@@ -104,7 +107,7 @@
                     *ngIf="date.length != 0 || selectedHour.length != 0"
                     color="primary"
                     (click)="sendProductLinkByWithDelay('email')"
-                    [disabled]="!validateDate(date) || date.length == 0 || selectedHour.length == 0"
+                    [disabled]="date.length == 0 || selectedHour.length == 0"
                     type="button">
               {{'PRODUCT.SendAsEmailWithDelay' | translate}}
             </button>

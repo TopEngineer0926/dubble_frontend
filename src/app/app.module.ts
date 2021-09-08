@@ -22,7 +22,7 @@ import { ContactsState } from '../store/contacts/contacts.state';
 import { CustomersState } from '../store/customers/customers.state';
 import { ProductsState } from '../store/products/products.state';
 import { SharedModule } from './modules/shared/shared.module';
-
+import { MAT_DATE_LOCALE } from '@angular/material/core'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -71,6 +71,7 @@ export function init_app(appLoadService: AppInitService) {
       multi: true
     },
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent],
 })

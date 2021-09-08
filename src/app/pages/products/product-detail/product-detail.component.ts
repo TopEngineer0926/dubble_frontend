@@ -277,13 +277,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     );
   }
 
-  validateDate(c: string) {
-    const dateRegEx = new RegExp(/^\d{4}\.\d{1,2}\.\d{1,2}$/);
-    return dateRegEx.test(c)
-  }
-
-  handleChangeDate(event: Event): void {
-    if ((event.target as HTMLInputElement).value != "") {
+  handleChangeDate(): void {
+    if (this.date != "") {
       if (this.selectedHour == "")
         this.selectedHour = "9";
     }
@@ -308,29 +303,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             dateTime: dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00"
         }
+
+        var apiUrl = "";
         if (type === 'sms') {
-            this.httpClient.post(`${this.scheduleSmsUrl}`, body)
-            .subscribe((data) => {
-                this.isLoading = false;
-                const message = "Sms Scheduled Successfully!";
-                this.snackBarService.success(message);
-            },
-            error => {
-                this.isLoading = false;
-                this.snackBarService.error(error.error?.message || error.message)
-            });
+          apiUrl = this.scheduleSmsUrl;
         }else if (type === 'email') {
-            this.httpClient.post(`${this.scheduleEmailUrl}`, body)
-            .subscribe((data) => {
-                this.isLoading = false;
-                const message = "Sms Scheduled Successfully!";
-                this.snackBarService.success(message);
-            },
-            error => {
-                this.isLoading = false;
-                this.snackBarService.error(error.error?.message || error.message)
-            });
+          apiUrl = this.scheduleEmailUrl;
         }
+
+        this.httpClient.post(`${apiUrl}`, body)
+        .subscribe((data) => {
+            this.isLoading = false;
+            const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
+            this.snackBarService.success(message);
+        },
+        error => {
+            this.isLoading = false;
+            this.snackBarService.error(error.error?.message || error.message)
+        });
   }
 
   openInNewTab(link: string) {
