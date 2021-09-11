@@ -163,5 +163,16 @@
   },
   "EXCEL": {
     "UPLOAD_SUCCESS": "Kundendaten wurden erfolgreich hochgeladen!"
+  },
+  "MONITOR": {
+    "TITLE"               : "Monitors",
+    "CUSTOMER"            : "Customer",
+    "CONTACT"             : "Contact",
+    "SALES_MANAGER"       : "Sales manager",
+    "SENDER_NAME"         : "Sender name",
+    "RECIPIENT_NAME"      : "Recipient name",
+    "SENDING_DATE_TIME"   : "Sending date and time",
+    "SENT_STATUS"         : "Sent status",
+    "INFORMATION_PAGE"    : "Name"
   }
 }

@@ -45,9 +45,9 @@
   </tr>
 </table>
 <mat-paginator *ngIf="showPagination"
-  [pageSizeOptions]="[10]"
+  [pageSizeOptions]="[pageSizeOptions]"
   [length]="data?.overallsize"
-  [pageIndex]="data?.offset / 10"
+  [pageIndex]="data?.offset / pageSizeOptions"
   (page)="getNext($event)"
   showFirstLastButtons></mat-paginator>
 </div>

@@ -40,6 +40,13 @@ const routes: Routes = [
           m => m.UserSettingsModule
         ),
     },
+    {
+      path: 'monitors',
+      loadChildren: () =>
+        import('../../modules/monitors/monitors.module').then(
+          m => m.MonitorsModule
+        ),
+    },
   ]},
 ];
 @NgModule({

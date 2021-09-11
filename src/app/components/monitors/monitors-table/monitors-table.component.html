@@ -1,0 +1,9 @@
+<app-table
+  *ngIf="dataSource"
+  [tableCols]="cols"
+  [data]="dataSource"
+  [showPagination] = showPagination
+  [pageSizeOptions] = 30
+  (action)="onActionHandler($event)"
+  (updatePage)="onPageUpdate($event)"
+></app-table>

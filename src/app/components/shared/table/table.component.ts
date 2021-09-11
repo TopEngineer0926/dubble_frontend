@@ -25,6 +25,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() data: ListResponse<any>;
   @Input() showPagination = true;
   @Input() tableCols: {key: string, display: string, displayKey?: string, config?: any[]}[] = [];
+  @Input() pageSizeOptions = 10;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

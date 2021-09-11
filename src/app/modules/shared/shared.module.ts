@@ -21,6 +21,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorLanguageService } from '../../components/shared/table/mat-paginator-language.service';
 import { SafePipe } from '../../components/shared/pipes/safe.pipe';
 import { DeleteConfirmDialogComponent } from 'src/app/components/deleteConfirm/delete-confirm-dialog.component';
+import { MonitorsTableComponent } from '../../components/monitors/monitors-table/monitors-table.component';
 
 const components = [
   BrowserNotSupportedComponent,
@@ -36,7 +37,8 @@ const components = [
   ProductFormComponent,
   UploadImageComponent,
   UploadPdfComponent,
-  UploadVideoComponent
+  UploadVideoComponent,
+  MonitorsTableComponent,
 ];
 
 const pipes = [
