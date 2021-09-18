@@ -19,6 +19,7 @@ import { DeleteConfirmDialogComponent } from '../../deleteConfirm/delete-confirm
 import { environment } from '../../../../environments/environment';
 import { MediaType } from '../../../constants/media-type.enum';
 import { HttpClient } from '@angular/common/http';
+import { Monitor } from 'src/app/interfaces/monitor';
 
 @Component({
   selector: 'app-monitors-table',
@@ -28,19 +29,10 @@ import { HttpClient } from '@angular/common/http';
 export class MonitorsTableComponent implements OnInit, OnDestroy {
   @Input() data: ListResponse<Customer>;
   @Input() showPagination = true;
-  @Input() params: QueryParams = { limit: 10, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' };
+  @Input() params: QueryParams = { limit: 30, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols.map(column => {
-    if (!column?.config?.customRenderer) {
-      return column;
-    }
-    return {
-      ...column,
-      config: {
-        ...column.config,
-        renderCell: (product: Product) => this.translateService.instant(`PRODUCT.${product.publication_status}`)
-      }
-    };
+    return column
   });
   readonly appRouteNames = appRouteNames;
   dataSource: ListResponse<Product>;
@@ -53,7 +45,7 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
   productPageLink: string;
   isLoading = false;
   imageToUpload: File;
-  protected url = environment.apiUrl + 'product/media/duplicate';
+  protected url: string = environment.apiUrl + 'monitor';
 
   constructor(private store: Store,
     protected httpClient: HttpClient,
@@ -62,38 +54,41 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProducts(this.params);
+    this.getMonitors(this.params);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onActionHandler(event: TableActionEvent<Product>): void {
-    const { item: product, action } = event;
+  onActionHandler(event: TableActionEvent<Monitor>): void {
+    const { item: monitor, action } = event;
     if (action == TableAction.Delete) {
-      this.deleteProduct(product.itemid);
-    }
-    else if (action == TableAction.Duplicate) {
-      this.duplicateProduct(product.itemid);
-    }
-    else if (action == TableAction.Edit) {
-      this.store.dispatch(new Navigate([appRouteNames.PRODUCTS, product.itemid, appRouteNames.DETAIL]));
+      this.deleteMonitor(monitor.id);
     }
   }
 
   onPageUpdate(event): void {
-    this.getProducts({ ...this.params, limit: 10, offset: event.pageIndex * 10 });
+    this.getMonitors({ ...this.params, limit: 30, offset: event.pageIndex * 30 });
   }
 
-  getProducts(query: QueryParams): void {
-    this.subscription.add(
-      this.store.dispatch(new GetProducts(query)).pipe(
-        switchMap(() => this.store.select(ProductsState.productsList)),
-        tap((products) => {
-          this.dataSource = products;
-        })).subscribe()
-    );
+  getMonitors(query): void {
+    // this.subscription.add(
+    //   this.store.dispatch(new GetProducts(query)).pipe(
+    //     switchMap(() => this.store.select(ProductsState.productsList)),
+    //     tap((monitors) => {
+    //       this.dataSource = monitors;
+    //     })).subscribe()
+    // );
+    this.httpClient.get<ListResponse<any>>(this.url, {
+      params: query,
+    })
+    .subscribe((monitors) => {
+      this.dataSource = monitors;
+    },
+    error => {
+        // this.snackBarService.error(error.error?.message || error.message)
+    });
   }
 
   duplicateProduct(productId: string): void {
@@ -137,17 +132,21 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
         });
 
         // Refresh table
-        this.getProducts(this.params);
+        this.getMonitors(this.params);
       });
   }
 
-  deleteProduct(productId: string): void {
+  deleteMonitor(monitorId: number): void {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '400px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.store.dispatch(new DeleteProductById(productId)).subscribe(() => this.getProducts(this.params));
+        let url = `${ this.url }/${ monitorId }`;
+        this.httpClient.delete(url)
+        .subscribe(() => {
+          this.getMonitors(this.params);
+        });
       }
     });
   }

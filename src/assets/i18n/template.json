@@ -129,14 +129,11 @@
     "UPLOAD_SUCCESS": "Customers data has uploaded successfully!"
   },
   "MONITOR": {
-    "TITLE"               : "Monitors",
-    "CUSTOMER"            : "Customer",
-    "CONTACT"             : "Contact",
-    "SALES_MANAGER"       : "Sales manager",
-    "SENDER_NAME"         : "Sender name",
-    "RECIPIENT_NAME"      : "Recipient name",
-    "SENDING_DATE_TIME"   : "Sending date and time",
-    "SENT_STATUS"         : "Sent status",
-    "INFORMATION_PAGE"    : "Name"
+    "TITLE"                  : "Monitor",
+    "CUSTOMER"               : "Select existing customer",
+    "CONTACT"                : "Choose Contact",
+    "SENDING_DATE_TIME"      : "Sending date and time",
+    "STATUS"                 : "Status",
+    "INTERNAL_PAGE_TITLE"    : "Internal Page Title"
   }
 }

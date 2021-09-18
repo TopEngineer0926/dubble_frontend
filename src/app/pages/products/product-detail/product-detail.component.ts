@@ -269,6 +269,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
             this.snackBarService.success(message);
             this.getProductData();
+            this.saveMailSms(type, this.getCurrentDate(), "directed");
           },
           error => {
             this.isLoading = false;
@@ -316,6 +317,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             this.isLoading = false;
             const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
             this.snackBarService.success(message);
+            this.saveMailSms(type, this.getCurrentDate(), "delayed");
         },
         error => {
             this.isLoading = false;
@@ -354,4 +356,59 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     return file1 === file2 || (file1?.file === file2?.file && file1?.title === file2?.title);
   }
 
+  private saveMailSms(type: string, date: string, scheduleStatus: string) {
+    var apiUrl = environment.apiUrl + 'monitor';
+    var body = {
+        productId: this.currentProduct.product.itemid,
+        internalPageTitle: this.currentProduct.product.internal_page_title,
+        contactId: this.currentProduct.product.contact.itemid,
+        userId: this.currentProduct.product.user_id,
+        customerId: this.currentProduct.product.customer.itemid,
+        sender: this.currentProduct.product.contact.firstname + " " + this.currentProduct.product.contact.lastname,
+        receiver: this.currentProduct.product.customer.firstname + " " + this.currentProduct.product.customer.lastname,
+        email: this.currentProduct.product.customer.email,
+        phone: this.currentProduct.product.customer.phone_number,
+        sendingDate: date,
+        sentStatus: type.toUpperCase(),
+        scheduleStatus: scheduleStatus
+    }
+
+    this.httpClient.post(`${apiUrl}`, body)
+    .subscribe((data) => {
+        const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
+        this.snackBarService.success(message);
+    },
+    error => {
+        this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
+
+  private getCurrentDate() {
+    var now = new Date();
+    var month = '' + (now.getMonth() + 1);
+    var day = '' + now.getDate();
+    var year = now.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    var dateToString = [year, month, day].join('-');
+
+    var hours = '' + now.getHours();
+    var minutes = '' + now.getMinutes();
+    var seconds = '' + now.getSeconds();
+
+    if (hours.length < 2) 
+        hours = '0' + hours;
+    if (minutes.length < 2) 
+        minutes = '0' + minutes;
+    if (seconds.length < 2) 
+        seconds = '0' + seconds;
+
+    var timeToString = [hours, minutes, seconds].join(':');
+
+    return dateToString + "T" + timeToString;
+  }
 }
