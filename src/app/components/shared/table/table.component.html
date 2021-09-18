@@ -30,9 +30,15 @@
           {{ col.config.renderCell(element) }}
         </ng-container>
         <!-- if this column is action, we will loop through each action and show it as a link -->
-        <ng-container *ngIf="col.config.isAction">
+        <ng-container *ngIf="col.config.isAction && !col.config.isMonitor">
           <span *ngFor="let action of col.config.actions" (click)="onAction(element, action.type)">
              <a>{{ action.displayKey | translate }}</a>
+          </span>
+        </ng-container>
+
+        <ng-container *ngIf="col.config.isAction && col.config.isMonitor">
+          <span *ngFor="let action of col.config.actions" (click)="!element['jobId'] ? '' : onAction(element, action.type)"  >
+             <a [class.disabled]="!element['jobId']">{{ action.displayKey | translate }}</a>
           </span>
         </ng-container>
       </ng-template>

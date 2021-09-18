@@ -13,5 +13,7 @@ export interface Monitor extends BaseObject {
   phone: string,
   sendingDate: string,
   sentStatus: string,
-  scheduleStatus: string
+  scheduleStatus: string,
+  jobId: string,
+  jobGroup: string
 }

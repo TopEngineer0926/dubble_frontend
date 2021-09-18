@@ -269,7 +269,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
             this.snackBarService.success(message);
             this.getProductData();
-            this.saveMailSms(type, this.getCurrentDate(), "directed");
+            this.saveMailSms(type, this.getCurrentDate(), "", "");
           },
           error => {
             this.isLoading = false;
@@ -313,11 +313,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         }
 
         this.httpClient.post(`${apiUrl}`, body)
-        .subscribe((data) => {
+        .subscribe(({jobId, jobGroup}: any) => {
             this.isLoading = false;
             const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
             this.snackBarService.success(message);
-            this.saveMailSms(type, this.getCurrentDate(), "delayed");
+            this.saveMailSms(type, this.getCurrentDate(), jobId, jobGroup);
         },
         error => {
             this.isLoading = false;
@@ -356,7 +356,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     return file1 === file2 || (file1?.file === file2?.file && file1?.title === file2?.title);
   }
 
-  private saveMailSms(type: string, date: string, scheduleStatus: string) {
+  private saveMailSms(type: string, date: string, scheduleJobId: string, scheduleJobGroup: string) {
     var apiUrl = environment.apiUrl + 'monitor';
     var body = {
         productId: this.currentProduct.product.itemid,
@@ -370,7 +370,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         phone: this.currentProduct.product.customer.phone_number,
         sendingDate: date,
         sentStatus: type.toUpperCase(),
-        scheduleStatus: scheduleStatus
+        jobId: scheduleJobId,
+        jobGroup: scheduleJobGroup
     }
 
     this.httpClient.post(`${apiUrl}`, body)

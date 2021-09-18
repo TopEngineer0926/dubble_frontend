@@ -10,6 +10,6 @@ export const cols = [
   { key: 'sentStatus', displayKey: 'MONITOR.STATUS' },
   { 
     key: 'action', displayKey: 'COMMON.Delete',
-    config: { isAction: true, actions: [{ type: TableAction.Delete, displayKey: 'COMMON.Delete' }] }
+    config: { isAction: true, actions: [{ type: TableAction.Delete, displayKey: 'COMMON.Delete' }], isMonitor: true }
   }
 ];

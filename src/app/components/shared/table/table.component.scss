@@ -3,4 +3,8 @@
     cursor: pointer;
     text-decoration: underline;
   }
+  a.disabled {
+    cursor: default;
+    color: grey;
+  }
 }
