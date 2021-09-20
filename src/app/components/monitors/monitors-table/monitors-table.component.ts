@@ -14,6 +14,8 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Monitor } from 'src/app/interfaces/monitor';
 import { SnackBarService } from '../../../services/core/snackbar.service';
+import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-monitors-table',
@@ -41,7 +43,8 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
   imageToUpload: File;
   protected url: string = environment.apiUrl + 'monitor';
 
-  constructor(protected httpClient: HttpClient,
+  constructor(private store: Store,
+    protected httpClient: HttpClient,
     private snackBarService: SnackBarService,
     public dialog: MatDialog) {
   }
@@ -58,6 +61,8 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
     const { item: monitor, action } = event;
     if (action == TableAction.Delete) {
       this.deleteMonitor(monitor.id, monitor.jobId, monitor.jobGroup);
+    } else if (action == TableAction.LINK_TO_PRODUCT) {
+      this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ monitor.productId }/${ appRouteNames.DETAIL }`]));
     }
   }
 

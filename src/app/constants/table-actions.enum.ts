@@ -1,5 +1,6 @@
 export enum TableAction {
   Edit = 'edit',
   Duplicate = 'duplicate',
-  Delete = 'delete'
+  Delete = 'delete',
+  LINK_TO_PRODUCT = 'linkToProduct'
 }

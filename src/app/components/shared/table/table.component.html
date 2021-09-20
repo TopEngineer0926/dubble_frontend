@@ -32,7 +32,8 @@
         <!-- if this column is action, we will loop through each action and show it as a link -->
         <ng-container *ngIf="col.config.isAction && !col.config.isMonitor">
           <span *ngFor="let action of col.config.actions" (click)="onAction(element, action.type)">
-             <a>{{ action.displayKey | translate }}</a>
+             <a *ngIf="!element['internalPageTitle']">{{ action.displayKey | translate }}</a>
+             <a *ngIf="element['internalPageTitle']">{{ element['internalPageTitle'] }}</a>
           </span>
         </ng-container>
 

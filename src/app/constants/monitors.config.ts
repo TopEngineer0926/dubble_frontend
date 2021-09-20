@@ -1,7 +1,9 @@
 import { TableAction } from './table-actions.enum';
 
 export const cols = [
-  { key: 'internalPageTitle', displayKey: 'MONITOR.INTERNAL_PAGE_TITLE' },
+  { key: 'internalPageTitle', displayKey: 'MONITOR.INTERNAL_PAGE_TITLE',
+    config: { isAction: true, actions: [{ type: TableAction.LINK_TO_PRODUCT, displayKey: 'MONITOR.INTERNAL_PAGE_TITLE' }] }
+  },
   { key: 'sender', displayKey: 'MONITOR.CONTACT' },
   { key: 'receiver', displayKey: 'MONITOR.CUSTOMER' },
   { key: 'email', displayKey: 'COMMON.Email' },
