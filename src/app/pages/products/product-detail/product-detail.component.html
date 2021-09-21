@@ -95,7 +95,7 @@
             </div>
 
             <button mat-stroked-button
-                    *ngIf="date.length != 0 || selectedHour.length != 0"
+                    *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.phone_number"
                     color="primary"
                     (click)="sendProductLinkByWithDelay('sms')"
                     [disabled]="date.length == 0 || selectedHour.length == 0"
@@ -104,7 +104,7 @@
             </button>
 
             <button mat-stroked-button
-                    *ngIf="date.length != 0 || selectedHour.length != 0"
+                    *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.email"
                     color="primary"
                     (click)="sendProductLinkByWithDelay('email')"
                     [disabled]="date.length == 0 || selectedHour.length == 0"
