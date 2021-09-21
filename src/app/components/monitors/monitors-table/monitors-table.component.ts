@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MonitorsTableComponent implements OnInit, OnDestroy {
   @Input() data: ListResponse<Customer>;
   @Input() showPagination = true;
-  @Input() params: QueryParams = { limit: 30, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' };
+  @Input() params: QueryParams = { limit: 30, offset: 0, sort_column: SortColumn.SendingDate, sort_order: 'desc' };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols.map(column => {
     return column

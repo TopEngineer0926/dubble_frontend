@@ -12,7 +12,8 @@ export interface QueryParams {
 
 export enum SortColumn {
   CreatedAt = 'createdAt',
-  Order = 'order'
+  Order = 'order',
+  SendingDate = 'sendingDate'
 }
 
 export enum ModelNames {
