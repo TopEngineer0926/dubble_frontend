@@ -317,7 +317,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
             this.isLoading = false;
             const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
             this.snackBarService.success(message);
-            this.saveMailSms(type, this.getCurrentDate(), jobId, jobGroup);
+            this.saveMailSms(type, dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00", jobId, jobGroup);
         },
         error => {
             this.isLoading = false;
