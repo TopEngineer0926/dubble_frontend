@@ -16,6 +16,7 @@ import { Monitor } from 'src/app/interfaces/monitor';
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-monitors-table',
@@ -45,6 +46,7 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
     protected httpClient: HttpClient,
+    private translateService: TranslateService,
     private snackBarService: SnackBarService,
     public dialog: MatDialog) {
   }
@@ -99,7 +101,8 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
           var delteJobUrl = environment.apiUrl + 'schedule/deleteJob';
           this.httpClient.post(delteJobUrl, data)
           .subscribe(({isSuccess, message}: any) => {
-              this.snackBarService.success(message);
+              var msg = this.translateService.instant('MONITOR.DELETE_SUCCESS_MSG')
+              this.snackBarService.success(msg);
           },
           error => {
               this.snackBarService.error(error.error?.message || error.message)

@@ -94,8 +94,8 @@
     "Review": "Abschnittsüberschrift (z.B.: Feedback unserer Kunden)",
     "SectionName": "Überschrift",
     "Link": "Verlinkung (z.B.: Youtube,...)",
-    "Date": "Date",
-    "Hour": "Hour",
+    "Date": "Datum",
+    "Hour": "Stunde",
     "ButtonText": "Button Text",
     "AddReview": "Infobereich 1 (z.B. Feedback unserer Kunden, etc.)",
     "PressInformation": "Abschnittsüberschrift (z.B.: Zusätzliche Informationen)",
@@ -119,8 +119,8 @@
     "Updated": "Informationsseite wurde aktualisiert",
     "smsWasSent": "SMS wurde gesendet",
     "emailWasSent": "E-Mail wurde gesendet",
-    "smsWasSentWithDelay": "SMS wurde gesendet geplant",
-    "emailWasSentWithDelay": "E-Mail wurde gesendet geplant",
+    "smsWasSentWithDelay": "SMS wurde erfolgreich geplant",
+    "emailWasSentWithDelay": "E-Mail wurde erfolgreich geplant",
     "TeaserImageMissing": "Bitte laden Sie ein Startbild hoch.",
     "CreationDate": "Erstellungsdatum",
     "LogoPosition": "Logo position",
@@ -170,6 +170,7 @@
     "SENDING_DATE_TIME"      : "Datum / Zeitpunkt",
     "STATUS"                 : "Status",
     "INTERNAL_PAGE_TITLE"    : "Interner Titel",
-    "CUSTOMER"               : "Kunden/Interessent"
+    "CUSTOMER"               : "Kunden/Interessent",
+    "DELETE_SUCCESS_MSG"     : "Erfolgreich gelöscht!"
   }
 }

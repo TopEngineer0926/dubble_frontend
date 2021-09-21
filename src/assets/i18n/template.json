@@ -134,6 +134,7 @@
     "CONTACT"                : "Choose Contact",
     "SENDING_DATE_TIME"      : "Sending date and time",
     "STATUS"                 : "Status",
-    "INTERNAL_PAGE_TITLE"    : "Internal Page Title"
+    "INTERNAL_PAGE_TITLE"    : "Internal Page Title",
+    "DELETE_SUCCESS_MSG"     : "Deleted Successfully!"
   }
 }
