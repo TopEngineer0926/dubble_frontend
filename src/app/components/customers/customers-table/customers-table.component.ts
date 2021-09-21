@@ -43,7 +43,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getCustomers(this.params? this.params : {limit: 0, offset: 0});
+    this.getCustomers(this.params? this.params : {limit: 10, offset: 0});
     this.searchControl.valueChanges.pipe(
       startWith(''),
       filter(() => this.showFilter)

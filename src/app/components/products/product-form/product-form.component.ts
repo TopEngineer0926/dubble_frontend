@@ -30,7 +30,7 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
   @Output() submitEvent: EventEmitter<Product> = new EventEmitter<Product>();
   customersList: ListResponse<Customer>;
   contactsList: ListResponse<Contact>;
-  params: QueryParams = { limit: 0, offset: 0 };
+  params: QueryParams = { limit: 10, offset: 0 };
   contact = new FormControl('', Validators.required);
   customer = new FormControl();
   quillModules: QuillModules = {
