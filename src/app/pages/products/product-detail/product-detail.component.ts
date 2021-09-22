@@ -367,7 +367,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         sender: this.currentProduct.product.contact.firstname + " " + this.currentProduct.product.contact.lastname,
         receiver: this.currentProduct.product.customer.firstname + " " + this.currentProduct.product.customer.lastname,
         email: this.currentProduct.product.customer.email,
-        phone: this.currentProduct.product.customer.phone_number,
+        phone: this.currentProduct.product.customer.phone_number ? this.currentProduct.product.customer.phone_number : "",
         sendingDate: date,
         sentStatus: type.toUpperCase(),
         jobId: scheduleJobId,
