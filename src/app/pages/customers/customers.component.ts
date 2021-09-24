@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SnackBarService } from '../../services/core/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../../../app/services/core/local-storage.service';
 
 @Component({
   selector: 'app-customers',
@@ -15,7 +16,8 @@ export class CustomersComponent implements OnInit {
   constructor(
     protected httpClient: HttpClient,
     private snackBarService: SnackBarService,
-    private translateService: TranslateService) { }
+    private translateService: TranslateService,
+    private localStorageService: LocalStorageService) { }
 
   @ViewChild('fileUpload') myInputVariable: ElementRef;
   protected url = environment.apiUrl + 'customer/excel';
@@ -24,7 +26,15 @@ export class CustomersComponent implements OnInit {
   fileName = '';
   update = false;
 
+  public selectedCategory: string = "";
+  public categoryList: Array<string> = [];
+
   ngOnInit(): void {
+    const data = this.localStorageService.get('category-list');
+    data.map((d) => {
+      this.categoryList.push(d.name);
+  })
+
   }
 
   downloadExampleXLS() : void {
