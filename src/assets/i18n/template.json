@@ -117,7 +117,8 @@
     "EmailUpdatedWarning": "Email was updated. Please check your email",
     "UserUpdated": "User settings was updated",
     "PasswordChanged": "Password was changed",
-    "MissingRequiredFields": "Please, check that company logo was uploaded & main and secondary colors were selected"
+    "MissingRequiredFields": "Please, check that company logo was uploaded & main and secondary colors were selected",
+    "Category": "Category"
   },
   "DELETE_CONFIRM_DIALOG": {
     "QUIZ": "Would you like to delete the entry?",
@@ -136,5 +137,13 @@
     "STATUS"                 : "Status",
     "INTERNAL_PAGE_TITLE"    : "Internal Page Title",
     "DELETE_SUCCESS_MSG"     : "Deleted Successfully!"
+  },
+  "CATEGORY": {
+    "CategoryTitle"        : "Category",
+    "CreatCategory"        : "Create",
+    "ResetCategory"        : "Reset",
+    "CreatedSuccess"       : "Successfully created!",
+    "CreatedFail"          : "Failed creating the categories.",
+    "Error"                : "The category is already in your category list."
   }
 }

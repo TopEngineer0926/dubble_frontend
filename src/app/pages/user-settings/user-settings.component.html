@@ -1,40 +1,51 @@
 <mat-tab-group>
-  <mat-tab [label]="'SETTINGS.Settings' | translate">
-    <mat-card>
-      <app-upload-logo
-        [userId]="user?.itemid"
-        [logo]="logo"
-      ></app-upload-logo>
-      <mat-card-content class="outer-card">
-        <app-user-settings-form
-          [user]="user"
-          (submitEvent)="saveSettings($event)"
-        >
-          <mat-card class="inner-card">
-            <mat-card-header>
-              <mat-card-title>{{ 'SETTINGS.ChangePassword' | translate }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-change-password-form
-                (changePwdEvent)="changeUserPwd($event)"
-              ></app-change-password-form>
+    <mat-tab [label]="'SETTINGS.Settings' | translate">
+        <mat-card>
+            <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+            <mat-card-content class="outer-card">
+                <app-user-settings-form [user]="user" (submitEvent)="saveSettings($event)">
+                    <mat-card class="inner-card">
+                        <mat-card-header>
+                            <mat-card-title>{{ 'SETTINGS.ChangePassword' | translate }}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <app-change-password-form (changePwdEvent)="changeUserPwd($event)">
+                            </app-change-password-form>
+                        </mat-card-content>
+                    </mat-card>
+                </app-user-settings-form>
+                <mat-card class="add-category-card">
+                    <mat-card-header>
+                        <mat-card-title>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field class="category-list" appearance="outline">
+                            <mat-label>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-label>
+                            <mat-chip-list #chipList aria-label="Category selection">
+                                <mat-chip *ngFor="let category of categoryList" [selectable]="selectable"
+                                    [removable]="removable" (removed)="remove(category)">
+                                    {{category.name}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                        <button mat-stroked-button color="primary" (click)="updateCategory()" [disabled]="categoryList.length == 0">{{
+                            'CATEGORY.CreatCategory' | translate }}</button>
+                        <button mat-stroked-button color="primary" (click)="resetCategory()" style="margin-left: 10px;">{{
+                                'CATEGORY.ResetCategory' | translate }}</button>
+                    </mat-card-content>
+                </mat-card>
             </mat-card-content>
-          </mat-card>
-        </app-user-settings-form>
-      </mat-card-content>
-    </mat-card>
-  </mat-tab>
-  <mat-tab [label]="'CONTACT.Contacts' | translate">
-    <mat-card class="w-100">
-      <button mat-stroked-button
-              color="primary"
-              [routerLink]="['/', appRouteNames.CONTACTS, appRouteNames.NEW]">{{ 'DASHBOARD.AddNewContact' | translate }}</button>
-      <app-contacts-table
-      ></app-contacts-table>
-    </mat-card>
-  </mat-tab>
+        </mat-card>
+    </mat-tab>
+    <mat-tab [label]="'CONTACT.Contacts' | translate">
+        <mat-card class="w-100">
+            <button mat-stroked-button color="primary"
+                [routerLink]="['/', appRouteNames.CONTACTS, appRouteNames.NEW]">{{
+                'DASHBOARD.AddNewContact' | translate }}</button>
+            <app-contacts-table></app-contacts-table>
+        </mat-card>
+    </mat-tab>
 </mat-tab-group>
-
-
-
-

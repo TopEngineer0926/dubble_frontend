@@ -145,7 +145,8 @@
     "EmailUpdatedWarning": "Ihre E-Mail Addresse wurde aktualisiert. Bitte E-Mail Postfach prüfen.",
     "UserUpdated": "Unternehmenseinstellungen wurden aktualisiert",
     "PasswordChanged": "Passwort wurde aktualisiert",
-    "MissingRequiredFields": "Bitte ergänzen Sie ein Unternehmens-Logo und die beiden Farben."
+    "MissingRequiredFields": "Bitte ergänzen Sie ein Unternehmens-Logo und die beiden Farben.",
+    "Category": "Kunden Kategorie"
   },
   "MESSAGES": {
     "BrowserNotSupported": "Ihr Browser wird aktuell nicht unterstützt. Bitte nutzen Sie einen anderen Browser (z.B.: Google Chrome,\n      Firefox, Safari)"
@@ -172,5 +173,13 @@
     "INTERNAL_PAGE_TITLE"    : "Interner Titel",
     "CUSTOMER"               : "Kunden/Interessent",
     "DELETE_SUCCESS_MSG"     : "Erfolgreich gelöscht!"
+  },
+  "CATEGORY": {
+    "CategoryTitle"        : "Kunden Kategorie",
+    "CreatCategory"        : "Create",
+    "ResetCategory"        : "Reset",
+    "CreatedSuccess"       : "Successfully created!",
+    "CreatedFail"          : "Failed creating the categories.",
+    "Error"                : "The category is already in your category list."
   }
 }
