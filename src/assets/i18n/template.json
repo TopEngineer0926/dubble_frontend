@@ -141,6 +141,8 @@
   "CATEGORY": {
     "CategoryTitle"        : "Category",
     "CreatCategory"        : "Create",
+    "SaveCategory"         : "Save",
+    "NewCategoryFail"      : "Please create new customer",
     "ResetCategory"        : "Reset",
     "CreatedSuccess"       : "Successfully created!",
     "CreatedFail"          : "Failed creating the categories.",
