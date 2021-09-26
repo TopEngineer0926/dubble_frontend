@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../material.module';
 import { NewCustomerComponent } from '../../../pages/customers/new-customer/new-customer.component';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
         FormsModule,
         MaterialModule,
         ReactiveFormsModule,
+        NgSelectModule,
         TranslateModule
     ]
 })

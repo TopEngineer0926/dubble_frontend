@@ -11,3 +11,15 @@
   </mat-card-content>
 </mat-card>
 
+<mat-card class="add-category-card">
+  <mat-card-header>
+    <mat-card-title>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-select [multiple]="true" [(ngModel)]="selectedCategory">
+      <ng-option *ngFor="let category of categoryList" [value]="category.name">{{category.name}}</ng-option>
+    </ng-select>
+    <button mat-stroked-button color="primary" (click)="saveCategory()" style="margin-top: 10px;">{{
+      'CATEGORY.SaveCategory' | translate }}</button>
+  </mat-card-content>
+</mat-card>
