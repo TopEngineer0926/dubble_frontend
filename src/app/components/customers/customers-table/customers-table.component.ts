@@ -15,8 +15,12 @@ import { QueryParams } from '../../../interfaces/base/base-object';
 import { appRouteNames } from 'src/app/constants/app-route-names';
 import { TableAction } from '../../../constants/table-actions.enum';
 import { FormControl } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../deleteConfirm/delete-confirm-dialog.component';
+import { LocalStorageService } from '../../../services/core/local-storage.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+import { SnackBarService } from '../../../services/core/snackbar.service';
 
 @Component({
   selector: 'app-customers-table',
@@ -39,11 +43,19 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   private currentPageNum = 0;
   private subscription = new Subscription();
 
-  constructor(private store: Store, public dialog: MatDialog) {
+  public selectedCategory: string = "";
+  public categoryList: Array<string> = [];
+  protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
+
+  constructor(private store: Store, 
+    public dialog: MatDialog,
+    protected httpClient: HttpClient,
+    private snackBarService: SnackBarService,
+    private localStorageService: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    this.getCustomers(this.params? this.params : {limit: 10, offset: 0});
+    this.getCustomers(this.params ? this.params : { limit: 10, offset: 0 });
     this.searchControl.valueChanges.pipe(
       startWith(''),
       filter(() => this.showFilter)
@@ -61,6 +73,11 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
           };
         }
       });
+
+    const category_data = this.localStorageService.get('category-list');
+    category_data.map((d) => {
+      this.categoryList.push(d.name);
+    })
   }
 
   ngOnChanges(): void {
@@ -82,7 +99,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
 
   onPageUpdate(event): void {
     this.currentPageNum = event.pageIndex;
-    this.getCustomers(this.params? this.params : { limit: 10, offset: event.pageIndex * 10 });
+    this.getCustomers(this.params ? this.params : { limit: 10, offset: event.pageIndex * 10 });
   }
 
   getCustomers(query: QueryParams): void {
@@ -103,9 +120,34 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new DeleteCustomerById(customerId)).subscribe(
-          () => this.getCustomers(this.params? this.params : {limit: 10, offset: this.currentPageNum * 10}));
+          () => this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 }));
       }
     });
   }
 
+
+  handleChangeCategory(value: string): void {
+    if (!value) {
+      this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+    } else {
+      this.getCustomersByFilter(value);
+    }
+  }
+
+  getCustomersByFilter(filter) {
+    this.httpClient.get<ListResponse<Customer>>(this.categoryUrl, {
+      params: {
+        limit: "10",
+        offset: "0",
+        filter: filter
+      },
+    })
+    .subscribe((contacts) => {
+      this.dataSource = contacts;
+      this.filteredDataSource = contacts;
+    },
+    error => {
+      this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
 }

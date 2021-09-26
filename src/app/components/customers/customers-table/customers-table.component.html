@@ -1,16 +1,18 @@
-<mat-form-field *ngIf="showFilter"
-                color="primary"
-                appearance="outline">
-  <mat-label>{{ 'COMMON.Search' | translate }}</mat-label>
-  <input matInput
-         autocomplete="off"
-         [formControl]="searchControl">
-</mat-form-field>
-<app-table
-  *ngIf="dataSource"
-  [tableCols]="cols"
-  [data]="filteredDataSource"
-  [showPagination]=showPagination
-  (action)="onActionHandler($event)"
-  (updatePage)="onPageUpdate($event)"
-></app-table>
+<div class="select-pos">
+  <mat-form-field *ngIf="showFilter" style="width: 45%;" color="primary" appearance="outline">
+    <mat-label>{{ 'COMMON.Search' | translate }}</mat-label>
+    <input matInput autocomplete="off" [formControl]="searchControl">
+  </mat-form-field>
+  <mat-form-field color="primary" style="width: 45%;" appearance="outline">
+    <mat-label>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="handleChangeCategory($event.value)">
+      <mat-option [value]=""></mat-option>
+      <mat-option *ngFor="let category of categoryList" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<app-table *ngIf="dataSource" [tableCols]="cols" [data]="filteredDataSource" [showPagination]=showPagination
+  (action)="onActionHandler($event)" (updatePage)="onPageUpdate($event)"></app-table>
