@@ -6,6 +6,7 @@ import { MaterialModule} from '../../material.module';
 import { CustomerDetailRoutingModule} from './customer-detail-routing.module';
 import { CustomerDetailComponent } from '../../../pages/customers/customer-detail/customer-detail.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
         FormsModule,
         MaterialModule,
         ReactiveFormsModule,
+        NgSelectModule,
         TranslateModule
     ]
 })
