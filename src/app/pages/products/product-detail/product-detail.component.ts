@@ -21,6 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UpdateCustomer } from '../../../../store/customers/customers.actions';
 import { ProductFormComponent } from '../../../components/products/product-form/product-form.component';
 import { HttpClient } from '@angular/common/http';
+import { Customer } from '../../../interfaces/customer';
 
 @Component({
   selector: 'app-product-detail',
@@ -48,6 +49,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   private subscription = new Subscription();
   private hasImage: boolean;
+
+  public selectedCategory: string = "";
+  public categoryList: Array<string> = [];
+  protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
+
+  customerListByCategory: ListResponse<Customer>;
 
   get isPublished(): boolean {
     return this.currentProduct?.product?.publication_status === PublicationStatus.published;
@@ -349,6 +356,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         if (this.uploadedImage) {
           this.hasImage = true;
         }
+
+        const category_data = product.product.customer.category.split("|");
+        category_data.map((d) => {
+          this.categoryList.push(d);
+        })
       }));
   }
 
@@ -411,5 +423,53 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     var timeToString = [hours, minutes, seconds].join(':');
 
     return dateToString + "T" + timeToString;
+  }
+
+  handleChangeCategory(value: string): void {
+    if (value) {
+      this.getCustomersByFilter(value);
+    } else {
+      this.customerListByCategory = null;
+    }
+  }
+  
+  getCustomersByFilter(filter) {
+    this.httpClient.get<ListResponse<Customer>>(this.categoryUrl, {
+      params: {
+        limit: "0",
+        offset: "0",
+        filter: filter
+      },
+    })
+    .subscribe((contacts) => {
+      this.customerListByCategory = contacts;
+    },
+    error => {
+      this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
+
+  sendWithDelay() {
+    if (this.customerListByCategory) {
+      this.customerListByCategory.list.map((customer) => {
+        if (customer.phone_number) {
+          this.sendProductLinkBy('sms');
+        } else if (customer.email) {
+          this.sendProductLinkBy('email');
+        }
+      })
+    }
+  }
+
+  sendWithImmediately() {
+    if (this.customerListByCategory) {
+      this.customerListByCategory.list.map((customer) => {
+        if (customer.phone_number) {
+          this.sendProductLinkByWithDelay('sms');
+        } else if (customer.email) {
+          this.sendProductLinkByWithDelay('email');
+        }
+      })
+    }
   }
 }

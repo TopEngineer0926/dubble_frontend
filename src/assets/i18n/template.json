@@ -99,6 +99,8 @@
     "SendAsTextMessageWithDelay": "Send as text with delay",
     "SendAsEmail": "Send as email",
     "SendAsEmailWithDelay": "Send as email with delay",
+    "SendWithDelay": "Send with delay",
+    "sendWithImmediately": "Send with immediately",
     "Created": "Product was created",
     "Updated": "Product was updated",
     "smsWasSent": "sms was sent successfully",

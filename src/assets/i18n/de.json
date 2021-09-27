@@ -115,6 +115,8 @@
     "SendAsTextMessageWithDelay": "Als SMS zeitverzögert senden",
     "SendAsEmail": "Als E-Mail versenden",
     "SendAsEmailWithDelay": "Als E-Mail zeitverzögert senden",
+    "SendWithDelay": "Mit Verspätung senden",
+    "sendWithImmediately": "Sofort mit senden",
     "Created": "Informationsseite wurde erstellt",
     "Updated": "Informationsseite wurde aktualisiert",
     "smsWasSent": "SMS wurde gesendet",

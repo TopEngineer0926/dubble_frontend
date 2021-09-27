@@ -1,121 +1,114 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>{{'PRODUCT.ProductDetail' | translate}}</mat-card-title>
-  </mat-card-header>
+<div style="display: flex;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{'PRODUCT.ProductDetail' | translate}}</mat-card-title>
+    </mat-card-header>
 
-  <mat-card-content class="outer-card"
-                    *ngIf="currentProduct">
-    <app-product-form
-      [isLoading]="isLoading"
-      [product]="currentProduct?.product"
-      (submitEvent)="editProduct($event)">
-      <app-upload-image imageUpload
-                        [img]="uploadedImage"
-                        [uploadLabel]="'PRODUCT.ImageUpload' | translate"
-                        (uploadedImg)="uploadImage($event)">
-      </app-upload-image>
-      <div pdfUpload>
-        <app-upload-pdf [pdf]="uploadedPdf[0]"
-                        (uploadedPdf)="uploadPdf($event, 0)">
-        </app-upload-pdf>
-        <app-upload-pdf [pdf]="uploadedPdf[1]"
-                        (uploadedPdf)="uploadPdf($event, 1)">
-        </app-upload-pdf>
-        <app-upload-pdf [pdf]="uploadedPdf[2]"
-                        (uploadedPdf)="uploadPdf($event, 2)">
-        </app-upload-pdf>
-      </div>
-      <div videoUpload>
-        <app-upload-video [video]="uploadedVideo[0]"
-                          [isLoading]="isLoading"
-                          (uploadedVideo)="uploadVideo($event, 0)">
-        </app-upload-video>
-        <app-upload-video [video]="uploadedVideo[1]"
-                          [isLoading]="isLoading"
-                          (uploadedVideo)="uploadVideo($event, 1)">
-        </app-upload-video>
-        <app-upload-video [video]="uploadedVideo[2]"
-                          [isLoading]="isLoading"
-                          (uploadedVideo)="uploadVideo($event, 2)">
-        </app-upload-video>
-      </div>
-      <div productUrl>
-        <ng-container *ngIf="isPublished">
-          {{ 'PRODUCT.LinkToCopy' | translate }}
-          <strong class="product-page-link">{{ productPageLink }}</strong>
-        </ng-container>
-      </div>
-      <div productAdditionalButtons>
-        <ng-container *ngIf="isPublished">
-          <div class="product-action-buttons">
-            <button mat-stroked-button
-                    color="primary"
-                    (click)="openInNewTab(productPageLink)"
-                    type="button">
-              {{'PRODUCT.Preview' | translate}}
-            </button>
+    <mat-card-content class="outer-card" *ngIf="currentProduct">
+      <app-product-form [isLoading]="isLoading" [product]="currentProduct?.product" (submitEvent)="editProduct($event)">
+        <app-upload-image imageUpload [img]="uploadedImage" [uploadLabel]="'PRODUCT.ImageUpload' | translate"
+          (uploadedImg)="uploadImage($event)">
+        </app-upload-image>
+        <div pdfUpload>
+          <app-upload-pdf [pdf]="uploadedPdf[0]" (uploadedPdf)="uploadPdf($event, 0)">
+          </app-upload-pdf>
+          <app-upload-pdf [pdf]="uploadedPdf[1]" (uploadedPdf)="uploadPdf($event, 1)">
+          </app-upload-pdf>
+          <app-upload-pdf [pdf]="uploadedPdf[2]" (uploadedPdf)="uploadPdf($event, 2)">
+          </app-upload-pdf>
+        </div>
+        <div videoUpload>
+          <app-upload-video [video]="uploadedVideo[0]" [isLoading]="isLoading" (uploadedVideo)="uploadVideo($event, 0)">
+          </app-upload-video>
+          <app-upload-video [video]="uploadedVideo[1]" [isLoading]="isLoading" (uploadedVideo)="uploadVideo($event, 1)">
+          </app-upload-video>
+          <app-upload-video [video]="uploadedVideo[2]" [isLoading]="isLoading" (uploadedVideo)="uploadVideo($event, 2)">
+          </app-upload-video>
+        </div>
+        <div productUrl>
+          <ng-container *ngIf="isPublished">
+            {{ 'PRODUCT.LinkToCopy' | translate }}
+            <strong class="product-page-link">{{ productPageLink }}</strong>
+          </ng-container>
+        </div>
+        <div productAdditionalButtons>
+          <ng-container *ngIf="isPublished">
+            <div class="product-action-buttons">
+              <button mat-stroked-button color="primary" (click)="openInNewTab(productPageLink)" type="button">
+                {{'PRODUCT.Preview' | translate}}
+              </button>
 
-            <button mat-stroked-button
-                    *ngIf="currentProduct.product.customer?.phone_number"
-                    color="primary"
-                    (click)="sendProductLinkBy('sms')"
-                    type="button">
-              {{'PRODUCT.SendAsTextMessage' | translate}}
-            </button>
+              <button mat-stroked-button *ngIf="currentProduct.product.customer?.phone_number" color="primary"
+                (click)="sendProductLinkBy('sms')" type="button">
+                {{'PRODUCT.SendAsTextMessage' | translate}}
+              </button>
 
-            <button mat-stroked-button
-                    *ngIf="currentProduct.product.customer?.email"
-                    color="primary"
-                    (click)="sendProductLinkBy('email')"
-                    type="button">
-              {{'PRODUCT.SendAsEmail' | translate}}
-            </button>
+              <button mat-stroked-button *ngIf="currentProduct.product.customer?.email" color="primary"
+                (click)="sendProductLinkBy('email')" type="button">
+                {{'PRODUCT.SendAsEmail' | translate}}
+              </button>
 
-            <div style="justify-content: space-between; display: flex;">
+              <div style="justify-content: space-between; display: flex;">
                 <mat-form-field color="primary" style="width: 45%;" appearance="outline">
-                    <mat-label>{{ 'PRODUCT.Date' | translate }}</mat-label>
-                    <input matInput 
-                        [matDatepicker]="picker1" 
-                        [(ngModel)]="date"
-                        (dateChange)="handleChangeDate()"
-                        disabled
-                        style="color: rgba(0, 0, 0, 0.87);"
-                    >
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                  <mat-label>{{ 'PRODUCT.Date' | translate }}</mat-label>
+                  <input matInput [matDatepicker]="picker1" [(ngModel)]="date" (dateChange)="handleChangeDate()"
+                    disabled style="color: rgba(0, 0, 0, 0.87);">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field color="primary" style="width: 45%;"  appearance="outline">
-                    <mat-label>{{ 'PRODUCT.Hour' | translate }}</mat-label>
-                    <mat-select  [(value)]="selectedHour">
-                        <mat-option *ngFor="let hour of hourList" [value]="hour">
-                            {{hour}}
-                        </mat-option>
-                    </mat-select>
+                <mat-form-field color="primary" style="width: 45%;" appearance="outline">
+                  <mat-label>{{ 'PRODUCT.Hour' | translate }}</mat-label>
+                  <mat-select [(value)]="selectedHour">
+                    <mat-option *ngFor="let hour of hourList" [value]="hour">
+                      {{hour}}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
+              </div>
+
+              <button mat-stroked-button
+                *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.phone_number"
+                color="primary" (click)="sendProductLinkByWithDelay('sms')"
+                [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
+                {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
+              </button>
+
+              <button mat-stroked-button
+                *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.email"
+                color="primary" (click)="sendProductLinkByWithDelay('email')"
+                [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
+                {{'PRODUCT.SendAsEmailWithDelay' | translate}}
+              </button>
             </div>
+          </ng-container>
+        </div>
 
-            <button mat-stroked-button
-                    *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.phone_number"
-                    color="primary"
-                    (click)="sendProductLinkByWithDelay('sms')"
-                    [disabled]="date.length == 0 || selectedHour.length == 0"
-                    type="button">
-              {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
-            </button>
+      </app-product-form>
+    </mat-card-content>
+  </mat-card>
 
-            <button mat-stroked-button
-                    *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.email"
-                    color="primary"
-                    (click)="sendProductLinkByWithDelay('email')"
-                    [disabled]="date.length == 0 || selectedHour.length == 0"
-                    type="button">
-              {{'PRODUCT.SendAsEmailWithDelay' | translate}}
-            </button>
-          </div>
-        </ng-container>
-      </div>
+  <mat-card class="category-form">
 
-    </app-product-form>
-  </mat-card-content>
-</mat-card>
+    <mat-form-field color="primary" style="width: 100%;" appearance="outline">
+      <mat-label>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-label>
+      <mat-select [(value)]="selectedCategory" (selectionChange)="handleChangeCategory($event.value)">
+        <mat-option [value]=""></mat-option>
+        <mat-option *ngFor="let category of categoryList" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
+    <button mat-stroked-button
+      [disabled]="!selectedCategory || categoryList.length == 0 || date.length == 0 || selectedHour.length == 0 || (!currentProduct.product.customer?.phone_number && !currentProduct.product.customer?.email)"
+      color="primary" (click)="sendWithDelay()" type="button" style="width: 100%;">
+      {{ 'PRODUCT.SendWithDelay' | translate }}
+    </button>
+
+    <button mat-stroked-button
+      [disabled]="!selectedCategory || categoryList.length == 0 || (!currentProduct.product.customer?.phone_number && !currentProduct.product.customer?.email)"
+      color="primary" (click)="sendWithImmediately()" type="button" style="width: 100%; margin-top: 25px;">
+      {{ 'PRODUCT.sendWithImmediately' | translate }}
+    </button>
+  </mat-card>
+</div>
