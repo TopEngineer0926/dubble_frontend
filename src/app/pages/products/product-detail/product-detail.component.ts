@@ -22,6 +22,7 @@ import { UpdateCustomer } from '../../../../store/customers/customers.actions';
 import { ProductFormComponent } from '../../../components/products/product-form/product-form.component';
 import { HttpClient } from '@angular/common/http';
 import { Customer } from '../../../interfaces/customer';
+import { LocalStorageService } from '../../../services/core/local-storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -64,13 +65,19 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
               private route: ActivatedRoute,
               protected httpClient: HttpClient,
               private snackBarService: SnackBarService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private localStorageService: LocalStorageService) {
     for (var i = 0; i < 24; i++)
         this.hourList.push(i.toString());
   }
 
   ngOnInit(): void {
     this.getProductData();
+
+    const category_data = this.localStorageService.get('category-list');
+    category_data.map((d) => {
+      this.categoryList.push(d.name);
+    })
   }
 
   ngOnDestroy(): void {
@@ -356,11 +363,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         if (this.uploadedImage) {
           this.hasImage = true;
         }
-
-        const category_data = product.product.customer.category.split("|");
-        category_data.map((d) => {
-          this.categoryList.push(d);
-        })
       }));
   }
 
@@ -453,9 +455,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkBy('sms');
+          this.sendProductLinkByWithDelay('sms');
         } else if (customer.email) {
-          this.sendProductLinkBy('email');
+          this.sendProductLinkByWithDelay('email');
         }
       })
     }
@@ -465,9 +467,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkByWithDelay('sms');
+          this.sendProductLinkBy('sms');
         } else if (customer.email) {
-          this.sendProductLinkByWithDelay('email');
+          this.sendProductLinkBy('email');
         }
       })
     }
