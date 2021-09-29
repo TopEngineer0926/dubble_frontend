@@ -55,6 +55,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   public categoryList: Array<string> = [];
   protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
 
+  cntRecipients: number = 0;
+
   customerListByCategory: ListResponse<Customer>;
 
   get isPublished(): boolean {
@@ -274,14 +276,21 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
           }));
   }
 
-  sendProductLinkBy(type: 'sms' | 'email') {
+  sendProductLinkBy(sendFormat: 'customer' | 'category', type: 'sms' | 'email') {
     this.isLoading = true;
     this.subscription.add(
       this.store.dispatch(new SendProductLinkBy(this.currentProduct.product.itemid, type))
         .subscribe((data) => {
             this.isLoading = false;
-            const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
-            this.snackBarService.success(message);
+
+            if (sendFormat == 'customer') {
+              const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
+              this.snackBarService.success(message);
+            } else if (sendFormat == 'category') {
+              const message = this.translateService.instant('CATEGORY.ImmediatSuccessMsg');
+              this.snackBarService.success(message);
+            }
+
             this.getProductData();
             this.saveMailSms(type, this.getCurrentDate(), "", "");
           },
@@ -299,7 +308,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     }
   }
 
-  sendProductLinkByWithDelay(type: 'sms' | 'email') {
+  sendProductLinkByWithDelay(sendFormat: 'customer' | 'category', type: 'sms' | 'email') {
         this.isLoading = true;
         var mDate = new Date(this.date);
         var month = '' + (mDate.getMonth() + 1);
@@ -329,8 +338,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         this.httpClient.post(`${apiUrl}`, body)
         .subscribe(({jobId, jobGroup}: any) => {
             this.isLoading = false;
-            const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
-            this.snackBarService.success(message);
+
+            if (sendFormat == 'customer') {
+              const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
+              this.snackBarService.success(message);
+            } else if (sendFormat == 'category') {
+              const message = this.translateService.instant('CATEGORY.DelaySuccessMsg');
+              this.snackBarService.success(message);
+            }
+
             this.saveMailSms(type, dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00", jobId, jobGroup);
         },
         error => {
@@ -432,6 +448,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
       this.getCustomersByFilter(value);
     } else {
       this.customerListByCategory = null;
+      this.cntRecipients = 0;
     }
   }
   
@@ -445,6 +462,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     })
     .subscribe((contacts) => {
       this.customerListByCategory = contacts;
+      this.cntRecipients = contacts.overallsize;
     },
     error => {
       this.snackBarService.error(error.error?.message || error.message)
@@ -455,9 +473,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkByWithDelay('sms');
+          this.sendProductLinkByWithDelay('category', 'sms');
         } else if (customer.email) {
-          this.sendProductLinkByWithDelay('email');
+          this.sendProductLinkByWithDelay('category', 'email');
         }
       })
     }
@@ -467,9 +485,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkBy('sms');
+          this.sendProductLinkBy('category', 'sms');
         } else if (customer.email) {
-          this.sendProductLinkBy('email');
+          this.sendProductLinkBy('category', 'email');
         }
       })
     }

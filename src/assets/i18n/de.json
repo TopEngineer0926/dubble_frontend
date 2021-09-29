@@ -178,12 +178,17 @@
   },
   "CATEGORY": {
     "CategoryTitle"        : "Kunden Kategorie",
-    "CreatCategory"        : "Create",
+    "CreatCategory"        : "Speichern",
     "SaveCategory"         : "Save",
     "NewCategoryFail"      : "Please create new customer",
-    "ResetCategory"        : "Reset",
+    "ResetCategory"        : "Leeren",
     "CreatedSuccess"       : "Successfully created!",
     "CreatedFail"          : "Failed creating the categories.",
-    "Error"                : "The category is already in your category list."
+    "Error"                : "The category is already in your category list.",
+    "DelaySuccessMsg"      : "Zeitverzögertes Senden an Kategorie gespeichert.",
+    "ImmediatSuccessMsg"   : "Nachricht wurde an Kategorie gesendet.",
+
+    "IntroForCountOfRecipient"   : "Ausgewählte Kategorie beinhaltet",
+    "Recipient"                  : "empfänger."
   }
 }

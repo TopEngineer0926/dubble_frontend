@@ -148,6 +148,11 @@
     "ResetCategory"        : "Reset",
     "CreatedSuccess"       : "Successfully created!",
     "CreatedFail"          : "Failed creating the categories.",
-    "Error"                : "The category is already in your category list."
+    "Error"                : "The category is already in your category list.",
+    "DelaySuccessMsg"      : "Delayed sending to category saved.",
+    "ImmediatSuccessMsg"   : "Message was sent to category.",
+
+    "IntroForCountOfRecipient"   : "Selected category includes",
+    "Recipient"                  : "recipient."
   }
 }

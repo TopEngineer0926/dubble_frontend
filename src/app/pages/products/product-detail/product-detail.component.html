@@ -38,12 +38,12 @@
             </button>
 
             <button mat-stroked-button *ngIf="currentProduct.product.customer?.phone_number" color="primary"
-              (click)="sendProductLinkBy('sms')" type="button">
+              (click)="sendProductLinkBy('customer', 'sms')" type="button">
               {{'PRODUCT.SendAsTextMessage' | translate}}
             </button>
 
             <button mat-stroked-button *ngIf="currentProduct.product.customer?.email" color="primary"
-              (click)="sendProductLinkBy('email')" type="button">
+              (click)="sendProductLinkBy('customer', 'email')" type="button">
               {{'PRODUCT.SendAsEmail' | translate}}
             </button>
 
@@ -67,14 +67,14 @@
 
             <button mat-stroked-button
               *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.phone_number"
-              color="primary" (click)="sendProductLinkByWithDelay('sms')"
+              color="primary" (click)="sendProductLinkByWithDelay('customer', 'sms')"
               [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
               {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
             </button>
 
             <button mat-stroked-button
               *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.email"
-              color="primary" (click)="sendProductLinkByWithDelay('email')"
+              color="primary" (click)="sendProductLinkByWithDelay('customer', 'email')"
               [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
               {{'PRODUCT.SendAsEmailWithDelay' | translate}}
             </button>
@@ -97,6 +97,9 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <p class="intro-recipient">
+    {{'CATEGORY.IntroForCountOfRecipient' | translate}} {{cntRecipients}} {{'CATEGORY.Recipient' | translate}}
+  </p>
 
   <button mat-stroked-button
     [disabled]="!selectedCategory || categoryList.length == 0 || date.length == 0 || selectedHour.length == 0 || (!currentProduct.product.customer?.phone_number && !currentProduct.product.customer?.email)"
