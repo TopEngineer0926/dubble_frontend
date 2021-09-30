@@ -1,3 +1,3 @@
 <h2>{{'PRODUCT.Products' | translate}}</h2>
 <button mat-stroked-button color="primary" routerLink="{{appRouteNames.NEW}}">{{ 'DASHBOARD.AddNewProduct' | translate }}</button>
-<app-products-table></app-products-table>
+<app-products-table [showPagination]="true" [showFilter]="true"></app-products-table>

@@ -1,8 +1,23 @@
-<app-table
-  *ngIf="dataSource"
-  [tableCols]="cols"
-  [data]="dataSource"
-  [showPagination] = showPagination
-  (action)="onActionHandler($event)"
-  (updatePage)="onPageUpdate($event)"
-></app-table>
+<div class="select-pos">
+  <mat-form-field *ngIf="showFilter" style="width: 30%;" color="primary" appearance="outline">
+    <mat-label>{{ 'CUSTOMER.Customers' | translate }}</mat-label>
+    <input matInput autocomplete="off" [formControl]="searchCustomerControl">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="showFilter" style="width: 30%;" color="primary" appearance="outline">
+    <mat-label>{{ 'CONTACT.Contacts' | translate }}</mat-label>
+    <input matInput autocomplete="off" [formControl]="searchContactControl">
+  </mat-form-field>
+
+  <mat-form-field color="primary" style="width: 30%;" appearance="outline">
+    <mat-label>{{ 'CATEGORY.TemplateTitle' | translate }}</mat-label>
+    <mat-select [(value)]="selectedTemplate" (selectionChange)="handleChangeTemplate($event.value)">
+      <mat-option [value]=""></mat-option>
+      <mat-option *ngFor="let template of templateList" [value]="template">
+        {{template}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<app-table *ngIf="dataSource" [tableCols]="cols" [data]="filteredDataSource" [showPagination]=showPagination
+  (action)="onActionHandler($event)" (updatePage)="onPageUpdate($event)"></app-table>

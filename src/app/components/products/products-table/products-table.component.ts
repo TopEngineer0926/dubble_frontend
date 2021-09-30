@@ -19,6 +19,10 @@ import { DeleteConfirmDialogComponent } from '../../deleteConfirm/delete-confirm
 import { environment } from '../../../../environments/environment';
 import { MediaType } from '../../../constants/media-type.enum';
 import { HttpClient } from '@angular/common/http';
+import { LocalStorageService } from '../../../services/core/local-storage.service';
+import { SnackBarService } from '../../../services/core/snackbar.service';
+import { FormControl } from '@angular/forms';
+import { filter, map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-products-table',
@@ -28,6 +32,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductsTableComponent implements OnInit, OnDestroy {
   @Input() data: ListResponse<Customer>;
   @Input() showPagination = true;
+  @Input() showFilter = false;
   @Input() params: QueryParams = { limit: 10, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols.map(column => {
@@ -44,6 +49,10 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   });
   readonly appRouteNames = appRouteNames;
   dataSource: ListResponse<Product>;
+  filteredDataSource: ListResponse<Product>;
+  searchCustomerControl = new FormControl('');
+  searchContactControl = new FormControl('');
+  
   private subscription = new Subscription();
 
   currentProduct: { product: Product, media: ListResponse<Media> };
@@ -55,14 +64,60 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   imageToUpload: File;
   protected url = environment.apiUrl + 'product/media/duplicate';
 
+  public selectedTemplate: string = "";
+  public templateList: Array<string> = [];
+  protected templateUrl = environment.apiUrl + 'product/product_by_filter';
+
   constructor(private store: Store,
     protected httpClient: HttpClient,
     private translateService: TranslateService,
+    private localStorageService: LocalStorageService,
+    private snackBarService: SnackBarService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.getProducts(this.params);
+    this.searchCustomerControl.valueChanges.pipe(
+      startWith(''),
+      filter(() => this.showFilter)
+    )
+    .subscribe((searchValue) => {
+      if (!searchValue) {
+        this.filteredDataSource = this.dataSource;
+      } else {
+        this.filteredDataSource = {
+          ...this.dataSource,
+          list: this.dataSource.list
+            .filter((item) => 
+              item.customer && (String(item.customer.firstname) + " " + String(item.customer.lastname)).toLowerCase().includes(searchValue.toLowerCase())
+            )
+        };
+      }
+    });
+
+    this.searchContactControl.valueChanges.pipe(
+      startWith(''),
+      filter(() => this.showFilter)
+    )
+    .subscribe((searchValue) => {
+      if (!searchValue) {
+        this.filteredDataSource = this.dataSource;
+      } else {
+        this.filteredDataSource = {
+          ...this.dataSource,
+          list: this.dataSource.list
+            .filter((item) => 
+              item.contact && (String(item.contact.firstname) + " " + String(item.contact.lastname)).toLowerCase().includes(searchValue.toLowerCase())
+            )
+        };
+      }
+    });
+
+    const template_data = this.localStorageService.get('template-list');
+    template_data.map((d) => {
+      this.templateList.push(d.name);
+    })
   }
 
   ngOnDestroy(): void {
@@ -92,6 +147,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
         switchMap(() => this.store.select(ProductsState.productsList)),
         tap((products) => {
           this.dataSource = products;
+          this.filteredDataSource = products;
         })).subscribe()
     );
   }
@@ -149,6 +205,31 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       if (result) {
         this.store.dispatch(new DeleteProductById(productId)).subscribe(() => this.getProducts(this.params));
       }
+    });
+  }
+
+  handleChangeTemplate(value: string): void {
+    if (!value) {
+      this.getProducts(this.params);
+    } else {
+      this.getProductsByFilter(value);
+    }
+  }
+
+  getProductsByFilter(filter) {
+    this.httpClient.get<ListResponse<Product>>(this.templateUrl, {
+      params: {
+        limit: "10",
+        offset: "0",
+        filter: filter
+      },
+    })
+    .subscribe((products) => {
+      this.dataSource = products;
+      this.filteredDataSource = products;
+    },
+    error => {
+      this.snackBarService.error(error.error?.message || error.message)
     });
   }
 }
