@@ -40,6 +40,13 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
     categoryList: Category[] = [];
     protected categoryUrl = environment.apiUrl + 'account/category';
 
+    selectableTemplate = true;
+    removableTemplate = true;
+    addOnBlurTemplate = true;
+    readonly separatorKeysCodesTemplate = [ENTER] as const;
+    templateList: Category[] = [];
+    protected templateUrl = environment.apiUrl + 'account/template';
+
     constructor(private store: Store,
         private accountService: AccountService,
         private snackBarService: SnackBarService,
@@ -53,6 +60,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         this.subscription.add(
             this.store.select<ListResponse<Media>>(UserState.media).subscribe(media => this.logo = media?.list[0]));
         this.getCategory();
+        this.getTemplate();
     }
 
     ngOnDestroy(): void {
@@ -171,6 +179,83 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
                 })
             }
             this.localStorageService.set('category-list', this.categoryList);
+        },
+        error => {
+            this.snackBarService.error(error.error?.message || error.message)
+        });
+    }
+
+    addTemplate(event: MatChipInputEvent): void {
+        const value = (event.value || '').trim();
+
+        // Add our category
+        if (value && this.templateList.findIndex(e => e.name == value) < 0) {
+            this.templateList.push({ name: value });
+        }
+
+        // Clear the input value
+        event.input.value = '';
+    }
+
+    removeTemplate(category: Category): void {
+        const index = this.templateList.indexOf(category);
+
+        if (index >= 0) {
+            this.templateList.splice(index, 1);
+        }
+    }
+
+    updateTemplate() {
+        if (this.templateList.length > 0) {
+            var data = [];
+            this.templateList.map(e => { data.push(e.name); })
+            var body = {
+                category: data.join("|")
+            }
+
+            this.httpClient.put(`${this.templateUrl}`, body)
+            .subscribe(() => {
+                this.getTemplate();
+                const message = this.translateService.instant("CATEGORY.CreatedSuccess");
+                this.snackBarService.success(message);
+            },
+            error => {
+                const message = this.translateService.instant("CATEGORY.CreatedFail");
+                this.snackBarService.success(message);
+            });
+        }
+    }
+
+    resetTemplate() {
+        if (this.templateList.length > 0) {
+            var body = {
+                category: ""
+            }
+
+            this.httpClient.put(`${this.templateUrl}`, body)
+            .subscribe(() => {
+                this.getTemplate();
+                const message = this.translateService.instant("CATEGORY.CreatedSuccess");
+                this.snackBarService.success(message);
+            },
+            error => {
+                const message = this.translateService.instant("CATEGORY.CreatedFail");
+                this.snackBarService.success(message);
+            });
+        }
+    }
+
+    getTemplate() {
+        this.httpClient.get<any>(this.templateUrl)
+        .subscribe((response) => {
+            this.templateList = [];
+            if (response.result) {
+                var data = response.result.split("|");
+                data.map((d) => {
+                    this.templateList.push({name: d});
+                })
+            }
+            this.localStorageService.set('template-list', this.templateList);
         },
         error => {
             this.snackBarService.error(error.error?.message || error.message)

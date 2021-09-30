@@ -177,7 +177,8 @@
     "DELETE_SUCCESS_MSG"     : "Erfolgreich gelöscht!"
   },
   "CATEGORY": {
-    "CategoryTitle"        : "Kunden Kategorie",
+    "CategoryTitle"        : "Kunden Kategorien",
+    "TemplateTitle"        : "Vorlagen Kategorien",
     "CreatCategory"        : "Speichern",
     "SaveCategory"         : "Save",
     "NewCategoryFail"      : "Please create new customer",

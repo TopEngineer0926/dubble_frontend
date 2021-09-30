@@ -30,13 +30,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   categoryList: Category[] = [];
   protected categoryUrl = environment.apiUrl + 'account/category';
 
+  templateList: Category[] = [];
+  protected templateUrl = environment.apiUrl + 'account/template';
+
   constructor(private accountService: AccountService,
-              private router: Router,
-              private store: Store,
-              private snackBarService: SnackBarService,
-              private translateService: TranslateService,
-              protected httpClient: HttpClient,
-              private localStorageService: LocalStorageService
+    private router: Router,
+    private store: Store,
+    private snackBarService: SnackBarService,
+    private translateService: TranslateService,
+    protected httpClient: HttpClient,
+    private localStorageService: LocalStorageService
   ) {
   }
 
@@ -52,13 +55,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             }));
         })
       ).subscribe(({ user, logo }) => {
-          this.getCategory();
-          if (logo && user?.main_color && user?.secondary_color) {
-            this.store.dispatch(new Navigate([`/`]));
-          } else {
-            this.store.dispatch(new Navigate([`/`, appRouteNames.USER_SETTINGS]));
-          }
-        },
+        this.getCategory();
+        this.getTemplate();
+        if (logo && user?.main_color && user?.secondary_color) {
+          this.store.dispatch(new Navigate([`/`]));
+        } else {
+          this.store.dispatch(new Navigate([`/`, appRouteNames.USER_SETTINGS]));
+        }
+      },
         error => {
           this.snackBarService.error(error.error?.message || error.message);
         }));
@@ -74,17 +78,34 @@ export class LoginComponent implements OnInit, OnDestroy {
   getCategory() {
     this.httpClient.get<any>(this.categoryUrl)
     .subscribe((response) => {
-        this.categoryList = [];
-        if (response.result) {
-            var data = response.result.split("|");
-            data.map((d) => {
-                this.categoryList.push({name: d});
-            })
-        }
-        this.localStorageService.set('category-list', this.categoryList);
+      this.categoryList = [];
+      if (response.result) {
+        var data = response.result.split("|");
+        data.map((d) => {
+          this.categoryList.push({ name: d });
+        })
+      }
+      this.localStorageService.set('category-list', this.categoryList);
     },
     error => {
-        this.snackBarService.error(error.error?.message || error.message)
+      this.snackBarService.error(error.error?.message || error.message)
     });
-}
+  }
+
+  getTemplate() {
+    this.httpClient.get<any>(this.templateUrl)
+    .subscribe((response) => {
+      this.templateList = [];
+      if (response.result) {
+        var data = response.result.split("|");
+        data.map((d) => {
+          this.templateList.push({ name: d });
+        })
+      }
+      this.localStorageService.set('template-list', this.templateList);
+    },
+    error => {
+      this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
 }

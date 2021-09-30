@@ -51,4 +51,29 @@
             </mat-card-content>
         </mat-card>
     </mat-tab>
+    <mat-tab [label]="'CATEGORY.TemplateTitle' | translate">
+        <mat-card class="add-category-card">
+            <mat-card-header>
+                <mat-card-title>{{ 'CATEGORY.TemplateTitle' | translate }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field class="category-list" appearance="outline">
+                    <mat-label>{{ 'CATEGORY.TemplateTitle' | translate }}</mat-label>
+                    <mat-chip-list #chipTempList aria-label="Category selection">
+                        <mat-chip *ngFor="let template of templateList" [selectable]="selectableTemplate"
+                            [removable]="removableTemplate" (removed)="removeTemplate(template)">
+                            {{template.name}}
+                            <mat-icon matChipRemove *ngIf="removableTemplate">cancel</mat-icon>
+                        </mat-chip>
+                        <input [matChipInputFor]="chipTempList" [matChipInputSeparatorKeyCodes]="separatorKeysCodesTemplate"
+                            [matChipInputAddOnBlur]="addOnBlurTemplate" (matChipInputTokenEnd)="addTemplate($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+                <button mat-stroked-button color="primary" (click)="updateTemplate()" [disabled]="templateList.length == 0">{{
+                    'CATEGORY.CreatCategory' | translate }}</button>
+                <button mat-stroked-button color="primary" (click)="resetTemplate()" style="margin-left: 10px;">{{
+                        'CATEGORY.ResetCategory' | translate }}</button>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
 </mat-tab-group>
