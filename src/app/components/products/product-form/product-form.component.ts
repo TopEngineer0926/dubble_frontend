@@ -173,6 +173,11 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       this.customer.patchValue(this.product.customer, { emitEvent: false });
       this.productForm.markAsPristine();
       this.productForm.markAsUntouched();
+
+      var data = this.product.template.split("|");
+      data.map((d) => {
+          this.selectedTemplate.push(d);
+      });
     }
   }
 
