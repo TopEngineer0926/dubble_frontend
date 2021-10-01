@@ -48,7 +48,6 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
   filteredOptions$: Observable<any[]>;
 
   templateList: Category[] = [];
-  protected templateUrl = environment.apiUrl + 'product/template';
   selectedTemplate = [];
 
   private subscription = new Subscription();

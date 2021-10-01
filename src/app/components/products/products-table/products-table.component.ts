@@ -83,6 +83,9 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       filter(() => this.showFilter)
     )
     .subscribe((searchValue) => {
+      this.searchContactControl.setValue('', {emitEvent: false});
+      this.selectedTemplate = "";
+
       if (!searchValue) {
         this.filteredDataSource = this.dataSource;
       } else {
@@ -101,6 +104,9 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       filter(() => this.showFilter)
     )
     .subscribe((searchValue) => {
+      this.searchCustomerControl.setValue('', {emitEvent: false});
+      this.selectedTemplate = "";
+
       if (!searchValue) {
         this.filteredDataSource = this.dataSource;
       } else {
@@ -209,6 +215,8 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   }
 
   handleChangeTemplate(value: string): void {
+    this.searchCustomerControl.setValue('', {emitEvent: false});
+    this.searchContactControl.setValue('', {emitEvent: false});
     if (!value) {
       this.getProducts(this.params);
     } else {
