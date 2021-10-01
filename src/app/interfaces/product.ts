@@ -18,6 +18,7 @@ export interface Product extends BaseObject {
   internal_page_title: string;
   video_section_headline: string;
   created_at: Date | string;
+  template: string;
 }
 
 export interface CustomSection extends BaseObject {

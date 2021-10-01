@@ -22,6 +22,7 @@ import { MatPaginatorLanguageService } from '../../components/shared/table/mat-p
 import { SafePipe } from '../../components/shared/pipes/safe.pipe';
 import { DeleteConfirmDialogComponent } from 'src/app/components/deleteConfirm/delete-confirm-dialog.component';
 import { MonitorsTableComponent } from '../../components/monitors/monitors-table/monitors-table.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const components = [
   BrowserNotSupportedComponent,
@@ -62,6 +63,7 @@ const services = [
     ReactiveFormsModule,
     FormsModule,
     QuillModule.forRoot(),
+    NgSelectModule,
     TranslateModule
   ]
 

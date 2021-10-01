@@ -80,6 +80,11 @@
            formControlName="internal_page_title">
   </mat-form-field>
 
+  
+  <ng-select formControlName="template" [multiple]="true" [(ngModel)]="selectedTemplate" style="margin-bottom: 1rem;" placeholder="{{'CATEGORY.TemplateTitle' | translate}}">
+    <ng-option *ngFor="let template of templateList" [value]="template.name">{{template.name}}</ng-option>
+  </ng-select>
+
   <mat-form-field appearance="fill">
     <mat-label>{{ 'PRODUCT.ChooseContact' | translate }} *</mat-label>
     <mat-select [formControl]="contact">

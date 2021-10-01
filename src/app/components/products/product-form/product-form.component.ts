@@ -16,6 +16,12 @@ import { QuillModules } from 'ngx-quill';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UnsavedChanges } from '../../../interfaces/base/unsaved-changes.class';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from '../../../../app/services/core/local-storage.service';
+import { environment } from '../../../../environments/environment';
+
+export interface Category {
+  name: string;
+}
 
 @Component({
   selector: 'app-product-form',
@@ -40,6 +46,10 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     ]
   };
   filteredOptions$: Observable<any[]>;
+
+  templateList: Category[] = [];
+  protected templateUrl = environment.apiUrl + 'product/template';
+  selectedTemplate = [];
 
   private subscription = new Subscription();
 
@@ -68,6 +78,7 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     private formBuilder: FormBuilder,
     private store: Store,
     private snackBarService: SnackBarService,
+    private localStorageService: LocalStorageService,
     private translateService: TranslateService) {
     super(dialog);
   }
@@ -76,6 +87,10 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     this.getCustomers(this.params);
     this.getContacts(this.params);
     this.initForm();
+    const data = this.localStorageService.get('template-list');
+    data.map((d) => {
+      this.templateList.push(d);
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -123,7 +138,8 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       reviews: this.formBuilder.array([]),
       share_code: [''],
       user_id: [this.store.selectSnapshot<User>(UserState.user).itemid, Validators.required],
-      itemid: ['']
+      itemid: [''],
+      template: ['']
     });
 
     this.checkProduct();
@@ -169,7 +185,8 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     const formData = this.getFormData();
     this.submitEvent.emit({
       ...formData,
-      publication_status: PublicationStatus.draft
+      publication_status: PublicationStatus.draft,
+      template: this.selectedTemplate.join("|")
     });
   }
 
