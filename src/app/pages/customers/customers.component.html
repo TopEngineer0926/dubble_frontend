@@ -3,4 +3,4 @@
 <button mat-stroked-button color="primary" (click)="downloadExampleXLS()" class="btn-customer-action">{{ 'DASHBOARD.ImportTemplate' | translate }}</button>
 <button mat-stroked-button color="primary" (click)="fileUpload.click()" class="btn-customer-action">{{ 'DASHBOARD.ImportExcel' | translate }}</button>
 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept=".xlsx">
-<app-customers-table [showPagination]="true" [showFilter]="true" [updateTable]="update"></app-customers-table>
+<app-customers-table [showPagination]="true" [showFilter]="true" [updateTable]="update" style="margin-top: -36px;"></app-customers-table>

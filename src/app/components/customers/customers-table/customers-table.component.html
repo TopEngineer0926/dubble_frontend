@@ -1,3 +1,6 @@
+<div class="btn-delete-customer">
+  <button mat-stroked-button color="primary" (click)="deleteSelectedCustomers()" class="btn-customer-action">{{ 'CUSTOMER.DELETE_SELECTED_CUSTOMER' | translate }}</button>
+</div>
 <div class="select-pos">
   <mat-form-field *ngIf="showFilter" style="width: 45%;" color="primary" appearance="outline">
     <mat-label>{{ 'COMMON.Search' | translate }}</mat-label>

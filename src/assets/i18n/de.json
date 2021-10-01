@@ -78,7 +78,9 @@
     "Created": "Kunde/Interessent wurde erstellt",
     "CustomerNumber": "Kundennummer",
     "DegreePrefix": "Akad. Grad (Vorangestellt)",
-    "DegreeSuffix": "Akad. Grad (Nachgestellt)"
+    "DegreeSuffix": "Akad. Grad (Nachgestellt)",
+    "DELETE_SELECTED_CUSTOMER": "Delete Selecte",
+    "WARNING_DELETE_SELECTED_CUSTOMERS": "Bitte wählen Sie die zu löschenden Kunden aus."
   },
   "PRODUCT": {
     "ChooseContact": "Mitarbeiter auswählen",

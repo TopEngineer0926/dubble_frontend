@@ -64,7 +64,9 @@
     "Customers": "Customers",
     "LatestCustomers": "Latest Customers",
     "Updated": "Customer was updated",
-    "Created": "Customer was created"
+    "Created": "Customer was created",
+    "DELETE_SELECTED_CUSTOMER": "Delete Select",
+    "WARNING_DELETE_SELECTED_CUSTOMERS": "Please select the customers to delete."
   },
   "PRODUCT": {
     "ChooseContact": "Choose Contact",
