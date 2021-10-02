@@ -66,7 +66,8 @@
     "Updated": "Customer was updated",
     "Created": "Customer was created",
     "DELETE_SELECTED_CUSTOMER": "Delete Select",
-    "WARNING_DELETE_SELECTED_CUSTOMERS": "Please select the customers to delete."
+    "DELETE_SUCCESS": "Deleted successfully.",
+    "DELETE_FAIL": "Delete failed."
   },
   "PRODUCT": {
     "ChooseContact": "Choose Contact",

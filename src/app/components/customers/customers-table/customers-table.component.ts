@@ -21,6 +21,7 @@ import { LocalStorageService } from '../../../services/core/local-storage.servic
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { SnackBarService } from '../../../services/core/snackbar.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-customers-table',
@@ -32,6 +33,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   @Input() showPagination = true;
   @Input() showFilter = false;
   @Input() params: QueryParams;
+  @Input() deleteOption = false;
   @Input() updateTable;
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols;
@@ -46,11 +48,13 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   public selectedCategory: string = "";
   public categoryList: Array<string> = [];
   protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
+  public disabledDeleteBtn = true;
 
-  constructor(private store: Store, 
+  constructor(private store: Store,
     public dialog: MatDialog,
     protected httpClient: HttpClient,
     private snackBarService: SnackBarService,
+    private translateService: TranslateService,
     private localStorageService: LocalStorageService) {
   }
 
@@ -61,6 +65,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       filter(() => this.showFilter)
     )
       .subscribe((searchValue) => {
+        this.selectedCategory = "";
         if (!searchValue) {
           this.filteredDataSource = this.dataSource;
         } else {
@@ -120,16 +125,23 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new DeleteCustomerById(customerId)).subscribe(
-          () => this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 }));
+          () => {
+            this.searchControl.setValue('', {emitEvent: false});
+            this.selectedCategory = "";
+            this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+          });
       }
     });
   }
 
 
   handleChangeCategory(value: string): void {
+    this.searchControl.setValue('', {emitEvent: false});
     if (!value) {
       this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+      this.disabledDeleteBtn = true;
     } else {
+      this.disabledDeleteBtn = false;
       this.getCustomersByFilter(value);
     }
   }
@@ -148,6 +160,32 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
     },
     error => {
       this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
+
+  deleteSelectedCustomers() {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '400px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.httpClient.delete<any>(this.categoryUrl, {
+          params: {
+            filter: this.selectedCategory
+          }
+        })
+        .subscribe(() => {
+          this.searchControl.setValue('', {emitEvent: false});
+          this.selectedCategory = "";
+          this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+          const message = this.translateService.instant("CUSTOMER.DELETE_SUCCESS");
+          this.snackBarService.success(message);
+        },
+        error => {
+          const message = this.translateService.instant("CUSTOMER.DELETE_FAIL");
+          this.snackBarService.error(message);
+        });
+      }
     });
   }
 }

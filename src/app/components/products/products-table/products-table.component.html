@@ -9,7 +9,7 @@
     <input matInput autocomplete="off" [formControl]="searchContactControl">
   </mat-form-field>
 
-  <mat-form-field color="primary" style="width: 30%;" appearance="outline">
+  <mat-form-field *ngIf="showFilter" color="primary" style="width: 30%;" appearance="outline">
     <mat-label>{{ 'CATEGORY.TemplateTitle' | translate }}</mat-label>
     <mat-select [(value)]="selectedTemplate" (selectionChange)="handleChangeTemplate($event.value)">
       <mat-option [value]=""></mat-option>

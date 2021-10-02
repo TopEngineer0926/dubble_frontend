@@ -1,12 +1,12 @@
-<div class="btn-delete-customer">
-  <button mat-stroked-button color="primary" (click)="deleteSelectedCustomers()" class="btn-customer-action">{{ 'CUSTOMER.DELETE_SELECTED_CUSTOMER' | translate }}</button>
+<div class="btn-delete-customer" *ngIf="deleteOption">
+  <button mat-stroked-button color="primary" (click)="deleteSelectedCustomers()" [disabled]="disabledDeleteBtn" class="btn-customer-action">{{ 'CUSTOMER.DELETE_SELECTED_CUSTOMER' | translate }}</button>
 </div>
 <div class="select-pos">
   <mat-form-field *ngIf="showFilter" style="width: 45%;" color="primary" appearance="outline">
     <mat-label>{{ 'COMMON.Search' | translate }}</mat-label>
     <input matInput autocomplete="off" [formControl]="searchControl">
   </mat-form-field>
-  <mat-form-field color="primary" style="width: 45%;" appearance="outline">
+  <mat-form-field *ngIf="showFilter"  color="primary" style="width: 45%;" appearance="outline">
     <mat-label>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-label>
     <mat-select [(value)]="selectedCategory" (selectionChange)="handleChangeCategory($event.value)">
       <mat-option [value]=""></mat-option>
