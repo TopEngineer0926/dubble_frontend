@@ -87,7 +87,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       this.selectedTemplate = "";
 
       if (!searchValue) {
-        this.filteredDataSource = this.dataSource;
+        this.getProducts(this.params);
       } else {
         this.filteredDataSource = {
           ...this.dataSource,
@@ -108,7 +108,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       this.selectedTemplate = "";
 
       if (!searchValue) {
-        this.filteredDataSource = this.dataSource;
+        this.getProducts(this.params);
       } else {
         this.filteredDataSource = {
           ...this.dataSource,
@@ -121,7 +121,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
     });
 
     const template_data = this.localStorageService.get('template-list');
-    template_data.map((d) => {
+    template_data?.map((d) => {
       this.templateList.push(d.name);
     })
   }
@@ -229,7 +229,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       params: {
         limit: "10",
         offset: "0",
-        filter: filter
+        filter: "|" + filter + "|"
       },
     })
     .subscribe((products) => {

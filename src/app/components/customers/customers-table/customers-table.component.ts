@@ -67,7 +67,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe((searchValue) => {
         this.selectedCategory = "";
         if (!searchValue) {
-          this.filteredDataSource = this.dataSource;
+          this.getCustomers(this.params ? this.params : { limit: 10, offset: 0 });
         } else {
           this.filteredDataSource = {
             ...this.dataSource,
@@ -80,7 +80,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       });
 
     const category_data = this.localStorageService.get('category-list');
-    category_data.map((d) => {
+    category_data?.map((d) => {
       this.categoryList.push(d.name);
     })
   }
@@ -151,7 +151,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       params: {
         limit: "10",
         offset: "0",
-        filter: filter
+        filter: "|" + filter + "|"
       },
     })
     .subscribe((contacts) => {
@@ -171,7 +171,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       if (result) {
         this.httpClient.delete<any>(this.categoryUrl, {
           params: {
-            filter: this.selectedCategory
+            filter: "|" + this.selectedCategory + "|"
           }
         })
         .subscribe(() => {

@@ -120,7 +120,7 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, ComponentCanD
 
     saveCategory() {
         var body = {
-            category: this.selectedCategory.join("|"),
+            category: "|" + this.selectedCategory.join("|") + "|",
             id: this.currentCustomer.customer.itemid,
         }
 
@@ -145,9 +145,9 @@ export class CustomerDetailComponent implements OnInit, OnDestroy, ComponentCanD
         .subscribe((response) => {
             this.selectedCategory = [];
             if (response.result) {
-                var data = response.result.split("|");
-                data.map((d) => {
-                    // this.categoryList.push({ name: d });
+                var data: Array<any> = response.result.split("|");
+                data = data?.filter((d) => d != "");
+                data?.map((d) => {
                     this.selectedCategory.push(d);
                 })
             }

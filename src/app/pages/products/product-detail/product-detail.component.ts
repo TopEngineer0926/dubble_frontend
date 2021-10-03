@@ -457,7 +457,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
       params: {
         limit: "0",
         offset: "0",
-        filter: filter
+        filter: "|" + filter + "|"
       },
     })
     .subscribe((contacts) => {

@@ -79,7 +79,7 @@
     "CustomerNumber": "Kundennummer",
     "DegreePrefix": "Akad. Grad (Vorangestellt)",
     "DegreeSuffix": "Akad. Grad (Nachgestellt)",
-    "DELETE_SELECTED_CUSTOMER": "Delete Selecte",
+    "DELETE_SELECTED_CUSTOMER": "Alle gewählten Kunden löschen",
     "DELETE_SUCCESS": "Erfolgreich gelöscht.",
     "DELETE_FAIL": "Löschen fehlgeschlagen."
   },

@@ -133,7 +133,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
             var data = [];
             this.categoryList.map(e => { data.push(e.name); })
             var body = {
-                category: data.join("|")
+                category: "|" + data.join("|") + "|"
             }
 
             this.httpClient.put(`${this.categoryUrl}`, body)
@@ -173,8 +173,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         .subscribe((response) => {
             this.categoryList = [];
             if (response.result) {
-                var data = response.result.split("|");
-                data.map((d) => {
+                var data: Array<any> = response.result.split("|");
+                data = data?.filter((d) => d != "");
+                data?.map((d) => {
                     this.categoryList.push({name: d});
                 })
             }
@@ -210,7 +211,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
             var data = [];
             this.templateList.map(e => { data.push(e.name); })
             var body = {
-                category: data.join("|")
+                category: "|" + data.join("|") + "|"
             }
 
             this.httpClient.put(`${this.templateUrl}`, body)
@@ -250,8 +251,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         .subscribe((response) => {
             this.templateList = [];
             if (response.result) {
-                var data = response.result.split("|");
-                data.map((d) => {
+                var data: Array<any> = response.result.split("|");
+                data = data?.filter((d) => d != "");
+                data?.map((d) => {
                     this.templateList.push({name: d});
                 })
             }

@@ -173,8 +173,9 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       this.productForm.markAsPristine();
       this.productForm.markAsUntouched();
 
-      var data = this.product.template.split("|");
-      data.map((d) => {
+      var data = this.product.template?.split("|");
+      data = data?.filter((d) => d != "");
+      data?.map((d) => {
           this.selectedTemplate.push(d);
       });
     }
@@ -190,7 +191,7 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     this.submitEvent.emit({
       ...formData,
       publication_status: PublicationStatus.draft,
-      template: this.selectedTemplate.join("|")
+      template: "|" + this.selectedTemplate.join("|") + "|"
     });
   }
 

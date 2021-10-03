@@ -81,7 +81,7 @@ export class NewCustomerComponent implements OnInit, OnDestroy, ComponentCanDeac
   saveCategory() {
     if (this.newCustomerId) {
       var body = {
-        category: this.selectedCategory.join("|"),
+        category: "|" + this.selectedCategory.join("|") + "|",
         id: this.newCustomerId,
       }
 

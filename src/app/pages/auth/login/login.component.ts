@@ -80,8 +80,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     .subscribe((response) => {
       this.categoryList = [];
       if (response.result) {
-        var data = response.result.split("|");
-        data.map((d) => {
+        var data: Array<any> = response.result.split("|");
+        data = data?.filter((d) => d != "");
+        data?.map((d) => {
           this.categoryList.push({ name: d });
         })
       }
@@ -97,8 +98,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     .subscribe((response) => {
       this.templateList = [];
       if (response.result) {
-        var data = response.result.split("|");
-        data.map((d) => {
+        var data: Array<any> = response.result.split("|");
+        data = data?.filter((d) => d != "");
+        data?.map((d) => {
           this.templateList.push({ name: d });
         })
       }

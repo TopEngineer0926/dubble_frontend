@@ -65,7 +65,7 @@
     "LatestCustomers": "Latest Customers",
     "Updated": "Customer was updated",
     "Created": "Customer was created",
-    "DELETE_SELECTED_CUSTOMER": "Delete Select",
+    "DELETE_SELECTED_CUSTOMER": "Delete all selected customers",
     "DELETE_SUCCESS": "Deleted successfully.",
     "DELETE_FAIL": "Delete failed."
   },
