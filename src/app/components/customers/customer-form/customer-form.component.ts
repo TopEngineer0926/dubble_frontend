@@ -41,6 +41,7 @@ export class CustomerFormComponent extends UnsavedChanges implements OnInit, OnD
       lastname: new FormControl(this.customer?.lastname ? this.customer.lastname : '', Validators.required),
       email: new FormControl(this.customer?.email ? this.customer.email : null, [Validators.email]),
       phone_number: new FormControl(this.customer?.phone_number ? this.customer.phone_number : null),
+      company_name: new FormControl(this.customer?.company_name || ''),
       itemid: new FormControl(this.customer?.itemid ? this.customer.itemid : '')
     });
     this.trackChanges(this.customerForm);

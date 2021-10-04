@@ -81,7 +81,8 @@
     "DegreeSuffix": "Akad. Grad (Nachgestellt)",
     "DELETE_SELECTED_CUSTOMER": "Alle gewählten Kunden löschen",
     "DELETE_SUCCESS": "Erfolgreich gelöscht.",
-    "DELETE_FAIL": "Löschen fehlgeschlagen."
+    "DELETE_FAIL": "Löschen fehlgeschlagen.",
+    "COMPANY": "Unternehmen"
   },
   "PRODUCT": {
     "ChooseContact": "Mitarbeiter auswählen",

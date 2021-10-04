@@ -67,7 +67,8 @@
     "Created": "Customer was created",
     "DELETE_SELECTED_CUSTOMER": "Delete all selected customers",
     "DELETE_SUCCESS": "Deleted successfully.",
-    "DELETE_FAIL": "Delete failed."
+    "DELETE_FAIL": "Delete failed.",
+    "COMPANY": "Company"
   },
   "PRODUCT": {
     "ChooseContact": "Choose Contact",

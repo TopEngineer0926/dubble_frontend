@@ -2,6 +2,7 @@ import { TableAction } from './table-actions.enum';
 
 export const cols = [
   { key: 'customer_number', displayKey: 'CUSTOMER.CustomerNumber' },
+  { key: 'company_name', displayKey: 'CUSTOMER.COMPANY' },
   { key: 'firstname', displayKey: 'COMMON.FirstName' },
   { key: 'lastname', displayKey: 'COMMON.LastName' },
   // { key: 'email', display: 'Email' },

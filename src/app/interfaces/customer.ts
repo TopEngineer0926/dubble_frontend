@@ -9,4 +9,5 @@ export interface Customer extends BaseObject{
   lastname: string;
   phone_number: string;
   category: string;
+  company_name: string;
 }
