@@ -152,7 +152,7 @@
     "UserUpdated": "Unternehmenseinstellungen wurden aktualisiert",
     "PasswordChanged": "Passwort wurde aktualisiert",
     "MissingRequiredFields": "Bitte ergänzen Sie ein Unternehmens-Logo und die beiden Farben.",
-    "Category": "Kunden Kategorie"
+    "Category": "Kunden Interessen"
   },
   "MESSAGES": {
     "BrowserNotSupported": "Ihr Browser wird aktuell nicht unterstützt. Bitte nutzen Sie einen anderen Browser (z.B.: Google Chrome,\n      Firefox, Safari)"
@@ -181,7 +181,7 @@
     "DELETE_SUCCESS_MSG"     : "Erfolgreich gelöscht!"
   },
   "CATEGORY": {
-    "CategoryTitle"        : "Kunden Kategorien",
+    "CategoryTitle"        : "Kunden Interessen",
     "TemplateTitle"        : "Vorlagen Kategorien",
     "CreatCategory"        : "Speichern",
     "SaveCategory"         : "Save",
@@ -195,5 +195,8 @@
 
     "IntroForCountOfRecipient"   : "Ausgewählte Kategorie beinhaltet",
     "Recipient"                  : "empfänger."
+  },
+  "TEMPLATE": {
+    "TITLE"     : "Vorlage"
   }
 }

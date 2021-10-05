@@ -159,5 +159,8 @@
 
     "IntroForCountOfRecipient"   : "Selected category includes",
     "Recipient"                  : "recipient."
+  },
+  "TEMPLATE": {
+    "TITLE"     : "Template"
   }
 }

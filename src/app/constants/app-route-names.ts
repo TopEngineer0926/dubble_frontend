@@ -11,6 +11,7 @@ export const appRouteNames = {
     NEW              : 'new',
     ID               : ':id',
     DETAIL           : 'detail',
-    MONITORS         : 'monitors'
+    MONITORS         : 'monitors',
+    TEMPLATE         : 'template'
 };
 

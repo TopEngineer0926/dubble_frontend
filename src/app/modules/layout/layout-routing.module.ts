@@ -47,6 +47,13 @@ const routes: Routes = [
           m => m.MonitorsModule
         ),
     },
+    {
+      path: 'template',
+      loadChildren: () =>
+        import('../../modules/template/template.module').then(
+          m => m.TemplateModule
+        ),
+    },
   ]},
 ];
 @NgModule({
