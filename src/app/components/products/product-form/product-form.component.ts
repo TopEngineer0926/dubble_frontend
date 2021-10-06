@@ -204,7 +204,8 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     const formData = this.getFormData();
     this.submitEvent.emit({
       ...formData,
-      publication_status: PublicationStatus.published
+      publication_status: PublicationStatus.published,
+      template: "|" + this.selectedTemplate.join("|") + "|"
     });
   }
 
