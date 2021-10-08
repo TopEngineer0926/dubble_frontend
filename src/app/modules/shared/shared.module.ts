@@ -23,6 +23,7 @@ import { SafePipe } from '../../components/shared/pipes/safe.pipe';
 import { DeleteConfirmDialogComponent } from 'src/app/components/deleteConfirm/delete-confirm-dialog.component';
 import { MonitorsTableComponent } from '../../components/monitors/monitors-table/monitors-table.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TemplateTableComponent } from 'src/app/components/template/template-table/template-table.component';
 
 const components = [
   BrowserNotSupportedComponent,
@@ -40,6 +41,7 @@ const components = [
   UploadPdfComponent,
   UploadVideoComponent,
   MonitorsTableComponent,
+  TemplateTableComponent
 ];
 
 const pipes = [

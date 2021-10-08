@@ -1,2 +1,3 @@
 <h2>{{'TEMPLATE.TITLE' | translate}}</h2>
-<app-monitors-table></app-monitors-table>
+<button mat-stroked-button color="primary" routerLink="{{appRouteNames.NEW}}">{{ 'DASHBOARD.AddNewTemplate' | translate }}</button>
+<app-template-table [showPagination]="true" [showFilter]="true"></app-template-table>

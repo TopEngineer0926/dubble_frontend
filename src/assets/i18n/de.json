@@ -42,6 +42,7 @@
     "AddNewProduct"  : "Neue Info-Seite erstellen",
     "AddNewContact"  : "Neuen Mitarbeiter anlegen",
     "AddNewCustomer" : "Neuen Kunden/Interessent anlegen",
+    "AddNewTemplate" : "Neue Vorlage",
     "ImportTemplate" : "Vorlage XLS",
     "ImportExcel"    : "Import XLS",
     "Dashboard"      : "Meine Aktivitäten"
@@ -79,7 +80,7 @@
     "CustomerNumber": "Kundennummer",
     "DegreePrefix": "Akad. Grad (Vorangestellt)",
     "DegreeSuffix": "Akad. Grad (Nachgestellt)",
-    "DELETE_SELECTED_CUSTOMER": "Alle gewählten Kunden löschen",
+    "DELETE_SELECTED_CUSTOMER": "Alle Kunden der gewählten Interessen löschen",
     "DELETE_SUCCESS": "Erfolgreich gelöscht.",
     "DELETE_FAIL": "Löschen fehlgeschlagen.",
     "COMPANY": "Unternehmen"

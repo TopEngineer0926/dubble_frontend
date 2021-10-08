@@ -37,6 +37,7 @@
     "AddNewProduct"  : "Add new Product Page",
     "AddNewContact"  : "Add new Contact",
     "AddNewCustomer" : "Add new Customer",
+    "AddNewTemplate" : "Add new Template",
     "ImportTemplate" : "Example XLS",
     "ImportExcel"    : "Upload XLS",
     "Dashboard"      : "Dashboard"
@@ -65,7 +66,7 @@
     "LatestCustomers": "Latest Customers",
     "Updated": "Customer was updated",
     "Created": "Customer was created",
-    "DELETE_SELECTED_CUSTOMER": "Delete all selected customers",
+    "DELETE_SELECTED_CUSTOMER": "Delete all customers of the selected interests",
     "DELETE_SUCCESS": "Deleted successfully.",
     "DELETE_FAIL": "Delete failed.",
     "COMPANY": "Company"
