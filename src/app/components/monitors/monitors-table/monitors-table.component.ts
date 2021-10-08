@@ -1,12 +1,9 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ListResponse, TableActionEvent, Media } from '../../../interfaces';
-import { Customer } from '../../../interfaces/customer';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ListResponse, TableActionEvent } from '../../../interfaces';
 import { QueryParams, SortColumn } from '../../../interfaces/base/base-object';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
 import { cols } from 'src/app/constants/monitors.config';
 import { appRouteNames } from 'src/app/constants/app-route-names';
-import { Product } from '../../../interfaces/product';
 import { TableAction } from '../../../constants/table-actions.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../deleteConfirm/delete-confirm-dialog.component';
@@ -23,8 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './monitors-table.component.html',
   styleUrls: ['./monitors-table.component.scss']
 })
-export class MonitorsTableComponent implements OnInit, OnDestroy {
-  @Input() data: ListResponse<Customer>;
+export class MonitorsTableComponent implements OnInit {
+  @Input() data: ListResponse<Monitor>;
   @Input() showPagination = true;
   @Input() params: QueryParams = { limit: 30, offset: 0, sort_column: SortColumn.SendingDate, sort_order: 'desc' };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
@@ -32,16 +29,8 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
     return column
   });
   readonly appRouteNames = appRouteNames;
-  dataSource: ListResponse<Product>;
-  private subscription = new Subscription();
+  dataSource: ListResponse<Monitor>;
 
-  currentProduct: { product: Product, media: ListResponse<Media> };
-  uploadedVideo: Media[] = new Array(3).fill(null);
-  uploadedImage: Media;
-  uploadedPdf: Media[] = new Array(3).fill(null);
-  productPageLink: string;
-  isLoading = false;
-  imageToUpload: File;
   protected url: string = environment.apiUrl + 'monitor';
 
   constructor(private store: Store,
@@ -53,10 +42,6 @@ export class MonitorsTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getMonitors(this.params);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   onActionHandler(event: TableActionEvent<Monitor>): void {
