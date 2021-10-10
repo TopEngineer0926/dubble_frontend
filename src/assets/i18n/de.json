@@ -120,14 +120,14 @@
     "SendAsTextMessageWithDelay": "Als SMS zeitverzögert senden",
     "SendAsEmail": "Als E-Mail versenden",
     "SendAsEmailWithDelay": "Als E-Mail zeitverzögert senden",
-    "SendWithDelay": "Mit Verspätung senden",
-    "sendWithImmediately": "Sofort mit senden",
+    "SendWithDelay": "Mit Verzögerung an Kategorie senden",
+    "sendWithImmediately": "Sofort an Kategorie senden",
     "Created": "Informationsseite wurde erstellt",
     "Updated": "Informationsseite wurde aktualisiert",
     "smsWasSent": "SMS wurde gesendet",
     "emailWasSent": "E-Mail wurde gesendet",
-    "smsWasSentWithDelay": "SMS wurde erfolgreich geplant",
-    "emailWasSentWithDelay": "E-Mail wurde erfolgreich geplant",
+    "smsWasSentWithDelay": "SMS erfolgreich versendet",
+    "emailWasSentWithDelay": "E-Mail erfolgreich versendet",
     "TeaserImageMissing": "Bitte laden Sie ein Startbild hoch.",
     "CreationDate": "Erstellungsdatum",
     "LogoPosition": "Logo position",
@@ -185,7 +185,7 @@
     "CategoryTitle"        : "Kunden Interessen",
     "TemplateTitle"        : "Vorlagen Kategorien",
     "CreatCategory"        : "Speichern",
-    "SaveCategory"         : "Save",
+    "SaveCategory"         : "Speichern",
     "NewCategoryFail"      : "Please create new customer",
     "ResetCategory"        : "Leeren",
     "CreatedSuccess"       : "Successfully created!",
@@ -195,7 +195,7 @@
     "ImmediatSuccessMsg"   : "Nachricht wurde an Kategorie gesendet.",
 
     "IntroForCountOfRecipient"   : "Ausgewählte Kategorie beinhaltet",
-    "Recipient"                  : "empfänger."
+    "Recipient"                  : "Empfänger."
   },
   "TEMPLATE": {
     "TITLE"     : "Vorlage"
