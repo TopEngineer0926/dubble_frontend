@@ -66,4 +66,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this.action.emit({ item, action });
   }
 
+  checkDate(date: string) : boolean{
+    var d = new Date(date);
+    if (d.getTime() > new Date().getTime())
+      return true;
+    return false;
+  }
 }

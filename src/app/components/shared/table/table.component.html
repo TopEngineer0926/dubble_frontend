@@ -38,8 +38,8 @@
         </ng-container>
 
         <ng-container *ngIf="col.config.isAction && col.config.isMonitor">
-          <span *ngFor="let action of col.config.actions" (click)="!element['jobId'] ? '' : onAction(element, action.type)"  >
-             <a [class.disabled]="!element['jobId']">{{ action.displayKey | translate }}</a>
+          <span *ngFor="let action of col.config.actions" (click)="!checkDate(element['sendingDate']) ? '' : onAction(element, action.type)"  >
+             <a [class.disabled]="!checkDate(element['sendingDate'])">{{ action.displayKey | translate }}</a>
           </span>
         </ng-container>
       </ng-template>
