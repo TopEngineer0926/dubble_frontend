@@ -33,6 +33,7 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
   productForm: FormGroup;
   @Input() product: Product;
   @Input() isLoading: boolean;
+  @Input() isVorlage: boolean = false;
   @Output() submitEvent: EventEmitter<Product> = new EventEmitter<Product>();
   customersList: ListResponse<Customer>;
   contactsList: ListResponse<Contact>;

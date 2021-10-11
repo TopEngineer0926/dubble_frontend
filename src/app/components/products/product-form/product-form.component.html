@@ -272,7 +272,7 @@
   <ng-content select="[productUrl]"></ng-content>
 
   <button mat-stroked-button
-          *ngIf="isPublishedProduct"
+          *ngIf="isPublishedProduct && !isVorlage"
           color="primary"
           [disabled]="isLoading"
           (click)="publishProductPage()"
@@ -305,7 +305,7 @@
   </button>
 
   <button mat-stroked-button
-          *ngIf="!isPublishedProduct"
+          *ngIf="!isPublishedProduct && !isVorlage"
           color="primary"
           [disabled]="isLoading"
           (click)="publishProductPage()"

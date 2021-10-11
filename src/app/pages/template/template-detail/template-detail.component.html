@@ -3,7 +3,7 @@
     <mat-card-title>{{'PRODUCT.ProductDetail' | translate}}</mat-card-title>
   </mat-card-header>
   <mat-card-content class="outer-card" *ngIf="currentProduct">
-    <app-product-form [isLoading]="isLoading" [product]="currentProduct?.product" (submitEvent)="editProduct($event)">
+    <app-product-form [isLoading]="isLoading" [product]="currentProduct?.product" [isVorlage]="true" (submitEvent)="editProduct($event)">
       <app-upload-image imageUpload [img]="uploadedImage" [uploadLabel]="'PRODUCT.ImageUpload' | translate"
         (uploadedImg)="uploadImage($event)">
       </app-upload-image>
