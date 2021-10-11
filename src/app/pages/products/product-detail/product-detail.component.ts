@@ -276,7 +276,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
           }));
   }
 
-  sendProductLinkBy(sendFormat: 'customer' | 'category', type: 'sms' | 'email') {
+  sendProductLinkBy(sendFormat: 'customer' | 'category', type: 'sms' | 'email', customer: Customer) {
     this.isLoading = true;
     this.subscription.add(
       this.store.dispatch(new SendProductLinkBy(this.currentProduct.product.itemid, type))
@@ -291,8 +291,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
               this.snackBarService.success(message);
             }
 
-            this.getProductData();
-            this.saveMailSms(type, this.getCurrentDate(), "", "");
+            this.saveMailSms(
+              type, customer.itemid, customer.firstname + " " + customer.lastname,
+              customer.email, customer.phone_number? customer.phone_number : "",this.getCurrentDate(), "", "");
           },
           error => {
             this.isLoading = false;
@@ -308,7 +309,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     }
   }
 
-  sendProductLinkByWithDelay(sendFormat: 'customer' | 'category', type: 'sms' | 'email') {
+  sendProductLinkByWithDelay(sendFormat: 'customer' | 'category', type: 'sms' | 'email', customer: Customer) {
         this.isLoading = true;
         var mDate = new Date(this.date);
         var month = '' + (mDate.getMonth() + 1);
@@ -347,7 +348,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
               this.snackBarService.success(message);
             }
 
-            this.saveMailSms(type, dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00", jobId, jobGroup);
+            this.saveMailSms(
+              type, customer.itemid, customer.firstname + " " + customer.lastname,
+              customer.email, customer.phone_number ? customer.phone_number : "", 
+              dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00",
+              jobId, jobGroup);
         },
         error => {
             this.isLoading = false;
@@ -386,18 +391,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     return file1 === file2 || (file1?.file === file2?.file && file1?.title === file2?.title);
   }
 
-  private saveMailSms(type: string, date: string, scheduleJobId: string, scheduleJobGroup: string) {
+  private saveMailSms(type: string, customerId: string, customerName: string, customerEmail: string, customerPhone: string, date: string, scheduleJobId: string, scheduleJobGroup: string) {
     var apiUrl = environment.apiUrl + 'monitor';
     var body = {
         productId: this.currentProduct.product.itemid,
         internalPageTitle: this.currentProduct.product.internal_page_title,
         contactId: this.currentProduct.product.contact.itemid,
         userId: this.currentProduct.product.user_id,
-        customerId: this.currentProduct.product.customer.itemid,
+        customerId: customerId,
         sender: this.currentProduct.product.contact.firstname + " " + this.currentProduct.product.contact.lastname,
-        receiver: this.currentProduct.product.customer.firstname + " " + this.currentProduct.product.customer.lastname,
-        email: this.currentProduct.product.customer.email,
-        phone: this.currentProduct.product.customer.phone_number ? this.currentProduct.product.customer.phone_number : "",
+        receiver: customerName,
+        email: customerEmail,
+        phone: customerPhone,
         sendingDate: date,
         sentStatus: type.toUpperCase(),
         jobId: scheduleJobId,
@@ -473,9 +478,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkByWithDelay('category', 'sms');
+          this.sendProductLinkByWithDelay('category', 'sms', customer);
         } else if (customer.email) {
-          this.sendProductLinkByWithDelay('category', 'email');
+          this.sendProductLinkByWithDelay('category', 'email', customer);
         }
       })
     }
@@ -485,9 +490,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
     if (this.customerListByCategory) {
       this.customerListByCategory.list.map((customer) => {
         if (customer.phone_number) {
-          this.sendProductLinkBy('category', 'sms');
+          this.sendProductLinkBy('category', 'sms', customer);
         } else if (customer.email) {
-          this.sendProductLinkBy('category', 'email');
+          this.sendProductLinkBy('category', 'email', customer);
         }
       })
     }

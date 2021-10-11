@@ -37,12 +37,12 @@
             </button>
 
             <button mat-stroked-button *ngIf="currentProduct.product.customer?.phone_number" color="primary"
-              (click)="sendProductLinkBy('customer', 'sms')" type="button">
+              (click)="sendProductLinkBy('customer', 'sms', currentProduct.product.customer)" type="button">
               {{'PRODUCT.SendAsTextMessage' | translate}}
             </button>
 
             <button mat-stroked-button *ngIf="currentProduct.product.customer?.email" color="primary"
-              (click)="sendProductLinkBy('customer', 'email')" type="button">
+              (click)="sendProductLinkBy('customer', 'email', currentProduct.product.customer)" type="button">
               {{'PRODUCT.SendAsEmail' | translate}}
             </button>
 
@@ -66,14 +66,14 @@
 
             <button mat-stroked-button
               *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.phone_number"
-              color="primary" (click)="sendProductLinkByWithDelay('customer', 'sms')"
+              color="primary" (click)="sendProductLinkByWithDelay('customer', 'sms', currentProduct.product.customer)"
               [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
               {{'PRODUCT.SendAsTextMessageWithDelay' | translate}}
             </button>
 
             <button mat-stroked-button
               *ngIf="(date.length != 0 || selectedHour.length != 0) && currentProduct.product.customer?.email"
-              color="primary" (click)="sendProductLinkByWithDelay('customer', 'email')"
+              color="primary" (click)="sendProductLinkByWithDelay('customer', 'email', currentProduct.product.customer)"
               [disabled]="date.length == 0 || selectedHour.length == 0" type="button">
               {{'PRODUCT.SendAsEmailWithDelay' | translate}}
             </button>
