@@ -8,10 +8,8 @@ export const cols = [
       format: 'yyyy-MM-dd HH:mm'
     }
   },
-  { key: 'internal_page_title', displayKey: 'PRODUCT.Name' },
-  {
-    key: 'customer', displayKey: 'PRODUCT.Customer',
-    config: { isNameTemplate: true, value: ['firstname', 'lastname'] }
+  { key: 'internalPageTitle', displayKey: 'MONITOR.INTERNAL_PAGE_TITLE',
+    config: { isAction: true, actions: [{ type: TableAction.LINK_TO_PRODUCT, displayKey: 'MONITOR.INTERNAL_PAGE_TITLE' }], isTemplate: true }
   },
   {
     key: 'contact', displayKey: 'PRODUCT.Contact',

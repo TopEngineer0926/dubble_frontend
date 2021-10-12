@@ -188,7 +188,7 @@
     "SaveCategory"         : "Speichern",
     "NewCategoryFail"      : "Please create new customer",
     "ResetCategory"        : "Leeren",
-    "CreatedSuccess"       : "Successfully created!",
+    "CreatedSuccess"       : "Erfolgreich erstellt!",
     "CreatedFail"          : "Failed creating the categories.",
     "Error"                : "The category is already in your category list.",
     "DelaySuccessMsg"      : "Zeitverzögertes Senden an Kategorie gespeichert.",

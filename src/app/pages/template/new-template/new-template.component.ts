@@ -78,7 +78,7 @@ export class NewTemplateComponent implements OnInit, OnDestroy, ComponentCanDeac
           this.productForm.canDeactivate(true);
           const message = this.translateService.instant('PRODUCT.Created');
           this.snackBarService.success(message);
-          this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ this.product.itemid }/${ appRouteNames.DETAIL }`]));
+          this.store.dispatch(new Navigate([`/${ appRouteNames.TEMPLATE }/${ this.product.itemid }/${ appRouteNames.DETAIL }`]));
         })
       ).subscribe(() => {
           this.isLoading = false;
@@ -87,7 +87,7 @@ export class NewTemplateComponent implements OnInit, OnDestroy, ComponentCanDeac
           this.isLoading = false;
           if (this.product) {
             this.productForm.canDeactivate(true);
-            this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ this.product.itemid }/${ appRouteNames.DETAIL }`]));
+            this.store.dispatch(new Navigate([`/${ appRouteNames.TEMPLATE }/${ this.product.itemid }/${ appRouteNames.DETAIL }`]));
           }
           this.snackBarService.error(error.error?.message || error.message);
         }));
