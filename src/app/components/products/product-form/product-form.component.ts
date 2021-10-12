@@ -189,11 +189,21 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       return;
     }
     const formData = this.getFormData();
-    this.submitEvent.emit({
-      ...formData,
-      publication_status: PublicationStatus.draft,
-      template: "|" + this.selectedTemplate.join("|") + "|"
-    });
+    if (this.isVorlage) {
+      this.submitEvent.emit({
+        ...formData,
+        publication_status: PublicationStatus.draft,
+        template: this.selectedTemplate.indexOf('Vorlage') > -1 ?
+                    "|" + this.selectedTemplate.join("|") + "|" :
+                    "|" + this.selectedTemplate.join("|") + "|" + "Vorlage|"
+      });
+    } else {
+      this.submitEvent.emit({
+        ...formData,
+        publication_status: PublicationStatus.draft,
+        template: "|" + this.selectedTemplate.join("|") + "|"
+      });
+    }
   }
 
   publishProductPage() {

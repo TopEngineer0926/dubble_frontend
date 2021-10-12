@@ -60,6 +60,7 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
   isLoading = false;
   imageToUpload: File;
   protected url = environment.apiUrl + 'product/media/duplicate';
+  protected productTemplateUrl = environment.apiUrl + 'account/template';
 
   public selectedTemplate: string = "";
   public templateList: Array<string> = [];
@@ -122,6 +123,9 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
     template_data?.map((d) => {
       this.templateList.push(d.name);
     })
+    if (this.templateList.indexOf("Vorlage") < 0) {
+      this.addVorlageToProductTemplate();
+    }
   }
 
   ngOnDestroy(): void {
@@ -138,6 +142,8 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
     }
     else if (action == TableAction.Edit) {
       this.store.dispatch(new Navigate([appRouteNames.TEMPLATE, product.itemid, appRouteNames.DETAIL]));
+    } else if (action == TableAction.LINK_TO_PRODUCT) {
+      this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ product.itemid }/${ appRouteNames.DETAIL }`]));
     }
   }
 
@@ -249,6 +255,38 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
     },
     error => {
       this.snackBarService.error(error.error?.message || error.message)
+    });
+  }
+
+  addVorlageToProductTemplate() {
+    var body = {
+        category: "|" + this.templateList.join("|") + "|Vorlage|"
+    }
+
+    this.httpClient.put(`${this.productTemplateUrl}`, body)
+    .subscribe(() => {
+        this.getProductTemplate();
+    },
+    error => {
+    });
+  }
+
+  getProductTemplate() {
+    this.httpClient.get<any>(this.productTemplateUrl)
+    .subscribe((response) => {
+        var tempData = [];
+        if (response.result) {
+            var data: Array<any> = response.result.split("|");
+            data = data?.filter((d) => d != "");
+            data?.map((d) => {
+              tempData.push({name: d});
+            })
+        }
+        this.localStorageService.set('template-list', tempData);
+        this.templateList.push("Vorlage");
+    },
+    error => {
+        this.snackBarService.error(error.error?.message || error.message)
     });
   }
 }
