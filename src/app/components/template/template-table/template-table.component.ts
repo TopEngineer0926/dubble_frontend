@@ -240,55 +240,33 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
   }
 
   updateProduct(form: Product) {
-    this.isLoading = true;
+    this.store.dispatch(new AddProduct(form)).subscribe(
+      (data) => {
+        const productId = data.products.currentProduct.product.itemid;
 
-    const requests = [this.store.dispatch(new UpdateProduct(form))];
-    if (form.customer?.itemid) {
-      requests.push(this.store.dispatch(new UpdateCustomer(form.customer)));
-    }
+        // Duplicate image
+        this.httpClient.post(`${this.url}`, JSON.stringify({ ...this.uploadedImage, model_id: productId })).subscribe();
 
-    this.uploadedPdf.forEach((file: any, index) => {
-      if (!file) {
-        return;
-      }
-      if (this.isSameFileUpload(file, this.uploadedPdf[index]) || (!file.file && !file.title)) {
-        return;
-      }
-      if (!file.file) {
-        const updatedFile = this.updateTitleInArray(file.title, index, this.uploadedPdf);
-        // this.updateTitleInArray(file.title, index, this.pdfToUpload);
-        return this.saveMediaTitle(updatedFile, index);
-      }
-      requests.push(this.store.dispatch(new SaveProductMedia(form.itemid, { ...file, order: index })));
-    });
+        // Duplicate pdfs
+        this.uploadedPdf?.forEach((file: any, index) => {
+          if (!file) {
+            return;
+          }
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId })).subscribe()
+        });
 
-    this.uploadedVideo.forEach((file: any, index) => {
-      if (!file) {
-        return;
-      }
-      if (this.isSameFileUpload(file, this.uploadedVideo[index]) || (!file.file && !file.title)) {
-        return;
-      }
-      if (!file.file) {
-        const updatedFile = this.updateTitleInArray(file.title, index, this.uploadedVideo);
-        // this.updateTitleInArray(file.title, index, this.videoToUpload);
-        return this.saveMediaTitle(updatedFile, index);
-      }
-      requests.push(this.store.dispatch(new SaveProductMedia(form.itemid, { ...file, order: index })));
-    });
+        // Duplicate videos
+        this.uploadedVideo?.forEach((file: any, index) => {
+          if (!file) {
+            return;
+          }
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...file, model_id: productId })).subscribe()
+        });
 
-    this.subscription.add(
-      combineLatest(requests).pipe(
-        tap((data) => {
-        })
-      ).subscribe((data) => {
-          this.isLoading = false;
-          this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ form.itemid }/${ appRouteNames.DETAIL }`]));
-        },
-        error => {
-          this.isLoading = false;
-          this.snackBarService.error(error.error?.message || error.message);
-        }));
+        // Refresh table
+        this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ productId }/${ appRouteNames.DETAIL }`]));
+
+      });
   }
 
   private isSameFileUpload(file1, file2): boolean {
