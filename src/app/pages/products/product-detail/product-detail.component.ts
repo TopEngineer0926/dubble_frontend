@@ -359,6 +359,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         var body = {
             productId: this.currentProduct.product.itemid,
             timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            customer: customer,
             dateTime: dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00"
         }
 
