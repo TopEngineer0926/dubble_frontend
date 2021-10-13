@@ -162,6 +162,8 @@
     "Recipient"                  : "recipient."
   },
   "TEMPLATE": {
-    "TITLE"     : "Template"
+    "TITLE"     : "Template",
+    "Created"   : "Template was created",
+    "Updated"   : "Template was updated"
   }
 }

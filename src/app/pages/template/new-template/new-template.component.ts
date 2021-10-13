@@ -76,7 +76,7 @@ export class NewTemplateComponent implements OnInit, OnDestroy, ComponentCanDeac
         }),
         tap(() => {
           this.productForm.canDeactivate(true);
-          const message = this.translateService.instant('PRODUCT.Created');
+          const message = this.translateService.instant('TEMPLATE.Created');
           this.snackBarService.success(message);
           this.store.dispatch(new Navigate([`/${ appRouteNames.TEMPLATE }/${ this.product.itemid }/${ appRouteNames.DETAIL }`]));
         })

@@ -198,6 +198,8 @@
     "Recipient"                  : "Empfänger."
   },
   "TEMPLATE": {
-    "TITLE"     : "Vorlage"
+    "TITLE"     : "Vorlage",
+    "Created"   : "Vorlage wurde erstellt",
+    "Updated"   : "Vorlage wurde aktualisiert"
   }
 }

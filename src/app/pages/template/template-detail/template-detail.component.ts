@@ -161,7 +161,7 @@ export class TemplateDetailComponent implements OnInit, OnDestroy, ComponentCanD
       combineLatest(requests).pipe(
         tap((data) => {
           this.productForm.canDeactivate(true);
-          const message = this.translateService.instant('PRODUCT.Updated');
+          const message = this.translateService.instant('TEMPLATE.Updated');
           this.snackBarService.success(message);
           this.getProductData();
         })
