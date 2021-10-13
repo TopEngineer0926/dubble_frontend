@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ListResponse, TableActionEvent, Media } from '../../../interfaces';
+import { ListResponse, TableActionEvent, Media, PublicationStatus } from '../../../interfaces';
 import { Customer } from '../../../interfaces/customer';
 import { QueryParams, SortColumn } from '../../../interfaces/base/base-object';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 import { switchMap, tap } from 'rxjs/operators';
@@ -23,6 +23,12 @@ import { LocalStorageService } from '../../../services/core/local-storage.servic
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { FormControl } from '@angular/forms';
 import { filter, map, startWith} from 'rxjs/operators';
+import {
+  SaveProductMedia,
+  UpdateMedia,
+  UpdateProduct
+} from '../../../../store/products/products.actions';
+import { UpdateCustomer } from '../../../../store/customers/customers.actions';
 
 @Component({
   selector: 'app-template-table',
@@ -144,6 +150,8 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
       this.store.dispatch(new Navigate([appRouteNames.TEMPLATE, product.itemid, appRouteNames.DETAIL]));
     } else if (action == TableAction.LINK_TO_PRODUCT) {
       this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ product.itemid }/${ appRouteNames.DETAIL }`]));
+    } else if (action == TableAction.PublishPage) {
+      this.publishPage(product.itemid);
     }
   }
 
@@ -152,14 +160,6 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
   }
 
   getProducts(query: QueryParams): void {
-    // this.subscription.add(
-    //   this.store.dispatch(new GetProducts(query)).pipe(
-    //     switchMap(() => this.store.select(ProductsState.productsList)),
-    //     tap((products) => {
-    //       this.dataSource = products;
-    //       this.filteredDataSource = products;
-    //     })).subscribe()
-    // );
     this.httpClient.get<ListResponse<Product>>(this.templateUrl, {
       params: {
         limit: "10",
@@ -218,6 +218,105 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         // Refresh table
         this.getProducts(this.params);
       });
+  }
+
+  publishPage(productId: string): void {
+    this.store.dispatch(new GetProductById(productId))
+      .subscribe((data) => {
+        switchMap(() => this.store.select(ProductsState.currentProduct)),
+          this.currentProduct = data?.products?.currentProduct;
+        const product = this.currentProduct;
+        // Duplicate the current product
+        this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
+        this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
+        this.uploadedVideo?.forEach((item) => this.uploadedVideo.splice(item.order, 1, item));
+        this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
+        this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
+        this.updateProduct({...product.product, 
+          publication_status: PublicationStatus.published, 
+          template: product.product.template.replace("|Vorlage|", "|")
+        });
+      });
+  }
+
+  updateProduct(form: Product) {
+    this.isLoading = true;
+
+    const requests = [this.store.dispatch(new UpdateProduct(form))];
+    if (form.customer?.itemid) {
+      requests.push(this.store.dispatch(new UpdateCustomer(form.customer)));
+    }
+
+    this.uploadedPdf.forEach((file: any, index) => {
+      if (!file) {
+        return;
+      }
+      if (this.isSameFileUpload(file, this.uploadedPdf[index]) || (!file.file && !file.title)) {
+        return;
+      }
+      if (!file.file) {
+        const updatedFile = this.updateTitleInArray(file.title, index, this.uploadedPdf);
+        // this.updateTitleInArray(file.title, index, this.pdfToUpload);
+        return this.saveMediaTitle(updatedFile, index);
+      }
+      requests.push(this.store.dispatch(new SaveProductMedia(form.itemid, { ...file, order: index })));
+    });
+
+    this.uploadedVideo.forEach((file: any, index) => {
+      if (!file) {
+        return;
+      }
+      if (this.isSameFileUpload(file, this.uploadedVideo[index]) || (!file.file && !file.title)) {
+        return;
+      }
+      if (!file.file) {
+        const updatedFile = this.updateTitleInArray(file.title, index, this.uploadedVideo);
+        // this.updateTitleInArray(file.title, index, this.videoToUpload);
+        return this.saveMediaTitle(updatedFile, index);
+      }
+      requests.push(this.store.dispatch(new SaveProductMedia(form.itemid, { ...file, order: index })));
+    });
+
+    this.subscription.add(
+      combineLatest(requests).pipe(
+        tap((data) => {
+        })
+      ).subscribe((data) => {
+          this.isLoading = false;
+          this.store.dispatch(new Navigate([`/${ appRouteNames.PRODUCTS }/${ form.itemid }/${ appRouteNames.DETAIL }`]));
+        },
+        error => {
+          this.isLoading = false;
+          this.snackBarService.error(error.error?.message || error.message);
+        }));
+  }
+
+  private isSameFileUpload(file1, file2): boolean {
+    return file1 === file2 || (file1?.file === file2?.file && file1?.title === file2?.title);
+  }
+
+  private updateTitleInArray(title: string, index: number, array: Media[]) {
+    const file = array[index];
+    array[index] = {
+      ...file,
+      title,
+      order: index
+    };
+    return file;
+  }
+
+  saveMediaTitle(file: Media, index: number) {
+    this.subscription.add(
+      this.store.dispatch(new UpdateMedia({id: file.itemid, title: file.title, order: index}))
+        .subscribe((data) => {
+            this.isLoading = false;
+          },
+          error => {
+            this.isLoading = false;
+            this.snackBarService.error(error.error?.message || error.message);
+          }
+        )
+    );
   }
 
   deleteProduct(productId: string): void {

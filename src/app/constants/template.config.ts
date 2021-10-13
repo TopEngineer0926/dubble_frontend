@@ -16,6 +16,10 @@ export const cols = [
     config: { isNameTemplate: true, value: ['firstname', 'lastname'] }
   },
   {
+    key: 'action4', displayKey: 'PRODUCT.PublishPage',
+    config: { isAction: true, actions: [{ type: TableAction.PublishPage, displayKey: 'PRODUCT.PublishPage' }] }
+  },
+  {
     key: 'action1', displayKey: 'COMMON.Edit',
     config: { isAction: true, actions: [{ type: TableAction.Edit, displayKey: 'COMMON.Edit' }] }
   },
