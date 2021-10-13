@@ -12,7 +12,7 @@
   <mat-form-field *ngIf="showFilter" color="primary" style="width: 30%;" appearance="outline">
     <mat-label>{{ 'CATEGORY.TemplateTitle' | translate }}</mat-label>
     <mat-select [(value)]="selectedTemplate" (selectionChange)="handleChangeTemplate($event.value)">
-      <mat-option [value]=""></mat-option>
+      <mat-option [value]="">{{ 'COMMON.ShowAll' | translate }}</mat-option>
       <mat-option *ngFor="let template of templateList" [value]="template">
         {{template}}
       </mat-option>
