@@ -48,6 +48,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   protected scheduleSmsUrl   = environment.apiUrl + 'schedule/scheduleSms';
   protected scheduleEmailUrl = environment.apiUrl + 'schedule/scheduleEmail';
 
+  protected sendSmsByCategoryUrl   = environment.apiUrl + 'schedule/sendSmsByCategory';
+  protected sendEmailByCategoryUrl = environment.apiUrl + 'schedule/sendEmailByCategory';
+
   private subscription = new Subscription();
   private hasImage: boolean;
 
@@ -278,28 +281,58 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   sendProductLinkBy(sendFormat: 'customer' | 'category', type: 'sms' | 'email', customer: Customer) {
     this.isLoading = true;
-    this.subscription.add(
-      this.store.dispatch(new SendProductLinkBy(this.currentProduct.product.itemid, type))
-        .subscribe((data) => {
-            this.isLoading = false;
+    if (sendFormat == 'customer') {
+      this.subscription.add(
+        this.store.dispatch(new SendProductLinkBy(this.currentProduct.product.itemid, type))
+          .subscribe((data) => {
+              this.isLoading = false;
 
-            if (sendFormat == 'customer') {
-              const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
-              this.snackBarService.success(message);
-            } else if (sendFormat == 'category') {
-              const message = this.translateService.instant('CATEGORY.ImmediatSuccessMsg');
-              this.snackBarService.success(message);
-            }
+              if (sendFormat == 'customer') {
+                const message = this.translateService.instant(`PRODUCT.${ type }WasSent`);
+                this.snackBarService.success(message);
+              } else if (sendFormat == 'category') {
+                const message = this.translateService.instant('CATEGORY.ImmediatSuccessMsg');
+                this.snackBarService.success(message);
+              }
 
-            this.saveMailSms(
-              type, customer.itemid, customer.firstname + " " + customer.lastname,
-              customer.email, customer.phone_number? customer.phone_number : "",this.getCurrentDate(), "", "");
-          },
-          error => {
-            this.isLoading = false;
-            this.snackBarService.error(error.error?.message || error.message)
-          })
-    );
+              this.saveMailSms(
+                type, customer.itemid, customer.firstname + " " + customer.lastname,
+                customer.email, customer.phone_number? customer.phone_number : "",this.getCurrentDate(), "", "");
+            },
+            error => {
+              this.isLoading = false;
+              this.snackBarService.error(error.error?.message || error.message)
+            })
+      );
+    } else if (sendFormat == 'category') {
+      var apiUrl = "";
+      if (type === 'sms') {
+        apiUrl = this.sendSmsByCategoryUrl;
+      }else if (type === 'email') {
+        apiUrl = this.sendEmailByCategoryUrl;
+      }
+
+      var body = {
+        productId: this.currentProduct.product.itemid,
+        customer: customer
+      }
+
+      this.httpClient.post(`${apiUrl}`, body)
+      .subscribe((data) => {
+          this.isLoading = false;
+          const message = this.translateService.instant('CATEGORY.ImmediatSuccessMsg');
+          this.snackBarService.success(message);
+
+          this.saveMailSms(
+            type, customer.itemid, customer.firstname + " " + customer.lastname,
+            customer.email, customer.phone_number? customer.phone_number : "",this.getCurrentDate(), "", "");
+      },
+      error => {
+          this.isLoading = false;
+          this.snackBarService.error(error.error?.message || error.message)
+      });
+
+    }
   }
 
   handleChangeDate(): void {
