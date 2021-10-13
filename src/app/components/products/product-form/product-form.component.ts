@@ -88,9 +88,16 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
     this.getContacts(this.params);
     this.initForm();
     const data = this.localStorageService.get('template-list');
-    data.map((d) => {
-      this.templateList.push(d);
-    })
+    if (this.isVorlage) {
+      data.map((d) => {
+        this.templateList.push(d);
+      })
+    } else {
+      data.map((d) => {
+        if (d != "Vorlage")
+          this.templateList.push(d);
+      })
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

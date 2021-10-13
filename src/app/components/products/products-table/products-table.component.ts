@@ -122,7 +122,8 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
 
     const template_data = this.localStorageService.get('template-list');
     template_data?.map((d) => {
-      this.templateList.push(d.name);
+      if (d.name != "Vorlage")
+        this.templateList.push(d.name);
     })
   }
 
@@ -152,8 +153,20 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       this.store.dispatch(new GetProducts(query)).pipe(
         switchMap(() => this.store.select(ProductsState.productsList)),
         tap((products) => {
-          this.dataSource = products;
-          this.filteredDataSource = products;
+
+          var temp = {
+            ...products,
+            list: products.list
+            .filter((item) => { 
+              if (!item.template || (item.template && !item.template.includes("Vorlage")))
+                return item;
+            }),
+          };
+          this.dataSource = {
+            ...temp,
+            overallsize: temp.list.length
+          }
+          this.filteredDataSource = this.dataSource;
         })).subscribe()
     );
   }
