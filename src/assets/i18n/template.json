@@ -134,7 +134,8 @@
     "DELETE": "OK"
   },
   "EXCEL": {
-    "UPLOAD_SUCCESS": "Customers data has uploaded successfully!"
+    "UPLOAD_SUCCESS": "Customers data has uploaded successfully!",
+    "UPLOAD_FAIL"   : "Please check the excel format!"
   },
   "MONITOR": {
     "TITLE"                  : "Monitor",

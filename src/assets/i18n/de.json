@@ -170,7 +170,8 @@
     "DELETE": "OK"
   },
   "EXCEL": {
-    "UPLOAD_SUCCESS": "Kundendaten wurden erfolgreich hochgeladen!"
+    "UPLOAD_SUCCESS": "Kundendaten wurden erfolgreich hochgeladen!",
+    "UPLOAD_FAIL"   : "Bitte überprüfen Sie das Excel-Format!"
   },
   "MONITOR": {
     "TITLE"                  : "Monitor",

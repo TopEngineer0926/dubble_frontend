@@ -55,7 +55,8 @@ export class CustomersComponent implements OnInit {
           this.snackBarService.success(message)
           this.update = !this.update;
         }, error => {
-          this.snackBarService.error(error.error?.message || error.message);
+          const message = this.translateService.instant('EXCEL.UPLOAD_FAIL');
+          this.snackBarService.error(message);
         }
       );
     }
