@@ -153,19 +153,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       this.store.dispatch(new GetProducts(query)).pipe(
         switchMap(() => this.store.select(ProductsState.productsList)),
         tap((products) => {
-
-          var temp = {
-            ...products,
-            list: products.list
-            .filter((item) => { 
-              if (!item.template || (item.template && !item.template.includes("Vorlage")))
-                return item;
-            }),
-          };
-          this.dataSource = {
-            ...temp,
-            overallsize: temp.list.length
-          }
+          this.dataSource = products;
           this.filteredDataSource = this.dataSource;
         })).subscribe()
     );
