@@ -58,6 +58,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   public categoryList: Array<string> = [];
   protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
 
+  private immediateSendIndex = 0;
+  private delaySendIndex = 0;
+
   cntRecipients: number = 0;
 
   customerListByCategory: ListResponse<Customer>;
@@ -318,14 +321,23 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
       }
 
       this.httpClient.post(`${apiUrl}`, body)
-      .subscribe((data) => {
+      .subscribe(async (data) => {
           this.isLoading = false;
           const message = this.translateService.instant('CATEGORY.ImmediatSuccessMsg');
           this.snackBarService.success(message);
 
-          this.saveMailSms(
+          await this.saveMailSms(
             type, customer.itemid, customer.firstname + " " + customer.lastname,
             customer.email, customer.phone_number? customer.phone_number : "",this.getCurrentDate(), "", "");
+
+            this.immediateSendIndex++;
+            if (this.immediateSendIndex < this.customerListByCategory.list.length) {
+              if (this.customerListByCategory?.list[this.immediateSendIndex].phone_number) {
+                this.sendProductLinkBy('category', 'sms', this.customerListByCategory.list[this.immediateSendIndex]);
+              } else if (this.customerListByCategory?.list[this.immediateSendIndex].email) {
+                this.sendProductLinkBy('category', 'email', this.customerListByCategory.list[this.immediateSendIndex]);
+              }
+            }
       },
       error => {
           this.isLoading = false;
@@ -372,21 +384,32 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
         this.httpClient.post(`${apiUrl}`, body)
         .subscribe(({jobId, jobGroup}: any) => {
-            this.isLoading = false;
-
-            if (sendFormat == 'customer') {
-              const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
-              this.snackBarService.success(message);
-            } else if (sendFormat == 'category') {
-              const message = this.translateService.instant('CATEGORY.DelaySuccessMsg');
-              this.snackBarService.success(message);
-            }
 
             this.saveMailSms(
               type, customer.itemid, customer.firstname + " " + customer.lastname,
               customer.email, customer.phone_number ? customer.phone_number : "", 
               dateToString + "T" + this.selectedHour.replace(/^(\d)$/, '0$1') + ":00:00",
               jobId, jobGroup);
+
+            if (sendFormat == 'customer') {
+              this.isLoading = false;
+              const message = this.translateService.instant(`PRODUCT.${ type }WasSentWithDelay`);
+              this.snackBarService.success(message);
+            } else if (sendFormat == 'category') {
+              const message = this.translateService.instant('CATEGORY.DelaySuccessMsg');
+              this.snackBarService.success(message);
+
+              this.delaySendIndex++;
+              if (this.delaySendIndex < this.customerListByCategory.list.length) {
+                if (this.customerListByCategory?.list[this.delaySendIndex].phone_number) {
+                  this.sendProductLinkBy('category', 'sms', this.customerListByCategory.list[this.delaySendIndex]);
+                } else if (this.customerListByCategory?.list[this.delaySendIndex].email) {
+                  this.sendProductLinkBy('category', 'email', this.customerListByCategory.list[this.delaySendIndex]);
+                }
+              } else {
+                this.isLoading = false;
+              }
+            }
         },
         error => {
             this.isLoading = false;
@@ -509,26 +532,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   }
 
   sendWithDelay() {
-    if (this.customerListByCategory) {
-      this.customerListByCategory.list.map((customer) => {
-        if (customer.phone_number) {
-          this.sendProductLinkByWithDelay('category', 'sms', customer);
-        } else if (customer.email) {
-          this.sendProductLinkByWithDelay('category', 'email', customer);
-        }
-      })
+    this.delaySendIndex = 0;
+    if (this.customerListByCategory?.list[0]) {
+      if (this.customerListByCategory.list[0].phone_number) {
+        this.sendProductLinkByWithDelay('category', 'sms', this.customerListByCategory.list[0]);
+      } else if (this.customerListByCategory.list[0].email) {
+        this.sendProductLinkByWithDelay('category', 'email', this.customerListByCategory.list[0]);
+      }
     }
   }
 
   sendWithImmediately() {
-    if (this.customerListByCategory) {
-      this.customerListByCategory.list.map((customer) => {
-        if (customer.phone_number) {
-          this.sendProductLinkBy('category', 'sms', customer);
-        } else if (customer.email) {
-          this.sendProductLinkBy('category', 'email', customer);
-        }
-      })
+    this.immediateSendIndex = 0;
+    if (this.customerListByCategory?.list[0]) {
+      if (this.customerListByCategory.list[0].phone_number) {
+        this.sendProductLinkBy('category', 'sms', this.customerListByCategory.list[0]);
+      } else if (this.customerListByCategory.list[0].email) {
+        this.sendProductLinkBy('category', 'email', this.customerListByCategory.list[0]);
+      }
     }
   }
 }
