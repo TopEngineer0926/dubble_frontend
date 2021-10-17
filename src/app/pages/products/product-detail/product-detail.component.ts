@@ -402,9 +402,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
               this.delaySendIndex++;
               if (this.delaySendIndex < this.customerListByCategory.list.length) {
                 if (this.customerListByCategory?.list[this.delaySendIndex].phone_number) {
-                  this.sendProductLinkBy('category', 'sms', this.customerListByCategory.list[this.delaySendIndex]);
+                  this.sendProductLinkByWithDelay('category', 'sms', this.customerListByCategory.list[this.delaySendIndex]);
                 } else if (this.customerListByCategory?.list[this.delaySendIndex].email) {
-                  this.sendProductLinkBy('category', 'email', this.customerListByCategory.list[this.delaySendIndex]);
+                  this.sendProductLinkByWithDelay('category', 'email', this.customerListByCategory.list[this.delaySendIndex]);
                 }
               } else {
                 this.isLoading = false;
