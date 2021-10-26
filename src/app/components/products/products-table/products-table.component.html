@@ -20,4 +20,4 @@
   </mat-form-field>
 </div>
 <app-table *ngIf="dataSource" [tableCols]="cols" [data]="filteredDataSource" [showPagination]=showPagination
-  (action)="onActionHandler($event)" (updatePage)="onPageUpdate($event)"></app-table>
+  (action)="onActionHandler($event)" (updatePage)="onPageUpdate($event)" [pageSizeOptions]="pageSizeOptions"></app-table>

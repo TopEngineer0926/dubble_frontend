@@ -60,8 +60,5 @@
 </table>
 <mat-paginator *ngIf="showPagination"
   [pageSizeOptions]="[pageSizeOptions]"
-  [length]="data?.overallsize"
-  [pageIndex]="data?.offset / pageSizeOptions"
-  (page)="getNext($event)"
   showFirstLastButtons></mat-paginator>
 </div>

@@ -40,6 +40,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
    this.dataSource.data = this.data.list;
    this.dataSource.sort = this.sort;
+   this.dataSource.paginator = this.paginator;
    this.cdr.detectChanges();
   }
 
@@ -58,9 +59,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     return column.config.values[`${elt[column.key]}`];
   }
 
-  getNext(event): void {
-    this.updatePage.emit(event);
-  }
+  // getNext(event): void {
+  //   this.updatePage.emit(event);
+  // }
 
   onAction(item, action): void {
     this.action.emit({ item, action });

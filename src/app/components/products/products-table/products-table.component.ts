@@ -52,6 +52,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   filteredDataSource: ListResponse<Product>;
   searchCustomerControl = new FormControl('');
   searchContactControl = new FormControl('');
+  pageSizeOptions = this.params.limit
   
   private subscription = new Subscription();
 
