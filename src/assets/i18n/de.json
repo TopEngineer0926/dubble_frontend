@@ -202,5 +202,14 @@
     "TITLE"     : "Vorlage",
     "Created"   : "Vorlage wurde erstellt",
     "Updated"   : "Vorlage wurde aktualisiert"
+  },
+  "EMPLOYEE": {
+    "Master": "Meisterin",
+    "RegisterMaster": "Meisterin registrieren",
+    "RegisterMasterFail": "Meisterin registrieren Scheitern",
+    "RegisterMasterSuccess": "Meisterin registrieren Erfolg",
+    "ClearMasterSuccess": "Meisterin Clearing Erfolg",
+    "ClearMasterFail": "Meisterin Clearing Scheitern",
+    "NoMaster": "Die Master-E-Mail existiert nicht. Bitte versuchen Sie es mit einer anderen E-Mail"
   }
 }

@@ -166,5 +166,14 @@
     "TITLE"     : "Template",
     "Created"   : "Template was created",
     "Updated"   : "Template was updated"
+  },
+  "EMPLOYEE": {
+    "Master": "Master",
+    "RegisterMaster": "Register Master",
+    "RegisterMasterFail": "Registering Master Fail",
+    "RegisterMasterSuccess": "Registering Master Success",
+    "ClearMasterSuccess": "Clearing Master Success",
+    "ClearMasterFail": "Clearing Master Fail",
+    "NoMaster": "The master email does not exist or not activated, Please try with another email"
   }
 }

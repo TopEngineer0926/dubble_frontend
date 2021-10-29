@@ -55,12 +55,16 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         private localStorageService: LocalStorageService) {
     }
 
+    masterEmail: string;
+    protected masterUrl = environment.apiUrl + 'account/master';
+
     ngOnInit(): void {
         this.userEmail = this.user?.email;
         this.subscription.add(
             this.store.select<ListResponse<Media>>(UserState.media).subscribe(media => this.logo = media?.list[0]));
         this.getCategory();
         this.getTemplate();
+        this.getMaster();
     }
 
     ngOnDestroy(): void {
@@ -262,5 +266,61 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         error => {
             this.snackBarService.error(error.error?.message || error.message)
         });
+    }
+
+    getMaster() {
+       this.httpClient.get<any>(`${this.masterUrl}`)
+            .subscribe((response) => {
+                if (response.result) {
+                    this.masterEmail = response.result
+                }
+            },
+            error => {
+                this.snackBarService.error(error.error?.message || error.message);
+            });
+    }
+
+    updateMasterEmail() {
+        if (this.masterEmail != "") {
+            this.httpClient.put<any>(`${this.masterUrl}`, this.masterEmail)
+                .subscribe((response) => {
+                    if (response.result == 'no master') {
+                        const message = this.translateService.instant("EMPLOYEE.NoMaster");
+                        this.snackBarService.error(message);    
+                    } else {
+                        const message = this.translateService.instant("EMPLOYEE.RegisterMasterSuccess");
+                        this.snackBarService.success(message);
+                    }
+                },
+                error => {
+                    const message = this.translateService.instant("EMPLOYEE.RegisterMasterFail");
+                    this.snackBarService.error(message);
+                });
+        } else {
+            const message = this.translateService.instant("EMPLOYEE.RegisterMasterFail");
+            this.snackBarService.error(message)
+        }
+    }
+
+    clearMasterEmail() {
+        if (this.masterEmail != "") {
+            this.httpClient.delete(`${this.masterUrl}`)
+                .subscribe(() => {
+                    this.masterEmail = ""
+                    const message = this.translateService.instant("EMPLOYEE.ClearMasterSuccess");
+                    this.snackBarService.success(message);
+                },
+                error => {
+                    const message = this.translateService.instant("EMPLOYEE.ClearMasterFail");
+                    this.snackBarService.error(message);
+                });
+        } else {
+            const message = this.translateService.instant("EMPLOYEE.ClearMasterFail");
+            this.snackBarService.error(message)
+        }
+    }
+
+    onMasterEmailChange(email: string) {
+        this.masterEmail = email
     }
 }
