@@ -1,4 +1,4 @@
-<div class="upload-block">
+<div class="upload-block" *ngIf="!isMaster">
   <div class="logo-block" *ngIf="logo?.url else emptyLogo">
     <img alt="company-logo" [src]="logo?.url"/>
     <mat-icon (click)="removeLogo()">close</mat-icon>
@@ -7,10 +7,21 @@
     <div class="logo-block">
     </div>
   </ng-template>
-
   <app-file-upload *ngIf="!logo?.url"
-                   text="{{ 'UPLOAD.UploadLogo' | translate }}"
-                   [multiple]="false"
-                   (uploadedFiles)="uploadLogo($event)"
+    text="{{ 'UPLOAD.UploadLogo' | translate }}"
+    [multiple]="false"
+    (uploadedFiles)="uploadLogo($event)"
   ></app-file-upload>
+  <div *ngIf="showCopyBtn">
+    <button mat-stroked-button  matTooltip="Copy logo from master" color="primary" (click)="copyMasterLogo()" style="margin-left: 10px;" [disabled]="disableCopyBtn">copy</button>
+  </div>
+</div>
+<div class="upload-block" *ngIf="isMaster">
+  <div class="logo-block" *ngIf="masterLogo else emptyLogo">
+    <img alt="company-logo" [src]="masterLogo"/>
+  </div>
+  <ng-template #emptyLogo>
+    <div class="logo-block">
+    </div>
+  </ng-template>
 </div>

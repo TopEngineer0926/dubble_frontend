@@ -39,7 +39,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>{{ 'PRODUCT.LogoPosition' | translate }}</mat-label>
-    <mat-select formControlName="logo_position" [readonly]="isMaster">
+    <mat-select formControlName="logo_position" [disabled]="isMaster">
       <mat-option *ngFor="let position of logoPositions"
                   [value]="position.value"
                   [disabled]="isMaster">
@@ -50,7 +50,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>{{ 'PRODUCT.ButtonColor.Label' | translate }}</mat-label>
-    <mat-select formControlName="contact_button_color" [readonly]="isMaster">
+    <mat-select formControlName="contact_button_color" [disabled]="isMaster">
       <mat-option *ngFor="let color of buttonColors"
                   [value]="color.value">
         {{ color.labelKey | translate }}

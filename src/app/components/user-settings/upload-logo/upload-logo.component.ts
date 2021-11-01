@@ -5,6 +5,8 @@ import { SnackBarService } from '../../../services/core/snackbar.service';
 import { Store } from '@ngxs/store';
 import { Media } from '../../../interfaces';
 import { TranslateService } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-upload-logo',
@@ -14,15 +16,26 @@ import { TranslateService } from '@ngx-translate/core';
 export class UploadLogoComponent implements OnInit, OnDestroy {
   @Input() userId: string;
   @Input() logo: Media;
+  @Input() isMaster: Boolean = false;
 
   private subscription = new Subscription();
 
   constructor(private store: Store,
               private snackBarService: SnackBarService,
+              protected httpClient: HttpClient,
               private translateService: TranslateService) {
   }
 
+  protected masterLogoUrl = environment.apiUrl + 'account/masterlogo';
+  masterLogo: string;
+  disableCopyBtn: Boolean = false;
+  showCopyBtn: Boolean = false;
+
   ngOnInit(): void {
+    if (this.logo) {
+      this.disableCopyBtn = true
+    }
+    this.getMasterLogo()
   }
 
   ngOnDestroy(): void {
@@ -31,14 +44,43 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
 
   removeLogo() {
     this.subscription.add(
-      this.store.dispatch(new DeleteUserMedia(this.logo.itemid)).subscribe(data => {},
+      this.store.dispatch(new DeleteUserMedia(this.logo.itemid)).subscribe(data => {
+        this.disableCopyBtn = false
+      },
         error => this.snackBarService.error(error.error?.message || error.message)));
   }
 
   uploadLogo(files) {
     this.subscription.add(
       this.store.dispatch(new SaveUserMedia(this.userId, files[0].data)).subscribe(() => {
+        this.disableCopyBtn = true
         },
         error => this.snackBarService.error(error.error?.message || error.message)));
+  }
+
+  copyMasterLogo() {
+    this.httpClient.put<any>(`${this.masterLogoUrl}`, this.masterLogo)
+      .subscribe((response) => {
+        this.snackBarService.success("Copy master logo success");
+      },
+      error => {
+          this.snackBarService.error(error.error?.message || error.message);
+      });
+  }
+
+  getMasterLogo() {
+    this.httpClient.get<any>(`${this.masterLogoUrl}`)
+      .subscribe((response) => {
+          if (response.result) {
+            this.masterLogo = response.result 
+            this.showCopyBtn = true
+          } else {
+            this.showCopyBtn = false
+          }
+      },
+      error => {
+        this.showCopyBtn = false
+        this.snackBarService.error(error.error?.message || error.message);
+      });
   }
 }

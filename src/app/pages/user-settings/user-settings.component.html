@@ -7,7 +7,7 @@
                         <div class="setting-title">
                             <p>User Setting</p>
                         </div>
-                        <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+                        <app-upload-logo [userId]="user?.itemid" [isMaster]="isNotMaster" [logo]="logo"></app-upload-logo>
                         <app-user-settings-form [user]="user" [isMaster]="isNotMaster" (submitEvent)="saveSettings($event)">
                             <mat-card class="inner-card">
                                 <mat-card-header>
@@ -24,7 +24,7 @@
                         <div class="setting-title">
                             <p>Master Setting</p>
                         </div>
-                        <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+                        <app-upload-logo [userId]="user?.itemid" [isMaster]="isMaster" [logo]="logo"></app-upload-logo>
                         <app-user-settings-form [user]="masterAllInfo" [isMaster]="isMaster" (submitEvent)="saveSettings($event)">
                         </app-user-settings-form>
                     </div>
