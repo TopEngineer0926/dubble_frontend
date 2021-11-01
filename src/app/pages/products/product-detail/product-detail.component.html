@@ -1,3 +1,4 @@
+<div class="show-case" [ngClass]="{'show-disable-way': isDisable, '': !isDisable}">
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{'PRODUCT.ProductDetail' | translate}}</mat-card-title>
@@ -111,3 +112,4 @@
     {{ 'PRODUCT.sendWithImmediately' | translate }}
   </button>
 </mat-card>
+</div> 

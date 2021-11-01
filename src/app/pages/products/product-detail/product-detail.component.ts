@@ -3,9 +3,10 @@ import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
-import { ComponentCanDeactivate, ExtendedFileUploadEvent, ListResponse, Media, PublicationStatus } from '../../../interfaces';
+import { ComponentCanDeactivate, ExtendedFileUploadEvent, ListResponse, Media, PublicationStatus, User } from '../../../interfaces';
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { Product } from '../../../interfaces/product';
+import { UserState } from '../../../../store/auth.state';
 import {
   DeleteProductMedia,
   GetProductById,
@@ -64,6 +65,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   cntRecipients: number = 0;
 
   customerListByCategory: ListResponse<Customer>;
+
+  user: User = this.store.selectSnapshot<User>(UserState.user);
+  isDisable: Boolean = false;
 
   get isPublished(): boolean {
     return this.currentProduct?.product?.publication_status === PublicationStatus.published;
@@ -441,6 +445,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         if (this.uploadedImage) {
           this.hasImage = true;
         }
+        if (Number(this.user.itemid) != this.currentProduct?.product.user_id) {
+          this.isDisable = true
+        } else {
+          this.isDisable = false
+        }
+
+        console.log("22222222222222222222222")
+        console.log("user item id", Number(this.user.itemid))
+        console.log("product user id", this.currentProduct?.product.user_id)
+        console.log(this.isDisable)
+        console.log("22222222222222222222222")
+
       }));
   }
 
