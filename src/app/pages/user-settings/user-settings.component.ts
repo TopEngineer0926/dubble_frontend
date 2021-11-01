@@ -34,7 +34,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
     private subscription = new Subscription();
     isMaster = true;
     isNotMaster = false;
-    showMasterSetting = true;
+    showMasterSetting = false;
 
     selectable = true;
     removable = true;
@@ -58,6 +58,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         private localStorageService: LocalStorageService) {
     }
 
+    masterAllInfo: User;
     masterEmail: string;
     protected masterUrl = environment.apiUrl + 'account/master';
 
@@ -272,10 +273,24 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
     }
 
     getMaster() {
-       this.httpClient.get<any>(`${this.masterUrl}`)
+        this.httpClient.get<any>(`${this.masterUrl}`)
             .subscribe((response) => {
-                if (response.result) {
-                    this.masterEmail = response.result
+                if (response.master) {
+                    this.showMasterSetting = true
+                    this.masterEmail = response.masterInfo.email
+                    const masterInfo = {
+                        firstname: response.masterInfo.firstName,
+                        lastname: response.masterInfo.lastName,
+                        company_name: response.masterInfo.companyName,
+                        email: response.masterInfo.email,
+                        main_color: response.masterInfo.mainColor,
+                        secondary_color: response.masterInfo.secondaryColor,
+                        contact_button_color: response.masterInfo.contactButtonColor,
+                        logo_position: response.masterInfo.logoPosition
+                    }
+                    this.masterAllInfo = masterInfo
+                } else {
+                    this.showMasterSetting = false
                 }
             },
             error => {
