@@ -53,7 +53,9 @@
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="keys"></tr>
-  <tr mat-row *matRowDef="let row; columns: keys"></tr>
+  <tr mat-row *matRowDef="let row; columns: keys"
+    [matTooltip]="row.sender">
+  </tr>
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="10">{{ "COMMON.NoData" | translate }}</td>
   </tr>
