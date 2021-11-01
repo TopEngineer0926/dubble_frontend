@@ -32,6 +32,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
     userEmail: string;
     appRouteNames = appRouteNames;
     private subscription = new Subscription();
+    isMaster = true;
+    isNotMaster = false;
+    showMasterSetting = true;
 
     selectable = true;
     removable = true;

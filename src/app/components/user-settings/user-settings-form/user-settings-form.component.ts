@@ -12,7 +12,7 @@ import { hexToRgb } from '../../../helpers/form-helper';
 })
 export class UserSettingsFormComponent implements OnInit {
   @Input() user: User;
-
+  @Input() isMaster: Boolean;
   @Output() submitEvent = new EventEmitter();
 
   @ViewChild('picker1') picker1: NgxMatColorPickerInput;

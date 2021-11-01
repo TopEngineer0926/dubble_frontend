@@ -1,20 +1,43 @@
 <mat-tab-group>
     <mat-tab [label]="'SETTINGS.Settings' | translate">
-        <mat-card>
-            <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+        <mat-card class="w-100">
             <mat-card-content class="outer-card">
-                <app-user-settings-form [user]="user" (submitEvent)="saveSettings($event)">
-                    <mat-card class="inner-card">
-                        <mat-card-header>
-                            <mat-card-title>{{ 'SETTINGS.ChangePassword' | translate }}</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <app-change-password-form (changePwdEvent)="changeUserPwd($event)">
-                            </app-change-password-form>
-                        </mat-card-content>
-                    </mat-card>
-                </app-user-settings-form>
-
+                <div class="user-setting-card">
+                    <div class="user-setting-form">
+                        <div class="setting-title">
+                            <p>User Setting</p>
+                        </div>
+                        <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+                        <app-user-settings-form [user]="user" [isMaster]="isNotMaster" (submitEvent)="saveSettings($event)">
+                            <mat-card class="inner-card">
+                                <mat-card-header>
+                                    <mat-card-title>{{ 'SETTINGS.ChangePassword' | translate }}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <app-change-password-form (changePwdEvent)="changeUserPwd($event)">
+                                    </app-change-password-form>
+                                </mat-card-content>
+                            </mat-card>
+                        </app-user-settings-form>
+                    </div>
+                    <div class="user-setting-form" *ngIf="showMasterSetting">
+                        <div class="setting-title">
+                            <p>Master Setting</p>
+                        </div>
+                        <app-upload-logo [userId]="user?.itemid" [logo]="logo"></app-upload-logo>
+                        <app-user-settings-form [user]="user" [isMaster]="isMaster" (submitEvent)="saveSettings($event)">
+                            <mat-card class="inner-card">
+                                <mat-card-header>
+                                    <mat-card-title>{{ 'SETTINGS.ChangePassword' | translate }}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <app-change-password-form (changePwdEvent)="changeUserPwd($event)">
+                                    </app-change-password-form>
+                                </mat-card-content>
+                            </mat-card>
+                        </app-user-settings-form>
+                    </div>
+                </div>
             </mat-card-content>
         </mat-card>
     </mat-tab>
