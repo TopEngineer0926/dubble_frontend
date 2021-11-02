@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
+
 @Component({
   selector: 'app-upload-logo',
   templateUrl: './upload-logo.component.html',
@@ -27,7 +28,8 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
   }
 
   protected masterLogoUrl = environment.apiUrl + 'account/masterlogo';
-  masterLogo: string;
+  masterLogo: string = "";
+  masterLogoFileName: string = "";
   disableCopyBtn: Boolean = false;
   showCopyBtn: Boolean = false;
 
@@ -35,7 +37,9 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
     if (this.logo) {
       this.disableCopyBtn = true
     }
-    this.getMasterLogo()
+    if (this.isMaster) {
+      this.getMasterLogo()
+    }
   }
 
   ngOnDestroy(): void {
@@ -59,7 +63,7 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
   }
 
   copyMasterLogo() {
-    this.httpClient.put<any>(`${this.masterLogoUrl}`, this.masterLogo)
+    this.httpClient.put<any>(`${this.masterLogoUrl}`, this.masterLogoFileName)
       .subscribe((response) => {
         this.snackBarService.success("Copy master logo success");
       },
@@ -72,7 +76,8 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
     this.httpClient.get<any>(`${this.masterLogoUrl}`)
       .subscribe((response) => {
           if (response.result) {
-            this.masterLogo = response.result 
+            this.masterLogoFileName = response.result
+            this.masterLogo = environment.webUrl + "img/" + response.result 
             this.showCopyBtn = true
           } else {
             this.showCopyBtn = false
