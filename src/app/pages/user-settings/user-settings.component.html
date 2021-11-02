@@ -104,7 +104,7 @@
                         (ngModelChange)="onMasterEmailChange($event)"
                         required minlength="4">
                 </mat-form-field>
-                <button mat-stroked-button color="primary" (click)="updateMasterEmail()" [disabled]="templateList.length == 0">{{
+                <button mat-stroked-button color="primary" (click)="updateMasterEmail()">{{
                     'CATEGORY.CreatCategory' | translate }}</button>
                 <button mat-stroked-button color="primary" (click)="clearMasterEmail()" style="margin-left: 10px;">{{
                         'CATEGORY.ResetCategory' | translate }}</button>

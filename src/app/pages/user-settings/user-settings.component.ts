@@ -64,6 +64,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
 
     ngOnInit(): void {
         this.userEmail = this.user?.email;
+        this.masterEmail = "";
         this.subscription.add(
             this.store.select<ListResponse<Media>>(UserState.media).subscribe(media => this.logo = media?.list[0]));
         this.getCategory();

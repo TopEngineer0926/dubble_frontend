@@ -80,7 +80,6 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
       },
       error => {
         this.showCopyBtn = false
-        this.snackBarService.error(error.error?.message || error.message);
       });
   }
 }
