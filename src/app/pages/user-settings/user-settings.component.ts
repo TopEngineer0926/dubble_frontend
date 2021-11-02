@@ -329,6 +329,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
                     this.masterEmail = ""
                     const message = this.translateService.instant("EMPLOYEE.ClearMasterSuccess");
                     this.snackBarService.success(message);
+                    this.getMaster()
                 },
                 error => {
                     const message = this.translateService.instant("EMPLOYEE.ClearMasterFail");
