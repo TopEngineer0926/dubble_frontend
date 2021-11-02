@@ -3,10 +3,12 @@ import {DeleteUserMedia, SaveUserMedia} from '../../../../store/auth.actions';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { Store } from '@ngxs/store';
-import { Media } from '../../../interfaces';
+import { Media, User } from '../../../interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { GetUserMedia } from '../../../../store/auth.actions';
+import { UserState } from '../../../../store/auth.state';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
   @Input() logo: Media;
   @Input() isMaster: Boolean = false;
 
+  user: User = this.store.selectSnapshot<User>(UserState.user);
   private subscription = new Subscription();
 
   constructor(private store: Store,
@@ -37,9 +40,7 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
     if (this.logo) {
       this.disableCopyBtn = true
     }
-    if (this.isMaster) {
-      this.getMasterLogo()
-    }
+    this.getMasterLogo()
   }
 
   ngOnDestroy(): void {
@@ -65,6 +66,8 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
   copyMasterLogo() {
     this.httpClient.put<any>(`${this.masterLogoUrl}`, this.masterLogoFileName)
       .subscribe((response) => {
+        const query = { limit: 1, offset: 0 };
+        this.store.dispatch((new GetUserMedia(this.user.itemid, query)))
         this.snackBarService.success("Copy master logo success");
       },
       error => {
@@ -79,6 +82,9 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
             this.masterLogoFileName = response.result
             this.masterLogo = environment.webUrl + "img/" + response.result 
             this.showCopyBtn = true
+            console.log("3333333333333333333")
+            console.log(this.showCopyBtn)
+            console.log("3333333333333333333")
           } else {
             this.showCopyBtn = false
           }
