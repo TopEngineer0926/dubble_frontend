@@ -450,13 +450,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         } else {
           this.isDisable = false
         }
-
-        console.log("22222222222222222222222")
-        console.log("user item id", Number(this.user.itemid))
-        console.log("product user id", this.currentProduct?.product.user_id)
-        console.log(this.isDisable)
-        console.log("22222222222222222222222")
-
       }));
   }
 
