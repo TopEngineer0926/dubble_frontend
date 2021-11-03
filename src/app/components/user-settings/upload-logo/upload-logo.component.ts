@@ -51,6 +51,9 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.store.dispatch(new DeleteUserMedia(this.logo.itemid)).subscribe(data => {
         this.disableCopyBtn = false
+        if (!this.isMaster) {
+          this.showCopyBtn = true
+        }
       },
         error => this.snackBarService.error(error.error?.message || error.message)));
   }
@@ -68,6 +71,7 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         const query = { limit: 1, offset: 0 };
         this.store.dispatch((new GetUserMedia(this.user.itemid, query)))
+        this.disableCopyBtn = true
         this.snackBarService.success("Copy master logo success");
       },
       error => {
@@ -82,9 +86,6 @@ export class UploadLogoComponent implements OnInit, OnDestroy {
             this.masterLogoFileName = response.result
             this.masterLogo = environment.webUrl + "img/" + response.result 
             this.showCopyBtn = true
-            console.log("3333333333333333333")
-            console.log(this.showCopyBtn)
-            console.log("3333333333333333333")
           } else {
             this.showCopyBtn = false
           }

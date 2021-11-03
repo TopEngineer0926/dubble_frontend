@@ -59,15 +59,15 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getCustomers(this.params ? this.params : { limit: 10, offset: 0 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0 });
     this.searchControl.valueChanges.pipe(
       startWith(''),
       filter(() => this.showFilter)
     )
       .subscribe((searchValue) => {
-        this.selectedCategory = "";
+        this.selectedCategory = ""
         if (!searchValue) {
-          this.getCustomers(this.params ? this.params : { limit: 10, offset: 0 });
+          this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0 });
         } else {
           this.filteredDataSource = {
             ...this.dataSource,
@@ -86,7 +86,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
   }
 
   ngOnDestroy(): void {
@@ -104,7 +104,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
 
   onPageUpdate(event): void {
     this.currentPageNum = event.pageIndex;
-    this.getCustomers(this.params ? this.params : { limit: 10, offset: event.pageIndex * 10 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: event.pageIndex * 10 });
   }
 
   getCustomers(query: QueryParams): void {
@@ -128,7 +128,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
           () => {
             this.searchControl.setValue('', {emitEvent: false});
             this.selectedCategory = "";
-            this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+            this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
           });
       }
     });
@@ -138,7 +138,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   handleChangeCategory(value: string): void {
     this.searchControl.setValue('', {emitEvent: false});
     if (!value) {
-      this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+      this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
       this.disabledDeleteBtn = true;
     } else {
       this.disabledDeleteBtn = false;
@@ -149,7 +149,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   getCustomersByFilter(filter) {
     this.httpClient.get<ListResponse<Customer>>(this.categoryUrl, {
       params: {
-        limit: "10",
+        limit: "2000",
         offset: "0",
         filter: "|" + filter + "|"
       },
@@ -177,7 +177,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
         .subscribe(() => {
           this.searchControl.setValue('', {emitEvent: false});
           this.selectedCategory = "";
-          this.getCustomers(this.params ? this.params : { limit: 10, offset: this.currentPageNum * 10 });
+          this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
           const message = this.translateService.instant("CUSTOMER.DELETE_SUCCESS");
           this.snackBarService.success(message);
         },
