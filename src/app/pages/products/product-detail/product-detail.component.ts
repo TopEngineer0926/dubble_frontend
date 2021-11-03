@@ -166,7 +166,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
       }
       requests.push(this.store.dispatch(new SaveProductMedia(this.currentProduct.product.itemid, { ...file, order: index })));
     });
-
     this.subscription.add(
       combineLatest(requests).pipe(
         tap((data) => {

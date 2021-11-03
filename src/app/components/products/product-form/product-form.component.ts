@@ -183,9 +183,11 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
 
       var data = this.product.template?.split("|");
       data = data?.filter((d) => d != "");
+      var tempTemplate = []
       data?.map((d) => {
-          this.selectedTemplate.push(d);
+        tempTemplate.push(d);
       });
+      this.selectedTemplate = tempTemplate;
     }
   }
 
