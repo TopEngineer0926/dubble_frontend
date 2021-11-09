@@ -204,7 +204,7 @@
     "Updated"   : "Vorlage wurde aktualisiert"
   },
   "EMPLOYEE": {
-    "Master": "Meisterin",
+    "Master": "Master User",
     "RegisterMaster": "Meisterin registrieren",
     "RegisterMasterFail": "Meisterin registrieren Scheitern",
     "RegisterMasterSuccess": "Meisterin registrieren Erfolg",
