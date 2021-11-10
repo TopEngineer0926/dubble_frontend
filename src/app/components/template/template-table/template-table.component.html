@@ -19,5 +19,5 @@
     </mat-select>
   </mat-form-field>
 </div>
-<app-table *ngIf="dataSource" [tableCols]="cols" [data]="filteredDataSource" [showPagination]=showPagination
+<app-table *ngIf="dataSource" [tableCols]="cols" [data]="filteredDataSource" [showPagination]=showPagination [pageType]="pageType"
   (action)="onActionHandler($event)" (updatePage)="onPageUpdate($event)"></app-table>

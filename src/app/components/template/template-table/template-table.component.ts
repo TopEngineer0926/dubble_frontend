@@ -73,6 +73,8 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
   protected templateUrl = environment.apiUrl + 'template/template_by_status';
   protected templateByFilterUrl = environment.apiUrl + 'template/template_by_filter';
 
+  pageType = "template"
+
   constructor(private store: Store,
     protected httpClient: HttpClient,
     private translateService: TranslateService,

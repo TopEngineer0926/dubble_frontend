@@ -10,8 +10,10 @@ import {
 import {  EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Contact, ListResponse, TableActionEvent } from '../../../interfaces';
+import { Contact, ListResponse, TableActionEvent, User } from '../../../interfaces';
 import { MatSort } from '@angular/material/sort';
+import { UserState } from '../../../../store/auth.state';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-table',
@@ -26,15 +28,22 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() showPagination = true;
   @Input() tableCols: {key: string, display: string, displayKey?: string, config?: any[]}[] = [];
   @Input() pageSizeOptions = 10;
+  @Input() pageType = ""
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Contact>([]);
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private store: Store,) {
   }
 
+  userId = this.store.selectSnapshot<User>(UserState.user).itemid
+
   ngOnInit(): void {
+    console.log("===================")
+    console.log(this.dataSource)
+    console.log(this.pageType)
+    console.log("===================")
   }
 
   ngAfterViewInit(): void {
@@ -71,6 +80,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     var d = new Date(date);
     if (d.getTime() > new Date().getTime())
       return true;
+    return false;
+  }
+
+  checkUser(elementUserId: string) : boolean{
+    if (elementUserId == this.userId) {
+      return true;
+    }
     return false;
   }
 }

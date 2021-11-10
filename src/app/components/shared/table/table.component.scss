@@ -7,4 +7,9 @@
     cursor: default;
     color: grey;
   }
+  .disable-col {
+    pointer-events: none;
+    cursor: none;
+    opacity: 0.4;
+  }
 }
