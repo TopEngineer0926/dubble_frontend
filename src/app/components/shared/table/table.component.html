@@ -32,13 +32,14 @@
         <!-- if this column is action, we will loop through each action and show it as a link -->
         <ng-container *ngIf="col.config.isAction && !col.config.isMonitor && !col.config.isTemplate">
           <span *ngFor="let action of col.config.actions" (click)="onAction(element, action.type)">
-             <a *ngIf="!element['internalPageTitle']&&action.type=='edit'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='edit'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='duplicate'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='duplicate'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='delete'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='delete'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
-             <a *ngIf="!element['internalPageTitle']&&action.type=='publishPage'">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='edit'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='edit'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='duplicate'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='duplicate'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='delete'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='delete'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='publishPage'">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType!='template'&&!element['internalPageTitle']">{{ action.displayKey | translate }}</a>
              <a *ngIf="element['internalPageTitle']">{{ element['internalPageTitle'] }}</a>
           </span>
         </ng-container>
