@@ -12,5 +12,9 @@ export const cols = [
   {
     key: 'action', displayKey: 'COMMON.Edit',
     config: { isAction: true, actions: [{type: TableAction.Edit, displayKey: 'COMMON.Edit'}] }
+  },
+  {
+    key: 'action1', displayKey: 'COMMON.Invite',
+    config: { isAction: true, actions: [{type: TableAction.Invite, displayKey: 'COMMON.Invite'}] }
   }
 ];

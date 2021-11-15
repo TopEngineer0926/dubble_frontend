@@ -22,7 +22,8 @@
     "TextEditorPlaceholder": "Text eingeben",
     "NoData": "Noch keine Einträge hinzugefügt",
     "ItemsPerPage": "Einträge pro Seite",
-    "CANCEL": "Abbrechen"
+    "CANCEL": "Abbrechen",
+    "Invite": "Einladen"
   },
   "AUTH": {
     "CurrentPassword": "Aktuelles Passwort",

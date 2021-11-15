@@ -17,7 +17,8 @@
     "ShowAll": "Show All",
     "FillRequiredFields": "Please, fill all required fields",
     "Search": "Search",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "Invite": "Invite"
   },
   "AUTH": {
     "CurrentPassword": "Current password",

@@ -3,5 +3,6 @@ export enum TableAction {
   Duplicate = 'duplicate',
   Delete = 'delete',
   LINK_TO_PRODUCT = 'linkToProduct',
-  PublishPage = "publishPage"
+  PublishPage = "publishPage",
+  Invite = "invite"
 }

@@ -39,7 +39,10 @@
              <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='delete'&&checkUser(element['user_id'])">{{ action.displayKey | translate }}</a>
              <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='delete'&&!checkUser(element['user_id'])" class="disable-col">{{ action.displayKey | translate }}</a>
              <a *ngIf="pageType=='template'&&!element['internalPageTitle']&&action.type=='publishPage'">{{ action.displayKey | translate }}</a>
-             <a *ngIf="pageType!='template'&&!element['internalPageTitle']">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='contact'&&!element['internalPageTitle']&&action.type=='invite'&&element['invite_status']==1" class="disable-col">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='contact'&&!element['internalPageTitle']&&action.type=='invite'&&element['invite_status']!=1">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType=='contact'&&!element['internalPageTitle']&&action.type!='invite'">{{ action.displayKey | translate }}</a>
+             <a *ngIf="pageType!='contact'&&pageType!='template'&&!element['internalPageTitle']">{{ action.displayKey | translate }}</a>
              <a *ngIf="element['internalPageTitle']">{{ element['internalPageTitle'] }}</a>
           </span>
         </ng-container>
