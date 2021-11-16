@@ -24,7 +24,7 @@ import { environment } from '../../../../environments/environment';
 export class ContactsTableComponent implements OnInit, OnDestroy {
   @Input() data: ListResponse<Contact>;
   @Input() showPagination = true;
-  @Input() params: QueryParams = { limit: 10, offset: 0 };
+  @Input() params: QueryParams = { limit: 1000, offset: 0 };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols;
   readonly appRouteNames = appRouteNames;
@@ -67,7 +67,7 @@ export class ContactsTableComponent implements OnInit, OnDestroy {
   }
 
   onPageUpdate(event): void {
-    this.getContacts({ limit: 10, offset: event.pageIndex * 10 });
+    // this.getContacts({ limit: 10000, offset: event.pageIndex * 10 });
   }
 
   getContacts(query: QueryParams): void {
