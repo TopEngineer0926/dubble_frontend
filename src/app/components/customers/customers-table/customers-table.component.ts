@@ -11,7 +11,7 @@ import { Customer } from '../../../interfaces/customer';
 import { cols } from 'src/app/constants/customers.config';
 import { DeleteCustomerById, GetCustomers } from '../../../../store/customers/customers.actions';
 import { CustomersState } from '../../../../store/customers/customers.state';
-import { QueryParams } from '../../../interfaces/base/base-object';
+import { QueryParams, SortColumn} from '../../../interfaces/base/base-object';
 import { appRouteNames } from 'src/app/constants/app-route-names';
 import { TableAction } from '../../../constants/table-actions.enum';
 import { FormControl } from '@angular/forms';
@@ -59,7 +59,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
     this.searchControl.valueChanges.pipe(
       startWith(''),
       filter(() => this.showFilter)
@@ -67,7 +67,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe((searchValue) => {
         this.selectedCategory = ""
         if (!searchValue) {
-          this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0 });
+          this.getCustomers(this.params ? this.params : { limit: 2000, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
         } else {
           this.filteredDataSource = {
             ...this.dataSource,
@@ -86,7 +86,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
   }
 
   ngOnDestroy(): void {
@@ -104,7 +104,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
 
   onPageUpdate(event): void {
     this.currentPageNum = event.pageIndex;
-    this.getCustomers(this.params ? this.params : { limit: 2000, offset: event.pageIndex * 10 });
+    this.getCustomers(this.params ? this.params : { limit: 2000, offset: event.pageIndex * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
   }
 
   getCustomers(query: QueryParams): void {
@@ -128,7 +128,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
           () => {
             this.searchControl.setValue('', {emitEvent: false});
             this.selectedCategory = "";
-            this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
+            this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
           });
       }
     });
@@ -138,7 +138,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   handleChangeCategory(value: string): void {
     this.searchControl.setValue('', {emitEvent: false});
     if (!value) {
-      this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
+      this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
       this.disabledDeleteBtn = true;
     } else {
       this.disabledDeleteBtn = false;
@@ -177,7 +177,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
         .subscribe(() => {
           this.searchControl.setValue('', {emitEvent: false});
           this.selectedCategory = "";
-          this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10 });
+          this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
           const message = this.translateService.instant("CUSTOMER.DELETE_SUCCESS");
           this.snackBarService.success(message);
         },

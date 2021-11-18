@@ -8,7 +8,7 @@ class Enviroment {
 
     this.appVersion = require('../../package.json').version + '-local';
     this.production = false;
-    this.apiUrl = 'https://api.dubble.dev.mogree.com/api/v1/';
+    this.apiUrl = 'http://localhost:8080/api/v1/';
     this.webUrl = 'https://web.dubble.dev.mogree.com/';
   }
 }
