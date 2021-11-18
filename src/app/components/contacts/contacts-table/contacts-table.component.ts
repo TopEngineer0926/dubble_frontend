@@ -14,6 +14,7 @@ import { appRouteNames } from '../../../constants/app-route-names';
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class ContactsTableComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store, 
     private snackBarService: SnackBarService,
-    protected httpClient: HttpClient) {
+    protected httpClient: HttpClient,
+    private translateService: TranslateService,) {
   }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class ContactsTableComponent implements OnInit, OnDestroy {
 
     if (action == TableAction.Invite) {
       console.log(contact)
-      const message = "INVITE SENT"
-      const messageNoLogo = "INVITE SENT, But COULD NOT COPY LOGO BECAUSE OF NO MASTER LOGO"
+      const message = this.translateService.instant(`EMPLOYEE.InviteSent`)
+      const messageNoLogo = this.translateService.instant(`EMPLOYEE.NoMasterLogo`)
       this.httpClient.get<any>(this.inviteUrl + contact.itemid)
       .subscribe((response) => {
         this.getContacts(this.params);

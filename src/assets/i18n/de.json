@@ -212,6 +212,8 @@
     "RegisterMasterSuccess": "Meisterin registrieren Erfolg",
     "ClearMasterSuccess": "Meisterin Clearing Erfolg",
     "ClearMasterFail": "Meisterin Clearing Scheitern",
-    "NoMaster": "Die Master-E-Mail existiert nicht. Bitte versuchen Sie es mit einer anderen E-Mail"
+    "NoMaster": "Die Master-E-Mail existiert nicht. Bitte versuchen Sie es mit einer anderen E-Mail",
+    "NoMasterLogo": "Einladung gesendet!, Logo konnte jedoch nicht kopiert werden, da kein Master-Logo vorhanden ist.",
+    "InviteSent": "Einladung gesendet!"
   }
 }
