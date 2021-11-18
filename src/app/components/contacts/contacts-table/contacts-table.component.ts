@@ -54,8 +54,8 @@ export class ContactsTableComponent implements OnInit, OnDestroy {
 
     if (action == TableAction.Invite) {
       console.log(contact)
-      const message = this.translateService.instant(`EMPLOYEE.InviteSent`)
-      const messageNoLogo = this.translateService.instant(`EMPLOYEE.NoMasterLogo`)
+      const message = this.translateService.instant(`EMPLOYEE.INVITE_SENT`)
+      const messageNoLogo = this.translateService.instant(`EMPLOYEE.INVITE_SENT_NO_MASTER_LOGO`)
       this.httpClient.get<any>(this.inviteUrl + contact.itemid)
       .subscribe((response) => {
         this.getContacts(this.params);

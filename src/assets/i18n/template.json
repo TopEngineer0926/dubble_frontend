@@ -177,7 +177,7 @@
     "ClearMasterSuccess": "Clearing Master Success",
     "ClearMasterFail": "Clearing Master Fail",
     "NoMaster": "The master email does not exist or not activated, Please try with another email",
-    "NoMasterLogo": "Invite sent!, But could not copy log because of no master logo",
-    "InviteSent": "Invite sent!"
+    "INVITE_SENT_NO_MASTER_LOGO": "Invite sent!, But could not copy log because of no master logo",
+    "INVITE_SENT": "Invite sent!"
   }
 }
