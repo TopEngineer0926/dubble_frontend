@@ -85,6 +85,9 @@
   </mat-card-content>
 </mat-card>
 <mat-card class="category-form" *ngIf="isPublished">
+  <p class="intro-recipient">
+    {{'PRODUCT.HeadLineForMultiRecipient' | translate}}
+  </p>
   <mat-form-field color="primary" style="width: 100%;" appearance="outline">
     <mat-label>{{ 'CATEGORY.CategoryTitle' | translate }}</mat-label>
     <mat-select [(value)]="selectedCategory" (selectionChange)="handleChangeCategory($event.value)">

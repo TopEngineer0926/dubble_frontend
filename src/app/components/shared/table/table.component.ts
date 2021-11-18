@@ -40,10 +40,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   userId = this.store.selectSnapshot<User>(UserState.user).itemid
 
   ngOnInit(): void {
-    console.log("===================")
-    console.log(this.dataSource)
-    console.log(this.pageType)
-    console.log("===================")
   }
 
   ngAfterViewInit(): void {

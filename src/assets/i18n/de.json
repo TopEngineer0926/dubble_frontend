@@ -114,6 +114,7 @@
     "Customer": "Kunde/Interessent",
     "Contact": "Mitarbeiter",
     "ProductDetail": "Informationsseite Detail",
+    "HeadLineForMultiRecipient": "Steuerung für Versendung einer Seite an mehrere Empfänger",
     "NewProduct": "Neue Informationsseite (* = Pflichtfeld)",
     "Products": "Informationsseiten",
     "LatestProducts": "Letzte Informationsseiten",
