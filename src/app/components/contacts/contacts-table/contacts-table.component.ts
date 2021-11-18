@@ -53,10 +53,15 @@ export class ContactsTableComponent implements OnInit, OnDestroy {
     if (action == TableAction.Invite) {
       console.log(contact)
       const message = "Invite sent"
+      const messageNoLogo = "Invite sent, But could not copy logo because of no master logo"
       this.httpClient.get<any>(this.inviteUrl + contact.itemid)
       .subscribe((response) => {
         this.getContacts(this.params);
-        this.snackBarService.success(message);
+        if (response.result == "No Logo") {
+          this.snackBarService.success(messageNoLogo);
+        } else {
+          this.snackBarService.success(message);
+        }
       },
       error => {
           this.snackBarService.error(error.error?.message || error.message)

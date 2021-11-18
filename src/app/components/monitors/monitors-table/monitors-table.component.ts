@@ -23,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MonitorsTableComponent implements OnInit {
   @Input() data: ListResponse<Monitor>;
   @Input() showPagination = true;
-  @Input() params: QueryParams = { limit: 30, offset: 0, sort_column: SortColumn.SendingDate, sort_order: 'desc' };
+  @Input() params: QueryParams = { limit: 5000, offset: 0, sort_column: SortColumn.SendingDate, sort_order: 'desc' };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols.map(column => {
     return column
@@ -54,7 +54,7 @@ export class MonitorsTableComponent implements OnInit {
   }
 
   onPageUpdate(event): void {
-    this.getMonitors({ ...this.params, limit: 30, offset: event.pageIndex * 30 });
+    // this.getMonitors({ ...this.params, limit: 30, offset: event.pageIndex * 30 });
   }
 
   getMonitors(query): void {
