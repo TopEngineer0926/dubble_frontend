@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { cols } from '../../../constants/contacts.config';
 import { Navigate } from '@ngxs/router-plugin';
-import { QueryParams } from '../../../interfaces/base/base-object';
+import { QueryParams, SortColumn } from '../../../interfaces/base/base-object';
 import { appRouteNames } from '../../../constants/app-route-names';
 import { SnackBarService } from '../../../services/core/snackbar.service';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +25,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class ContactsTableComponent implements OnInit, OnDestroy {
   @Input() data: ListResponse<Contact>;
   @Input() showPagination = true;
-  @Input() params: QueryParams = { limit: 1000, offset: 0 };
+  @Input() params: QueryParams = { limit: 2000, offset: 0, sort_column: SortColumn.CreatedAt, sort_order: "desc" };
   @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
   readonly cols = cols;
   readonly appRouteNames = appRouteNames;

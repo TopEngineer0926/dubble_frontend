@@ -54,7 +54,7 @@ export class ContactsState  {
       tap((response: ListResponse<Contact>) => {
         const state = {...ctx.getState()};
         state.contacts = response;
-        state.contacts.list.sort(({ itemid: a }, { itemid: b }) => a > b ? 1 : -1);
+        // state.contacts.list.sort(({ itemid: a }, { itemid: b }) => a > b ? 1 : -1);
         ctx.patchState(state);
       }));
   }
