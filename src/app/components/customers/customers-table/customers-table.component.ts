@@ -48,6 +48,7 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
   public selectedCategory: string = "";
   public categoryList: Array<string> = [];
   protected categoryUrl = environment.apiUrl + 'customer/customer_by_filter';
+  protected categoryListUrl = environment.apiUrl + 'account/category';
   public disabledDeleteBtn = true;
 
   constructor(private store: Store,
@@ -79,13 +80,15 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
 
-    const category_data = this.localStorageService.get('category-list');
-    category_data?.map((d) => {
-      this.categoryList.push(d.name);
-    })
+    this.getCategory()  
+    // const category_data = this.localStorageService.get('category-list');
+    // category_data?.map((d) => {
+    //   this.categoryList.push(d.name);
+    // })
   }
 
   ngOnChanges(): void {
+    this.getCategory()
     this.getCustomers(this.params ? this.params : { limit: 2000, offset: this.currentPageNum * 10, sort_column: SortColumn.CreatedAt, sort_order: 'desc' });
   }
 
@@ -116,6 +119,23 @@ export class CustomersTableComponent implements OnInit, OnDestroy, OnChanges {
         this.filteredDataSource = contacts;
       })
     );
+  }
+
+  getCategory() {
+    this.httpClient.get<any>(this.categoryListUrl)
+    .subscribe((response) => {
+        this.categoryList = [];
+        if (response.result) {
+            var data: Array<any> = response.result.split("|");
+            data = data?.filter((d) => d != "");
+            data?.map((d) => {
+                this.categoryList.push(d);
+            })
+        }
+    },
+    error => {
+        this.snackBarService.error(error.error?.message || error.message)
+    });
   }
 
   deleteCustomer(customerId: string): void {
