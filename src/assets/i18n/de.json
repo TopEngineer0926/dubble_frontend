@@ -207,7 +207,7 @@
   },
   "EMPLOYEE": {
     "Master": "Master User",
-    "RegisterMaster": "Meisterin registrieren",
+    "RegisterMaster": "Master User zuteilen",
     "RegisterMasterFail": "Meisterin registrieren Scheitern",
     "RegisterMasterSuccess": "Meisterin registrieren Erfolg",
     "ClearMasterSuccess": "Meisterin Clearing Erfolg",

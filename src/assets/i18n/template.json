@@ -171,7 +171,7 @@
   },
   "EMPLOYEE": {
     "Master": "Master",
-    "RegisterMaster": "Register Master",
+    "RegisterMaster": "To assign master user",
     "RegisterMasterFail": "Registering Master Fail",
     "RegisterMasterSuccess": "Registering Master Success",
     "ClearMasterSuccess": "Clearing Master Success",
