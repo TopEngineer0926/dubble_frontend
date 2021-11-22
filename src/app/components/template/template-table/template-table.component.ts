@@ -226,7 +226,8 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
     this.store.dispatch(new GetProductById(productId))
       .subscribe((data) => {
         switchMap(() => this.store.select(ProductsState.currentProduct)),
-          this.currentProduct = data?.products?.currentProduct;
+
+        this.currentProduct = data?.products?.currentProduct;
         const product = this.currentProduct;
         // Duplicate the current product
         this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
@@ -247,7 +248,9 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         const productId = data.products.currentProduct.product.itemid;
 
         // Duplicate image
-        this.httpClient.post(`${this.url}`, JSON.stringify({ ...this.uploadedImage, model_id: productId })).subscribe();
+        if(this.uploadedImage) {
+          this.httpClient.post(`${this.url}`, JSON.stringify({ ...this.uploadedImage, model_id: productId })).subscribe();
+        }
 
         // Duplicate pdfs
         this.uploadedPdf?.forEach((file: any, index) => {
