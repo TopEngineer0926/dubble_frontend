@@ -16,6 +16,8 @@ import { environment } from '../../../environments/environment';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { LocalStorageService } from '../../../app/services/core/local-storage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from '../../components/deleteConfirm/delete-confirm-dialog.component';
 
 export interface Category {
     name: string;
@@ -55,6 +57,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
         private snackBarService: SnackBarService,
         protected httpClient: HttpClient,
         private translateService: TranslateService,
+        public dialog: MatDialog,
         private localStorageService: LocalStorageService) {
     }
 
@@ -160,19 +163,26 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
 
     resetCategory() {
         if (this.categoryList.length > 0) {
-            var body = {
-                category: ""
-            }
-
-            this.httpClient.put(`${this.categoryUrl}`, body)
-            .subscribe(() => {
-                this.getCategory();
-                const message = this.translateService.instant("CATEGORY.CreatedSuccess");
-                this.snackBarService.success(message);
-            },
-            error => {
-                const message = this.translateService.instant("CATEGORY.CreatedFail");
-                this.snackBarService.success(message);
+            const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+                    width: '400px'
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    var body = {
+                        category: ""
+                    }
+        
+                    this.httpClient.put(`${this.categoryUrl}`, body)
+                    .subscribe(() => {
+                        this.getCategory();
+                        const message = this.translateService.instant("CATEGORY.CreatedSuccess");
+                        this.snackBarService.success(message);
+                    },
+                    error => {
+                        const message = this.translateService.instant("CATEGORY.CreatedFail");
+                        this.snackBarService.success(message);
+                    });
+                }
             });
         }
     }
