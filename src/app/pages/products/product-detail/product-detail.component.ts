@@ -271,6 +271,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   removeProductPdf(index) {
     this.isLoading = true;
+    if (!this.uploadedPdf[index]) {
+      this.isLoading = false;
+      return;
+    }
     const { itemid } = this.uploadedPdf[index];
     this.uploadedPdf.splice(index, 1, null);
     this.pdfToUpload.splice(index, 1, null);

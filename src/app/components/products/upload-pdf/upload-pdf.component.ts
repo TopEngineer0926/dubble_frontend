@@ -3,6 +3,8 @@ import { ExtendedFileUploadEvent, Media } from '../../../interfaces';
 import { FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from '../../../components/deleteConfirm/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-upload-pdf',
@@ -20,7 +22,7 @@ export class UploadPdfComponent implements OnInit, OnChanges, OnDestroy {
   private fileToUpload: File;
   private destroy$ = new Subject();
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -78,5 +80,19 @@ export class UploadPdfComponent implements OnInit, OnChanges, OnDestroy {
     reader.onload = (event) => {
       this.pdfUrl = reader.result;
     };
+  }
+
+  deletePdf() {
+    if (this.fileToUpload || this.titleControl.value) {
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        width: '400px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.removePdf();
+          this.titleControl.reset("");
+        }
+      });
+    }
   }
 }
