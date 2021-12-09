@@ -3,6 +3,8 @@ import { Media, ExtendedFileUploadEvent } from '../../../interfaces';
 import { FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from '../../../components/deleteConfirm/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-upload-video',
@@ -27,7 +29,7 @@ export class UploadVideoComponent implements OnInit, OnChanges, OnDestroy {
   private videoToUpload: File;
   private destroy$ = new Subject();
 
-  constructor(private elementRef: ElementRef<any>) {
+  constructor(private elementRef: ElementRef<any>, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -104,5 +106,19 @@ export class UploadVideoComponent implements OnInit, OnChanges, OnDestroy {
         this.hideVideo = false;
       };
     });
+  }
+
+  deleteVideo() {
+    if (this.videoToUpload || this.videoTitleControl.value) {
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        width: '400px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.removeVideo();
+          this.videoTitleControl.reset("");
+        }
+      });
+    }
   }
 }
