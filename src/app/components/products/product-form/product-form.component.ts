@@ -18,6 +18,7 @@ import { UnsavedChanges } from '../../../interfaces/base/unsaved-changes.class';
 import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from '../../../../app/services/core/local-storage.service';
 import { environment } from '../../../../environments/environment';
+import { DeleteConfirmDialogComponent } from '../../../components/deleteConfirm/delete-confirm-dialog.component';
 
 export interface Category {
   name: string;
@@ -348,6 +349,32 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
 
   private clearFormArray(formArray: FormArray) {
     formArray.clear();
+  }
+
+  deleteReviewControl(index: number) {
+    if (this.reviews.length > 0) {
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        width: '400px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.reviews.removeAt(index);
+        }
+      });
+    }
+  }
+
+  deletePressInfoControl(index: number) {
+    if (this.press_infos.length > 0) {
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        width: '400px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.press_infos.removeAt(index);
+        }
+      });
+    }
   }
 }
 
