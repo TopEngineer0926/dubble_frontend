@@ -186,7 +186,6 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         // Duplicate the current product
         this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
         this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
-        this.uploadedVideo?.forEach((item) => this.uploadedVideo.splice(item.order, 1, item));
         this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
         this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
         this.addProduct();
@@ -232,7 +231,6 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         // Duplicate the current product
         this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
         this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
-        this.uploadedVideo?.forEach((item) => this.uploadedVideo.splice(item.order, 1, item));
         this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
         this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
         this.updateProduct({...product.product, 
