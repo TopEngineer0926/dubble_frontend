@@ -294,6 +294,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy, ComponentCanDea
                         lastname: response.masterInfo.lastName,
                         company_name: response.masterInfo.companyName,
                         email: response.masterInfo.email,
+                        mail_headline: response.masterInfo.mail_headline,
+                        mail_textline: response.masterInfo.mail_textline,
                         main_color: response.masterInfo.mainColor,
                         secondary_color: response.masterInfo.secondaryColor,
                         contact_button_color: response.masterInfo.contactButtonColor,

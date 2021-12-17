@@ -23,7 +23,9 @@
     "NoData": "Noch keine Einträge hinzugefügt",
     "ItemsPerPage": "Einträge pro Seite",
     "CANCEL": "Abbrechen",
-    "Invite": "Einladen"
+    "Invite": "Einladen",
+    "MAIL_HEADLINE": "Überschrift für Mail",
+    "MAIL_TEXTLINE": "Text für Mail und SMS"
   },
   "AUTH": {
     "CurrentPassword": "Aktuelles Passwort",
@@ -40,13 +42,13 @@
     "Register": "Registrieren"
   },
   "DASHBOARD": {
-    "AddNewProduct"  : "Neue Info-Seite erstellen",
-    "AddNewContact"  : "Neuen Mitarbeiter anlegen",
-    "AddNewCustomer" : "Neuen Kunden/Interessent anlegen",
-    "AddNewTemplate" : "Neue Vorlage",
-    "ImportTemplate" : "Vorlage XLS",
-    "ImportExcel"    : "Import XLS",
-    "Dashboard"      : "Meine Aktivitäten"
+    "AddNewProduct": "Neue Info-Seite erstellen",
+    "AddNewContact": "Neuen Mitarbeiter anlegen",
+    "AddNewCustomer": "Neuen Kunden/Interessent anlegen",
+    "AddNewTemplate": "Neue Vorlage",
+    "ImportTemplate": "Vorlage XLS",
+    "ImportExcel": "Import XLS",
+    "Dashboard": "Meine Aktivitäten"
   },
   "UPLOAD": {
     "ImageUpload": "Bild hochladen",
@@ -173,37 +175,37 @@
   },
   "EXCEL": {
     "UPLOAD_SUCCESS": "Kundendaten wurden erfolgreich hochgeladen!",
-    "UPLOAD_FAIL"   : "Bitte überprüfen Sie das Excel-Format!"
+    "UPLOAD_FAIL": "Bitte überprüfen Sie das Excel-Format!"
   },
   "MONITOR": {
-    "TITLE"                  : "Monitor",
-    "CONTACT"                : "Mitarbeiter",
-    "SENDING_DATE_TIME"      : "Datum / Zeitpunkt",
-    "STATUS"                 : "Status",
-    "INTERNAL_PAGE_TITLE"    : "Interner Titel",
-    "CUSTOMER"               : "Kunden/Interessent",
-    "DELETE_SUCCESS_MSG"     : "Erfolgreich gelöscht!"
+    "TITLE": "Monitor",
+    "CONTACT": "Mitarbeiter",
+    "SENDING_DATE_TIME": "Datum / Zeitpunkt",
+    "STATUS": "Status",
+    "INTERNAL_PAGE_TITLE": "Interner Titel",
+    "CUSTOMER": "Kunden/Interessent",
+    "DELETE_SUCCESS_MSG": "Erfolgreich gelöscht!"
   },
   "CATEGORY": {
-    "CategoryTitle"        : "Kunden Interessen",
-    "TemplateTitle"        : "Vorlagen Kategorien",
-    "CreatCategory"        : "Speichern",
-    "SaveCategory"         : "Speichern",
-    "NewCategoryFail"      : "Please create new customer",
-    "ResetCategory"        : "Leeren",
-    "CreatedSuccess"       : "Erfolgreich erstellt!",
-    "CreatedFail"          : "Failed creating the categories.",
-    "Error"                : "The category is already in your category list.",
-    "DelaySuccessMsg"      : "Zeitverzögertes Senden an Kategorie gespeichert.",
-    "ImmediatSuccessMsg"   : "Nachricht wurde an Kategorie gesendet.",
+    "CategoryTitle": "Kunden Interessen",
+    "TemplateTitle": "Vorlagen Kategorien",
+    "CreatCategory": "Speichern",
+    "SaveCategory": "Speichern",
+    "NewCategoryFail": "Please create new customer",
+    "ResetCategory": "Leeren",
+    "CreatedSuccess": "Erfolgreich erstellt!",
+    "CreatedFail": "Failed creating the categories.",
+    "Error": "The category is already in your category list.",
+    "DelaySuccessMsg": "Zeitverzögertes Senden an Kategorie gespeichert.",
+    "ImmediatSuccessMsg": "Nachricht wurde an Kategorie gesendet.",
 
-    "IntroForCountOfRecipient"   : "Ausgewählte Kategorie beinhaltet",
-    "Recipient"                  : "Empfänger."
+    "IntroForCountOfRecipient": "Ausgewählte Kategorie beinhaltet",
+    "Recipient": "Empfänger."
   },
   "TEMPLATE": {
-    "TITLE"     : "Vorlage",
-    "Created"   : "Vorlage wurde erstellt",
-    "Updated"   : "Vorlage wurde aktualisiert"
+    "TITLE": "Vorlage",
+    "Created": "Vorlage wurde erstellt",
+    "Updated": "Vorlage wurde aktualisiert"
   },
   "EMPLOYEE": {
     "Master": "Master User",

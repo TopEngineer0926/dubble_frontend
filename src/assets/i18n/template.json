@@ -18,7 +18,9 @@
     "FillRequiredFields": "Please, fill all required fields",
     "Search": "Search",
     "CANCEL": "Cancel",
-    "Invite": "Invite"
+    "Invite": "Invite",
+    "MAIL_HEADLINE": "Headline for mail",
+    "MAIL_TEXTLINE": "Greeting Message for Mail and SMS"
   },
   "AUTH": {
     "CurrentPassword": "Current password",
@@ -35,13 +37,13 @@
     "Register": "Register"
   },
   "DASHBOARD": {
-    "AddNewProduct"  : "Add new Product Page",
-    "AddNewContact"  : "Add new Contact",
-    "AddNewCustomer" : "Add new Customer",
-    "AddNewTemplate" : "Add new Template",
-    "ImportTemplate" : "Example XLS",
-    "ImportExcel"    : "Upload XLS",
-    "Dashboard"      : "Dashboard"
+    "AddNewProduct": "Add new Product Page",
+    "AddNewContact": "Add new Contact",
+    "AddNewCustomer": "Add new Customer",
+    "AddNewTemplate": "Add new Template",
+    "ImportTemplate": "Example XLS",
+    "ImportExcel": "Upload XLS",
+    "Dashboard": "Dashboard"
   },
   "UPLOAD": {
     "ImageUpload": "Image Upload",
@@ -137,37 +139,37 @@
   },
   "EXCEL": {
     "UPLOAD_SUCCESS": "Customers data has uploaded successfully!",
-    "UPLOAD_FAIL"   : "Please check the excel format!"
+    "UPLOAD_FAIL": "Please check the excel format!"
   },
   "MONITOR": {
-    "TITLE"                  : "Monitor",
-    "CUSTOMER"               : "Select existing customer",
-    "CONTACT"                : "Choose Contact",
-    "SENDING_DATE_TIME"      : "Sending date and time",
-    "STATUS"                 : "Status",
-    "INTERNAL_PAGE_TITLE"    : "Internal Page Title",
-    "DELETE_SUCCESS_MSG"     : "Deleted Successfully!"
+    "TITLE": "Monitor",
+    "CUSTOMER": "Select existing customer",
+    "CONTACT": "Choose Contact",
+    "SENDING_DATE_TIME": "Sending date and time",
+    "STATUS": "Status",
+    "INTERNAL_PAGE_TITLE": "Internal Page Title",
+    "DELETE_SUCCESS_MSG": "Deleted Successfully!"
   },
   "CATEGORY": {
-    "CategoryTitle"        : "Customer Categories",
-    "TemplateTitle"        : "Template Categories",
-    "CreatCategory"        : "Create",
-    "SaveCategory"         : "Save",
-    "NewCategoryFail"      : "Please create new customer",
-    "ResetCategory"        : "Reset",
-    "CreatedSuccess"       : "Successfully created!",
-    "CreatedFail"          : "Failed creating the categories.",
-    "Error"                : "The category is already in your category list.",
-    "DelaySuccessMsg"      : "Delayed sending to category saved.",
-    "ImmediatSuccessMsg"   : "Message was sent to category.",
+    "CategoryTitle": "Customer Categories",
+    "TemplateTitle": "Template Categories",
+    "CreatCategory": "Create",
+    "SaveCategory": "Save",
+    "NewCategoryFail": "Please create new customer",
+    "ResetCategory": "Reset",
+    "CreatedSuccess": "Successfully created!",
+    "CreatedFail": "Failed creating the categories.",
+    "Error": "The category is already in your category list.",
+    "DelaySuccessMsg": "Delayed sending to category saved.",
+    "ImmediatSuccessMsg": "Message was sent to category.",
 
-    "IntroForCountOfRecipient"   : "Selected category includes",
-    "Recipient"                  : "recipient."
+    "IntroForCountOfRecipient": "Selected category includes",
+    "Recipient": "recipient."
   },
   "TEMPLATE": {
-    "TITLE"     : "Template",
-    "Created"   : "Template was created",
-    "Updated"   : "Template was updated"
+    "TITLE": "Template",
+    "Created": "Template was created",
+    "Updated": "Template was updated"
   },
   "EMPLOYEE": {
     "Master": "Master",

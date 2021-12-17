@@ -5,6 +5,8 @@ export interface User extends BaseObject {
   lastname: string;
   company_name: string;
   email: string;
+  mail_headline: string;
+  mail_textline: string;
   main_color?: string;
   secondary_color?: string;
   password?: string;

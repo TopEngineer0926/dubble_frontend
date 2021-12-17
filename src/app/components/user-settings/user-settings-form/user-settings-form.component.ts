@@ -46,6 +46,8 @@ export class UserSettingsFormComponent implements OnInit {
       lastname: new FormControl(user.lastname, Validators.required),
       company_name: new FormControl(user.company_name, Validators.required),
       email: new FormControl(user.email, [Validators.required, Validators.email]),
+      mail_headline: new FormControl(user.mail_headline, Validators.required),
+      mail_textline: new FormControl(user.mail_textline, Validators.required),
       main_color: new FormControl(color1 ? new Color(color1.r, color1.g, color1.b) : null),
       secondary_color: new FormControl(color2 ? new Color(color2.r, color2.g, color2.b) : null),
       contact_button_color: new FormControl(user.contact_button_color || '#000000'),
