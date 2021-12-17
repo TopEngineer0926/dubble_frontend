@@ -147,7 +147,9 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       share_code: [''],
       user_id: [this.store.selectSnapshot<User>(UserState.user).itemid, Validators.required],
       itemid: [''],
-      template: ['']
+      template: [''],
+      mail_headline: [this.store.selectSnapshot<User>(UserState.user).mail_headline],
+      mail_textline: [this.store.selectSnapshot<User>(UserState.user).mail_textline]
     });
 
     this.checkProduct();
@@ -174,7 +176,9 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       this.product.press_infos.forEach(() => this.addPressInfoControl());
       this.productForm.patchValue({
         ...this.product,
-        customer: this.product.customer || {}
+        customer: this.product.customer || {},
+        mail_headline: this.product.mail_headline ? this.product.mail_headline : [this.store.selectSnapshot<User>(UserState.user).mail_headline],
+        mail_textline: this.product.mail_textline ? this.product.mail_textline : [this.store.selectSnapshot<User>(UserState.user).mail_textline]
       }, { emitEvent: false });
       const contact = this.contactsList?.list.find(({itemid}) => itemid === this.product.contact.itemid);
       this.contact.patchValue(contact || this.product.contact, { emitEvent: false });

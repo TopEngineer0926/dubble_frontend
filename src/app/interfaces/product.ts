@@ -19,6 +19,8 @@ export interface Product extends BaseObject {
   video_section_headline: string;
   created_at: Date | string;
   template: string;
+  mail_headline: string;
+  mail_textline: string;
 }
 
 export interface CustomSection extends BaseObject {
