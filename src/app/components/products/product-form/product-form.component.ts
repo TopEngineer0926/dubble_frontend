@@ -177,8 +177,8 @@ export class ProductFormComponent extends UnsavedChanges implements OnInit, OnCh
       this.productForm.patchValue({
         ...this.product,
         customer: this.product.customer || {},
-        mail_headline: this.product.mail_headline ? this.product.mail_headline : [this.store.selectSnapshot<User>(UserState.user).mail_headline],
-        mail_textline: this.product.mail_textline ? this.product.mail_textline : [this.store.selectSnapshot<User>(UserState.user).mail_textline]
+        mail_headline: this.product.mail_headline ? this.product.mail_headline : this.store.selectSnapshot<User>(UserState.user).mail_headline,
+        mail_textline: this.product.mail_textline ? this.product.mail_textline : this.store.selectSnapshot<User>(UserState.user).mail_textline
       }, { emitEvent: false });
       const contact = this.contactsList?.list.find(({itemid}) => itemid === this.product.contact.itemid);
       this.contact.patchValue(contact || this.product.contact, { emitEvent: false });
