@@ -10,4 +10,5 @@ export interface Customer extends BaseObject{
   phone_number: string;
   category: string;
   company_name: string;
+  domain_name: string;
 }
