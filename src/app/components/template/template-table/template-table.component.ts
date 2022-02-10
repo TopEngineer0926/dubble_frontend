@@ -184,7 +184,11 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
           this.currentProduct = data?.products?.currentProduct;
         const product = this.currentProduct;
         // Duplicate the current product
-        this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
+        var domain = environment.webUrl;
+        if (product.product.customer.domain_name)
+          domain = `https://${product.product.customer.domain_name}/`;
+
+        this.productPageLink = `${domain}${product.product.share_code}`;
         this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
         this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
         this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
@@ -229,7 +233,11 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         this.currentProduct = data?.products?.currentProduct;
         const product = this.currentProduct;
         // Duplicate the current product
-        this.productPageLink = `${environment.webUrl}${product.product.share_code}`;
+        var domain = environment.webUrl;
+        if (product.product.customer.domain_name)
+          domain = `https://${product.product.customer.domain_name}/`;
+
+        this.productPageLink = `${domain}${product.product.share_code}`;
         this.uploadedVideo = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Video);
         this.uploadedImage = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Image)[0];
         this.uploadedPdf = product.media?.list.filter(({ media_type }) => media_type && media_type === MediaType.Pdf);
