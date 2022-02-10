@@ -461,7 +461,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         )).subscribe((product: { product: Product, media: ListResponse<Media> }) => {
         // this.isLoading = false; // Commented as it interferes with upload Video loader
         this.currentProduct = product;
-        this.productPageLink = `${ environment.webUrl }${ product.product.share_code }`;
+        var domain = environment.webUrl;
+        if (product.product.customer.domain_name)
+          domain = `https://${product.product.customer.domain_name}/`;
+
+        this.productPageLink = `${domain}${product.product.share_code}`;
         const videos = product.media.list.filter(({ media_type }) => media_type === MediaType.Video);
         videos.forEach((media) => this.uploadedVideo.splice(media.order, 1, media));
         this.uploadedImage = product.media.list.filter(({ media_type }) => media_type === MediaType.Image)[0];
