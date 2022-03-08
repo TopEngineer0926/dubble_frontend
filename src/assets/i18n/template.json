@@ -34,7 +34,8 @@
     "SavePassword": "Save password",
     "Login": "Login",
     "Logout": "Logout",
-    "Register": "Register"
+    "Register": "Register",
+    "AlertInfo": "Wartungsarbeiten schränken aktuell die Nutzung des Videoplayer / Videoupload ein."
   },
   "DASHBOARD": {
     "AddNewProduct": "Add new Product Page",
