@@ -164,7 +164,7 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
   getProducts(query: QueryParams): void {
     this.httpClient.get<ListResponse<Product>>(this.templateUrl, {
       params: {
-        limit: "10",
+        limit: "0",
         offset: "0"
       },
     })
