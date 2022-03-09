@@ -44,6 +44,7 @@
     "AddNewTemplate": "Add new Template",
     "ImportTemplate": "Example XLS",
     "ImportExcel": "Upload XLS",
+    "ExportExcel": "Export XLS",
     "Dashboard": "Dashboard"
   },
   "UPLOAD": {

@@ -49,6 +49,7 @@
     "AddNewTemplate": "Neue Vorlage",
     "ImportTemplate": "Vorlage XLS",
     "ImportExcel": "Import XLS",
+    "ExportExcel": "Export XLS",
     "Dashboard": "Meine Aktivitäten"
   },
   "UPLOAD": {

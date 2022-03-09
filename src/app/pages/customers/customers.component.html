@@ -2,5 +2,6 @@
 <button mat-stroked-button color="primary" routerLink="{{appRouteNames.NEW}}" class="btn-customer-action">{{ 'DASHBOARD.AddNewCustomer' | translate }}</button>
 <button mat-stroked-button color="primary" (click)="downloadExampleXLS()" class="btn-customer-action">{{ 'DASHBOARD.ImportTemplate' | translate }}</button>
 <button mat-stroked-button color="primary" (click)="fileUpload.click()" class="btn-customer-action">{{ 'DASHBOARD.ImportExcel' | translate }}</button>
+<button mat-stroked-button color="primary" (click)="downloadCustomers()" class="btn-customer-action">{{ 'DASHBOARD.ExportExcel' | translate }}</button>
 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept=".xlsx">
 <app-customers-table [showPagination]="true" [showFilter]="true" [updateTable]="update" style="margin-top: -36px;" [deleteOption]="true"></app-customers-table>

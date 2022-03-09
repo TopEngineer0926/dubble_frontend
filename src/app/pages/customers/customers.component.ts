@@ -21,6 +21,7 @@ export class CustomersComponent implements OnInit {
   protected url = environment.apiUrl + 'customer/excel';
   protected path = 'download_example';
   protected upload_path = 'upload_xlsx';
+  protected download_customers = 'download_customers';
   fileName = '';
   update = false;
 
@@ -61,5 +62,18 @@ export class CustomersComponent implements OnInit {
       );
     }
     this.myInputVariable.nativeElement.value = null;
+  }
+
+  downloadCustomers() : void {
+    this.httpClient.post(`${this.url}/${this.download_customers}`, null, { observe: 'response', responseType: "blob"})
+    .subscribe((data) => {
+        const downloadUrl = window.URL.createObjectURL(new Blob([data.body]));
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', 'Customers.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    });
   }
 }
