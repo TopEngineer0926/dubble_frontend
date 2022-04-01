@@ -37,6 +37,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
   uploadedImage: Media;
   uploadedPdf: Media[] = new Array(3).fill(null);
   productPageLink: string;
+  qrcElementType : 'url' | 'canvas' | 'img' = 'url';
   isLoading = false;
   private videoToUpload: Media[] = new Array(3).fill(null);
   private pdfToUpload: Media[] = new Array(3).fill(null);

@@ -28,6 +28,12 @@
         <ng-container *ngIf="isPublished">
           {{ 'PRODUCT.LinkToCopy' | translate }}
           <strong class="product-page-link">{{ productPageLink }}</strong>
+          <ngx-qrcode 
+            [elementType]="qrcElementType" 
+            [value] = "productPageLink" 
+            alt="productPageLink"
+            errorCorrectionLevel="L">
+          </ngx-qrcode>
         </ng-container>
       </div>
       <div productAdditionalButtons>

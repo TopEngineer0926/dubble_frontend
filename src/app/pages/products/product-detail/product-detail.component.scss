@@ -39,4 +39,10 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  ngx-qrcode {
+    display: flex;
+    justify-content: center;
+  }
+
 }
