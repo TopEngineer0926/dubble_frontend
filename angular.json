@@ -32,7 +32,11 @@
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "angularx-qrcode",
+              "qrcode"
+            ]
           },
           "configurations": {
             "production": {
@@ -64,22 +68,28 @@
               ]
             },
             "development": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.dev.ts"
-              }]
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             },
             "test": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.testing.ts"
-              }]
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.testing.ts"
+                }
+              ]
             },
             "stage": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.stage.ts"
-              }]
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
             }
           }
         },
@@ -143,6 +153,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-mogree"
+    }
+  },
+  "defaultProject": "ng-mogree",
+  "cli": {
+    "analytics": "9bcfebda-33b2-410e-987c-7f00dd03639c"
+  }
 }
