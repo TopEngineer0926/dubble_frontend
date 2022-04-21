@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild, Eve
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Subscription } from 'rxjs';
+import { SnackBarService } from '../../../services/core/snackbar.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -35,7 +36,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
 
-  constructor() {
+  constructor(private snackBarService: SnackBarService) {
   }
 
   ngOnInit() {
@@ -72,6 +73,52 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * on file drop handler
+   */
+  onFileDropped($event) {
+    this.prepareFilesList($event);
+  }
+
+  /**
+   * handle file from browsing
+   */
+  fileBrowseHandler(files) {
+    this.prepareFilesList(files);
+  }
+
+  /**
+   * Convert Files list to normal array list
+   * @param files (Files List)
+   */
+  prepareFilesList(files: Array<any>) {
+    let errorStatus = 0;
+    let tempfiles = Array.prototype.map.call(files, (file) => {
+      return {
+        data: file, state: 'in',
+        inProgress: false, progress: 0, canRetry: false, canCancel: true
+      };
+    });
+    for (let i = 0; i < tempfiles.length; i++) {
+      var mimeType = tempfiles[0].data.type;
+      if (
+        mimeType.match(/video\/*/) && this.accept.match(/video\/*/) ||
+        mimeType.match(/pdf\/*/) && this.accept.match(/pdf\/*/) ||
+        mimeType.match(/image\/*/) && this.accept.match(/image\/*/)
+      ) {
+        errorStatus = 0;
+      } else {
+        errorStatus = 1;
+      }
+    }
+
+    if (errorStatus == 0) {
+      this.files = tempfiles;
+      this.uploadedFiles.emit(this.files);
+    } else {
+      this.snackBarService.error("Please drag and drop the correct file with extension");
+    }
+  }
 }
 
 export class FileUploadModel {
