@@ -53,7 +53,10 @@
     "UploadVideo": "Upload Video",
     "VideoUpload": "Video Upload",
     "VideoNotSupported": "Sorry, your browser doesn't support embedded videos.",
-    "PdfFile": "PDF File Upload"
+    "PdfFile": "PDF File Upload",
+    "VideoInstruction": "Drag video as .mp4, .mov, .mpeg from file explorer or desktop and drop here to upload",
+    "PdfInstruction": "Drag PDF from File Explorer or Desktop and drop here to upload",
+    "PhotoInstruction": "Drag photo as jpeg from file explorer or desktop and drop here to upload"
   },
   "CONTACT": {
     "ContactDetail": "Contact Detail",
@@ -164,7 +167,6 @@
     "Error": "The category is already in your category list.",
     "DelaySuccessMsg": "Delayed sending to category saved.",
     "ImmediatSuccessMsg": "Message was sent to category.",
-
     "IntroForCountOfRecipient": "Selected category includes",
     "Recipient": "recipient."
   },

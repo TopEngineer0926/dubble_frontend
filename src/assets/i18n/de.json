@@ -39,7 +39,7 @@
     "SavePassword": "Passwort speichern",
     "Login": "Anmelden",
     "Logout": "Abmelden",
-    "Register": "Registrieren", 
+    "Register": "Registrieren",
     "AlertInfo": "Wartungsarbeiten schränken aktuell die Nutzung des Videoplayer / Videoupload ein."
   },
   "DASHBOARD": {
@@ -62,7 +62,10 @@
     "PdfFile": "PDF hochladen",
     "VideoTitle": "Video Titel",
     "PdfTitle": "PDF Titel",
-    "UploadPdfButton": "PDF speichern"
+    "UploadPdfButton": "PDF speichern",
+    "VideoInstruction": "Video als .mp4, .mov, .mpeg aus dem Datei-Explorer oder Desktop ziehen und hier ablegen zum Hochladen",
+    "PdfInstruction": "PDF aus dem Datei-Explorer oder Desktop ziehen und hier ablegen zum Hochladen",
+    "PhotoInstruction": "Foto als jpeg aus dem Datei-Explorer oder Desktop ziehen und hier ablegen zum Hochladen"
   },
   "CONTACT": {
     "ContactDetail": "Kontaktdaten Mitarbeiter",
@@ -200,7 +203,6 @@
     "Error": "The category is already in your category list.",
     "DelaySuccessMsg": "Zeitverzögertes Senden an Kategorie gespeichert.",
     "ImmediatSuccessMsg": "Nachricht wurde an Kategorie gesendet.",
-
     "IntroForCountOfRecipient": "Ausgewählte Kategorie beinhaltet",
     "Recipient": "Empfänger."
   },
