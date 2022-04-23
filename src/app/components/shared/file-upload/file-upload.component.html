@@ -9,15 +9,15 @@
     style="display: none"
     (change)="fileBrowseHandler($event.target.files)"
   />
-  <h1 *ngIf="accept.includes('video')">
+  <h3 *ngIf="accept.includes('video')">
     {{ "UPLOAD.VideoInstruction" | translate }}
-  </h1>
-  <h1 *ngIf="accept.includes('pdf')">
+  </h3>
+  <h3 *ngIf="accept.includes('pdf')">
     {{ "UPLOAD.PdfInstruction" | translate }}
-  </h1>
-  <h1 *ngIf="accept.includes('image')">
+  </h3>
+  <h3 *ngIf="accept.includes('image')">
     {{ "UPLOAD.PhotoInstruction" | translate }}
-  </h1>
+  </h3>
   <span (click)="onClick($event)">
     <svg
       version="1.0"
