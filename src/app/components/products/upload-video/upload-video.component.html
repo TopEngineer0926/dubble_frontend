@@ -1,4 +1,10 @@
 <div class="upload-block">
+  
+  <mat-form-field color="primary" appearance="outline">
+    <mat-label>{{ "UPLOAD.VideoTitle" | translate }}</mat-label>
+    <input matInput autocomplete="off" [formControl]="videoTitleControl" />
+  </mat-form-field>
+
   <div class="logo-block" [class.hidden]="hideVideo">
     <div *ngIf="videoUrl" style="padding: 56.25% 0 0 0; position: relative">
       <!-- <a [href]="videoUrl" target="_blank">Link zum Video</a> -->
@@ -24,11 +30,6 @@
     accept="video/mp4,video/quicktime,video/mpeg"
     (uploadedFiles)="uploadVideo($event)"
   ></app-file-upload>
-
-  <mat-form-field color="primary" appearance="outline">
-    <mat-label>{{ "UPLOAD.VideoTitle" | translate }}</mat-label>
-    <input matInput autocomplete="off" [formControl]="videoTitleControl" />
-  </mat-form-field>
 
   <button
     mat-stroked-button
