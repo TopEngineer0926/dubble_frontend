@@ -160,11 +160,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
       if (this.isSameFileUpload(file, this.uploadedVideo[index]) || (!file.file && !file.title)) {
         return;
       }
-      if (!file.file) {
+      // if (!file.file) {
         const updatedFile = this.updateTitleInArray(file.title, index, this.videoToUpload);
         // this.updateTitleInArray(file.title, index, this.videoToUpload);
         return this.saveMediaTitle(updatedFile, index);
-      }
+      // }
       // requests.push(this.store.dispatch(new SaveProductMedia(this.currentProduct.product.itemid, { ...file, order: index })));
     });
     this.subscription.add(
@@ -188,7 +188,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
 
   saveProductVideo(file, index) {
     // this.videoToUpload.splice(index, 1, file);
-    this.videoToUpload.splice(index, 1, {...this.videoToUpload[index], ...file});
+    if (file.file) {
+      this.videoToUpload.splice(index, 1, {...this.videoToUpload[index], ...file});
+    } else {
+      this.videoToUpload.splice(index, 1, {...this.videoToUpload[index], title: file.title});
+    }
     if (this.isSameFileUpload(file, this.uploadedVideo[index]) || (!file.file && !file.title)) {
       return;
     }

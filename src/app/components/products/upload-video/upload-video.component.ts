@@ -40,7 +40,7 @@ export class UploadVideoComponent implements OnInit, OnChanges, OnDestroy {
     this.videoTitleControl.patchValue(this.video?.title, { emitEvent: false });
     this.videoTitleControl.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.upload());
+      .subscribe(() => this.uploadOnlyTitle());
   }
 
   ngOnDestroy() {
@@ -62,6 +62,14 @@ export class UploadVideoComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.preview(event);
     this.upload();
+  }
+
+  uploadOnlyTitle() {
+    const uploadData: ExtendedFileUploadEvent = { file: undefined, title: this.videoTitleControl.value?.trim() };
+    if (!uploadData.title) {
+      return;
+    }
+    this.uploadedVideo.emit(uploadData);
   }
 
   upload() {
