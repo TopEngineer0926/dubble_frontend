@@ -462,7 +462,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy, ComponentCanDe
         // this.isLoading = false; // Commented as it interferes with upload Video loader
         this.currentProduct = product;
         var domain = environment.webUrl;
-        if (product.product.customer.domain_name)
+        if (product.product.customer && product.product.customer.domain_name)
           domain = `https://${product.product.customer.domain_name}/`;
 
         this.productPageLink = `${domain}${product.product.share_code}`;

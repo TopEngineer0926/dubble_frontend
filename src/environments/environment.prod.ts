@@ -10,8 +10,8 @@ class Enviroment {
 
     this.appVersion = require('../../package.json').version;
     this.production = true;
-    this.apiUrl = 'https://api.dubble.at/api/v1/';
-    this.webUrl = 'https://go.dubble.at/';
+    this.apiUrl = 'https://dev7api.dubble.at/api/v1/';
+    this.webUrl = 'https://dev7go.dubble.at/';
   }
 }
 export const environment = new Enviroment();

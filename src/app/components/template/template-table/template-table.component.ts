@@ -234,7 +234,7 @@ export class TemplateTableComponent implements OnInit, OnDestroy {
         const product = this.currentProduct;
         // Duplicate the current product
         var domain = environment.webUrl;
-        if (product.product.customer.domain_name)
+        if (product.product.customer && product.product.customer.domain_name)
           domain = `https://${product.product.customer.domain_name}/`;
 
         this.productPageLink = `${domain}${product.product.share_code}`;
